@@ -12,10 +12,10 @@
    IDEA    the portfolio is browsed like a record collection: each commercial project sits in a sleeve and slides out when picked;
            the shelf is split into three chapters — Web, Visual, Motion — each with a display suited to its formats
    PICTURE a big record sliding out of a colour-field sleeve; it spins with your scroll, a tonearm tracks your progress
-   COLOUR  white ground, near-black ink; every release brings its own flat sleeve colour that floods its section; signal red = now playing
+   COLOUR  warm off-white ground, warm near-black ink; each project a soft pastel sleeve; one coral accent for 'now' marks
    TYPE    Archivo (wide 125 for display, normal for UI) + Noto Sans TC for Chinese text
    LAYOUT  laptop: wordmark across the top, intro left, sleeve+record right; phone: wordmark, record, caption, intro */
-:root{color-scheme:light dark;--bg:light-dark(#ffffff,#111110);--ink:light-dark(#111111,#f1f0eb);--mute:light-dark(#6a6a66,#9d9c96);--line:light-dark(#e3e2dd,#2b2b29);--soft:light-dark(#f2f1ec,#1a1a19);--red:#ff3b1f;--ease:cubic-bezier(.2,.75,0,1);--disp:'Archivo','Noto Sans TC',system-ui,sans-serif;--text:'Archivo','Noto Sans TC',system-ui,sans-serif;--g:max(4vw,16px)}
+:root{color-scheme:light dark;--bg:light-dark(#f2f1ec,#161614);--ink:light-dark(#23201c,#efede6);--mute:light-dark(#6d6a62,#9c998f);--line:light-dark(#dcdad2,#2e2d29);--soft:light-dark(#e8e6df,#1f1e1b);--red:#e8603c;--ease:cubic-bezier(.2,.75,0,1);--disp:'Archivo','Noto Sans TC',system-ui,sans-serif;--text:'Archivo','Noto Sans TC',system-ui,sans-serif;--g:max(4vw,16px)}
 :root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
 *{box-sizing:border-box;min-width:0}
 [hidden]{display:none!important}
@@ -76,8 +76,7 @@ img,svg{max-width:100%}
 .pack>.rec{position:absolute;top:2%;left:2%;width:96%;z-index:0;transform:translate(calc(var(--out,0)*100%),calc(var(--up,0)*-100%));transition:transform 1.1s var(--ease)}
 .slv{position:absolute;inset:0;z-index:1;overflow:hidden;background:var(--c);box-shadow:0 0 0 1px color-mix(in srgb,var(--ink) 9%,transparent)}
 .slv svg,.lay svg{display:block;width:100%;height:100%}
-.slv::before{content:"";position:absolute;inset:5%;border-radius:50%;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.1);z-index:3;pointer-events:none}
-.slv::after{content:"";position:absolute;inset:0;z-index:3;pointer-events:none;background:linear-gradient(90deg,rgba(255,255,255,.14),transparent 5% 95%,rgba(0,0,0,.14))}
+.slv::after{content:"";position:absolute;inset:0;z-index:3;pointer-events:none;background:linear-gradient(90deg,rgba(255,255,255,.18),transparent 4% 96%,rgba(0,0,0,.06))}
 .lay{position:absolute;inset:0}
 .lay.new{z-index:2;clip-path:circle(0% at 50% 50%);transition:clip-path .9s var(--ease)}
 .lay.new.go{clip-path:circle(75% at 50% 50%)}
@@ -157,31 +156,49 @@ img,svg{max-width:100%}
 .cnav{position:sticky;top:64px;z-index:30;padding:10px 0;margin-bottom:clamp(24px,3vw,48px)}
 .cnav .spd{display:inline-flex;box-shadow:0 8px 24px -16px rgba(0,0,0,.35)}
 .spd button{min-width:110px}
-.chap{padding-bottom:clamp(72px,9vw,150px)}
-.chh{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:12px 40px;align-items:end;padding-top:22px;margin-bottom:clamp(36px,4vw,64px)}
-.chh h3{font:800 clamp(56px,9vw,150px)/.84 var(--disp);font-stretch:122%;letter-spacing:-.05em;margin:0}
-.chh div{display:flex;flex-direction:column;gap:4px;padding-bottom:6px;max-width:22em}
-.chh div b{font:700 20px/1.2 var(--text)}
-.chh div span{font-size:15px;color:var(--mute)}
-.chh em{font:800 clamp(32px,4vw,64px)/.9 var(--disp);font-style:normal;font-stretch:118%;color:var(--mute)}
-.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:clamp(56px,7vw,120px) clamp(16px,2.2vw,36px);align-items:start}
-.ch-web .it{grid-column:span 6}
-.ch-web .it:nth-child(even){margin-top:clamp(60px,9vw,160px)}
-.ch-visual .it{grid-column:span 3}
-.ch-visual .it:nth-child(4n+2),.ch-visual .it:nth-child(4n+4){margin-top:clamp(40px,6vw,100px)}
-.ch-motion .it{grid-column:span 4}
-.ch-motion .it:nth-child(3n+2){margin-top:clamp(40px,6vw,110px)}
+.chap{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);grid-template-rows:auto 1fr;grid-template-areas:"h s" "p s";column-gap:clamp(24px,4vw,72px);min-height:min(100svh,960px);padding-block:clamp(72px,7vw,110px) clamp(56px,6vw,96px);border-top:1px solid var(--line)}
+.chd{grid-area:h}
+.ck{font:600 14px var(--disp);letter-spacing:.06em;color:var(--mute);margin:0 0 12px}
+.cw{font:800 clamp(56px,8vw,132px)/.86 var(--disp);font-stretch:118%;letter-spacing:-.05em;margin:0}
+.cf{margin:16px 0 0;color:var(--mute);font-size:15px}
+.cproj{grid-area:p;align-self:center;padding-block:40px;transition:opacity .3s,transform .5s var(--ease)}
+.cproj.swap{opacity:0;transform:translateY(12px)}
+.pc{font:600 13px var(--disp);color:var(--mute);letter-spacing:.06em;margin:0}
+.pt{font:800 clamp(34px,3.6vw,58px)/1 var(--disp);font-stretch:110%;letter-spacing:-.03em;margin:12px 0 0}
+.pz{font:700 18px/1.4 var(--text);margin:10px 0 0}
+.pf{margin:18px 0 0;font-size:15px}
+.pm{margin:4px 0 0;font-size:15px;color:var(--mute)}
+.vlink{display:inline-flex;gap:10px;align-items:center;margin-top:28px;min-height:44px;font:700 15px var(--disp);border-bottom:1.5px solid currentColor;transition:gap .4s var(--ease)}
+.vlink:hover{gap:16px}
+.cstage{grid-area:s;display:flex;flex-direction:column;justify-content:center;gap:clamp(28px,3.5vw,52px)}
+.deck{position:relative;width:min(70%,560px);aspect-ratio:1;margin:10% 0 0 8%;touch-action:pan-y;outline-offset:14px;user-select:none}
+.card{position:absolute;inset:0;display:block;transition:transform .9s var(--ease),opacity .6s;-webkit-user-drag:none}
+.card .pack{position:absolute;inset:0}
+.card .slv{box-shadow:0 1px 0 rgba(0,0,0,.04),0 34px 50px -36px rgba(35,32,28,.6)}
+.card .pack>.rec{transition:transform 1s var(--ease),opacity .4s}
+.card[data-d="0"]{z-index:4;transform:rotate(-2deg)}
+.card[data-d="0"] .pack{--out:.32}
+.card[data-d="1"]{z-index:3;transform:translate(5%,-7%) rotate(3deg) scale(.95)}
+.card[data-d="2"]{z-index:2;transform:translate(-4%,-12%) rotate(-4deg) scale(.9)}
+.card[data-d="3"]{z-index:1;transform:translate(0,-15%) scale(.86);opacity:0}
+.card[data-d="out"]{z-index:5;transform:translate(-120%,6%) rotate(-14deg);opacity:0;pointer-events:none}
+.card:not([data-d="0"]) .pack>.rec{opacity:0}
+.card:not([data-d="0"]){cursor:pointer}
+.dctl{display:grid;grid-template-columns:auto auto minmax(0,1fr) auto auto;gap:18px;align-items:center;font:500 16px var(--disp)}
+.dbtn{width:56px;height:56px;border-radius:50%;box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--ink) 35%,transparent);font-size:22px;transition:background-color .3s,color .3s}
+.dbtn:hover{background:var(--ink);color:var(--bg)}
+.dbar{height:2px;background:var(--line);position:relative}
+.dbar i{position:absolute;left:0;top:0;bottom:0;width:25%;background:var(--ink);transition:width .7s var(--ease)}
+.sl{position:absolute;inset:0;display:grid;grid-template-columns:1fr auto;grid-template-rows:auto 1fr auto;gap:2cqw;padding:7cqw;color:var(--k,#23201c);font-family:var(--disp)}
+.sa,.sb,.sc,.sd{font-size:max(11px,2.7cqw);font-weight:600;letter-spacing:.06em;white-space:nowrap}
+.sb,.sd{text-align:right}
+.st{grid-column:1/3;align-self:center;font-size:11.5cqw;font-weight:800;font-stretch:112%;line-height:.92;letter-spacing:-.035em;text-transform:uppercase;text-wrap:balance;overflow-wrap:anywhere}
+.sc{letter-spacing:.02em;overflow:hidden;text-overflow:ellipsis}
 .lgh{display:flex;align-items:baseline;gap:12px;padding:44px 0 14px;font:700 17px var(--text)}
 .lgh b{font:800 clamp(28px,3vw,40px)/1 var(--disp);font-stretch:118%}
 .lgh span{margin-left:auto;color:var(--mute);font-size:14px}
 .k-set{display:flex;flex-wrap:wrap;gap:28px 20px;align-items:flex-end}
 .k-set figure{margin:0;width:calc(var(--w) * 100%)}
-.it{display:block;position:relative}
-.it .pack{--up:.07}
-.it .pack>.rec{transition:transform .9s var(--ease)}
-.it:hover .pack,.it:focus-visible .pack{--up:.2}
-.it .slv{transition:transform .9s var(--ease)}
-.it:hover .slv{transform:translateY(6px)}
 .drop{animation:drop .9s var(--ease) both;animation-delay:calc(var(--i)*55ms)}
 @keyframes drop{from{clip-path:inset(0 0 100% 0);transform:translateY(40px)}to{clip-path:inset(-40% 0 0 0);transform:none}}
 .cap{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:4px 12px;align-items:baseline;margin-top:16px;padding-top:12px}
@@ -252,7 +269,7 @@ img,svg{max-width:100%}
 .lncols li em{font-style:normal;color:var(--mute);font-size:14px;white-space:nowrap}
 
 /* contact + run-out */
-.end{background:var(--red);color:#111;padding-block:clamp(80px,10vw,160px) clamp(48px,6vw,96px);overflow:hidden}
+.end{background:#ee8a62;color:#23201c;padding-block:clamp(80px,10vw,160px) clamp(48px,6vw,96px);overflow:hidden}
 .endg{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(24px,4vw,72px);align-items:center}
 .mail{display:block;font:800 clamp(34px,6.6vw,118px)/.95 var(--disp);font-stretch:112%;letter-spacing:-.045em;margin:36px 0 26px;overflow-wrap:anywhere;text-align:left}
 .mail span{background:linear-gradient(currentColor,currentColor) 0 100%/0 3px no-repeat;transition:background-size .6s var(--ease)}
@@ -330,7 +347,7 @@ img,svg{max-width:100%}
 .k-webm .slot{flex:0 1 300px}
 .k-webm .slot:nth-child(2){margin-top:8%}
 .k-img{margin:0;width:min(100%,calc(78vh * var(--ar)))}
-.k-img .art,.k-ser figure,.k-long .lg{box-shadow:0 0 0 1px color-mix(in srgb,var(--ink) 9%,transparent)}
+.k-img .art,.k-ser figure>svg,.k-ser figure>img,.k-long .lg{box-shadow:0 0 0 1px color-mix(in srgb,var(--ink) 9%,transparent)}
 .art svg,.k-ser svg,.lg svg{display:block;width:100%;height:auto}
 figcaption.fc{font:600 13px var(--disp);color:var(--mute);margin-top:10px}
 .k-ser{display:flex;gap:20px;align-items:flex-start}
@@ -372,12 +389,6 @@ figcaption.fc{font:600 13px var(--disp);color:var(--mute);margin-top:10px}
 
 /* tablet */
 @media(max-width:1100px){
- .ch-visual .it{grid-column:span 4}
- .ch-visual .it:nth-child(n){margin-top:0}
- .ch-visual .it:nth-child(3n+2){margin-top:60px}
- .ch-motion .it{grid-column:span 6}
- .ch-motion .it:nth-child(n){margin-top:0}
- .ch-motion .it:nth-child(even){margin-top:80px}
  .row{grid-template-columns:76px minmax(0,1.4fr) minmax(0,1fr) 90px 56px}
  .row .t{display:none}
  .dtm{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -388,9 +399,12 @@ figcaption.fc{font:600 13px var(--disp);color:var(--mute);margin-top:10px}
  .hpack{width:min(58vw,440px)}
  .hcap{width:100%}
  .chead{grid-template-columns:minmax(0,1fr)}
- .chh{grid-template-columns:minmax(0,1fr) auto}
- .chh div{grid-column:1/3;grid-row:2}
  .cnav{top:58px}
+ .chap{grid-template-columns:minmax(0,1fr);grid-template-areas:"h" "s" "p";grid-template-rows:auto;min-height:0}
+ .deck{width:min(72vw,440px);margin:56px 0 0 4vw}
+ .cproj{padding-block:28px 0}
+ .dctl{gap:12px}
+ .dbtn{width:48px;height:48px}
  .ctrl{justify-content:flex-start}
  .npin{grid-template-columns:minmax(0,1fr)}
  .npst{display:none}
@@ -411,15 +425,10 @@ figcaption.fc{font:600 13px var(--disp);color:var(--mute);margin-top:10px}
 @media(max-width:600px){
  body{font-size:16px}
  .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:44px 14px}
- .ch-web .it{grid-column:span 2}
- .it:nth-child(n),.ch-web .it:nth-child(even){margin-top:0}
- .ch-visual .it,.ch-motion .it{grid-column:span 1}
- .ch-visual .it:nth-child(even),.ch-motion .it:nth-child(even){margin-top:36px}
  .cnav .spd{display:flex}
  .spd button{min-width:0}
  .k-set{gap:20px 12px}
  .k-mo.port .moc>span:last-child{display:none}
- .it .pack{--up:.1}
  .cap{grid-template-columns:minmax(0,1fr) auto}
  .cap .cat{grid-column:1/3}
  .cap p{grid-column:1/3}
@@ -508,7 +517,7 @@ figcaption.fc{font:600 13px var(--disp);color:var(--mute);margin-top:10px}
  <div class="wrap">
   <div class="chead">
    <h2 class="sh" data-split>Works<small>作品 · 依 Web、Visual、Motion 分類</small></h2>
-   <div class="vw" role="group" aria-label="顯示方式"><button type="button" data-v="grid" aria-pressed="true">封套</button><button type="button" data-v="list" aria-pressed="false">目錄</button></div>
+   <div class="vw" role="group" aria-label="顯示方式"><button type="button" data-v="grid" aria-pressed="true">聚焦</button><button type="button" data-v="list" aria-pressed="false">全部列表</button></div>
   </div>
  </div>
  <nav class="cnav" aria-label="作品分類"><div class="wrap"><div class="spd" id="spd"></div></div></nav>
@@ -603,40 +612,40 @@ figcaption.fc{font:600 13px var(--disp);color:var(--mute);margin-top:10px}
      {k:'motion', t, items:[{r:[16,9], dur:秒, src:'a.mp4'}]}
    ============================================================ */
 const P=[
-{id:'lm-031',cat:'LM-031',t:'Tidewater Hotel',zh:'旅店官網改版',g:'web',y:2026,client:'Tidewater Hotels',ind:'旅宿',pf:'官網 · 訂房系統',role:'UI 設計、互動',c:'#2a3cff',k:'#ffffff',a:'#ffd60a',b:'#eef0ff',m:0,url:'tidewater.hotel',
+{id:'lm-031',cat:'LM-031',t:'Tidewater Hotel',zh:'旅店官網改版',g:'web',y:2026,client:'Tidewater Hotels',ind:'旅宿',pf:'官網 · 訂房系統',role:'UI 設計、互動',c:'#b9c8e6',k:'#23201c',a:'#23201c',b:'#dfe6f3',m:0,url:'tidewater.hotel',
  d:'海港旅店的官網改版與訂房流程。房型頁隨捲動揭露，訂房從七步縮成三步，桌機與手機共用同一套模組。',
  w:[{k:'web',t:'首頁',dv:['desktop','mobile']},{k:'web',t:'房型與訂房流程',dv:['desktop','mobile']},{k:'webm',t:'會員中心',n:3,app:true}]},
-{id:'lm-030',cat:'LM-030',t:'Brew & Co.',zh:'冬季咖啡節 Campaign',g:'visual',y:2026,client:'Brew & Co.',ind:'餐飲',pf:'Meta · LINE · 官網',role:'KV、社群廣告、Banner',c:'#151515',k:'#ffffff',a:'#ff6a13',b:'#2a2a2a',m:2,ad:{h:'冬季限定',s:'第二杯半價',cta:'立即購買',tag:'50%'},
+{id:'lm-030',cat:'LM-030',t:'Brew & Co.',zh:'冬季咖啡節 Campaign',g:'visual',y:2026,client:'Brew & Co.',ind:'餐飲',pf:'Meta · LINE · 官網',role:'KV、社群廣告、Banner',c:'#d9c6a8',k:'#23201c',a:'#23201c',b:'#ece2d2',m:2,
  d:'連鎖咖啡的冬季檔期。先定主視覺，再延伸成社群三種版位與電商各尺寸 Banner，所有素材共用一套版型，換檔期只需替換商品與文案。',
  w:[{k:'image',t:'主視覺 KV',r:[1920,1080]},{k:'series',t:'社群廣告',items:[[1080,1080],[1080,1350],[1080,1920]]},{k:'set',t:'電商 Banner',items:[[1200,628],[970,250],[300,600],[300,250],[728,90],[320,100]]}]},
-{id:'lm-029',cat:'LM-029',t:'Mono Coffee',zh:'會員 eDM',g:'visual',y:2025,client:'Mono Coffee Roasters',ind:'零售',pf:'eDM · LINE',role:'eDM、社群',c:'#ff6a13',k:'#1a0f08',a:'#ffffff',b:'#ffe3d1',m:3,ad:{h:'冬季選豆',s:'會員限定 85 折',cta:'選購豆單',tag:'85折'},
+{id:'lm-029',cat:'LM-029',t:'Mono Coffee',zh:'會員 eDM',g:'visual',y:2025,client:'Mono Coffee Roasters',ind:'零售',pf:'eDM · LINE',role:'eDM、社群',c:'#ee8a62',k:'#23201c',a:'#23201c',b:'#f6c9b3',m:3,
  d:'精品咖啡的季節會員電子報，同步延伸成 LINE 推播圖。長圖依手機閱讀節奏分段，每一段只說一件事。',
  w:[{k:'long',t:'會員 eDM',r:[600,2600]},{k:'image',t:'LINE 推播圖',r:[1040,1040],tag:'社群廣告'}]},
-{id:'lm-028',cat:'LM-028',t:'Form & Field',zh:'品牌形象影片',g:'motion',y:2025,client:'Form & Field 基金會',ind:'非營利',pf:'YouTube · Instagram',role:'動態設計、分鏡',c:'#12b886',k:'#05281b',a:'#f8f272',b:'#d6f6e9',m:1,
+{id:'lm-028',cat:'LM-028',t:'Form & Field',zh:'品牌形象影片',g:'motion',y:2025,client:'Form & Field 基金會',ind:'非營利',pf:'YouTube · Instagram',role:'動態設計、分鏡',c:'#b8cdb4',k:'#23201c',a:'#23201c',b:'#dce6d9',m:1,
  d:'年度品牌形象影片。主片 16:9 投放 YouTube，再剪成 9:16 版本給 Reels 與 Shorts，數據段落以節拍呈現。',
  w:[{k:'motion',t:'主片',items:[{r:[16,9],dur:42}]},{k:'motion',t:'Reels／Shorts 版本',items:[{r:[9,16],dur:15},{r:[9,16],dur:15}]}]},
-{id:'lm-027',cat:'LM-027',t:'Pocket',zh:'記帳 App 推廣活動頁',g:'web',y:2025,client:'Pocket Labs',ind:'金融科技',pf:'Mobile web · App',role:'活動頁、產品介面',c:'#ff8fc8',k:'#2a0b1c',a:'#2a3cff',b:'#ffeaf5',m:4,url:'pocket.app',
+{id:'lm-027',cat:'LM-027',t:'Pocket',zh:'記帳 App 推廣活動頁',g:'web',y:2025,client:'Pocket Labs',ind:'金融科技',pf:'Mobile web · App',role:'活動頁、產品介面',c:'#f0bfd0',k:'#23201c',a:'#23201c',b:'#f8e1e8',m:4,url:'pocket.app',
  d:'給大學生的記帳 App 推廣活動。廣告流量幾乎都來自手機，所以只做手機版，所有操作都在拇指範圍內完成。',
  w:[{k:'webm',t:'活動頁',n:2},{k:'webm',t:'App 介面',n:3,app:true}]},
-{id:'lm-026',cat:'LM-026',t:'Mira Home',zh:'雙 11 電商 Banner',g:'visual',y:2025,client:'Mira 家電',ind:'電商',pf:'momo · 蝦皮 · Google 多媒體廣告',role:'Banner 系統',c:'#ffd60a',k:'#1b1600',a:'#ff3b1f',b:'#fff6c2',m:0,ad:{h:'雙 11 狂歡',s:'全館最高 69 折',cta:'馬上搶購',tag:'69折'},
+{id:'lm-026',cat:'LM-026',t:'Mira Home',zh:'雙 11 電商 Banner',g:'visual',y:2025,client:'Mira 家電',ind:'電商',pf:'momo · 蝦皮 · Google 多媒體廣告',role:'Banner 系統',c:'#f1dc86',k:'#23201c',a:'#23201c',b:'#f8eec2',m:0,
  d:'家電品牌的雙 11 檔期 Banner，一次交付多種平台尺寸。先做好可伸縮的版型，再依各平台規範調整文字與商品比例。',
  w:[{k:'set',t:'平台 Banner',items:[[1200,628],[1080,1080],[970,250],[300,600],[728,90],[300,250],[320,100]]},{k:'image',t:'活動主視覺',r:[3,4]}]},
-{id:'lm-025',cat:'LM-025',t:'Ripple',zh:'運動品牌 Reels 系列',g:'motion',y:2024,client:'Ripple Sportswear',ind:'運動用品',pf:'Instagram · TikTok',role:'動態設計、剪輯',c:'#6ec6ff',k:'#04202f',a:'#ff3b1f',b:'#e1f3ff',m:3,
+{id:'lm-025',cat:'LM-025',t:'Ripple',zh:'運動品牌 Reels 系列',g:'motion',y:2024,client:'Ripple Sportswear',ind:'運動用品',pf:'Instagram · TikTok',role:'動態設計、剪輯',c:'#a9d6e5',k:'#23201c',a:'#23201c',b:'#d6ebf2',m:3,
  d:'運動品牌的社群直式短片，三支各 15 秒。前三秒就讓商品出現，為手機單手觀看而剪。',
  w:[{k:'motion',t:'Reels 系列',items:[{r:[9,16],dur:15},{r:[9,16],dur:15},{r:[9,16],dur:15}]}]},
-{id:'lm-024',cat:'LM-024',t:'Fresh Week',zh:'生鮮電商週年慶',g:'web',y:2024,client:'Fresh Week 生鮮',ind:'電商',pf:'官網 · App 內嵌頁',role:'活動頁設計',c:'#0f5132',k:'#eaffea',a:'#b8ff5c',b:'#e4f5e9',m:1,url:'freshweek.tw',
+{id:'lm-024',cat:'LM-024',t:'Fresh Week',zh:'生鮮電商週年慶',g:'web',y:2024,client:'Fresh Week 生鮮',ind:'電商',pf:'官網 · App 內嵌頁',role:'活動頁設計',c:'#cfe07a',k:'#23201c',a:'#23201c',b:'#e8efbf',m:1,url:'freshweek.tw',
  d:'生鮮電商週年慶的活動主頁與 App 內嵌頁。限時商品依時段輪播，同一套模組桌機與手機共用。',
  w:[{k:'web',t:'活動主頁',dv:['desktop','mobile']},{k:'webm',t:'App 內嵌頁',n:2}]},
-{id:'lm-023',cat:'LM-023',t:'Glow Lab',zh:'保養品新品 Landing page',g:'web',y:2023,client:'Glow Lab',ind:'美妝保養',pf:'Meta 廣告導流頁',role:'Landing page',c:'#ff3b1f',k:'#ffffff',a:'#151515',b:'#ffe5de',m:2,url:'glowlab.co',
+{id:'lm-023',cat:'LM-023',t:'Glow Lab',zh:'保養品新品 Landing page',g:'web',y:2023,client:'Glow Lab',ind:'美妝保養',pf:'Meta 廣告導流頁',role:'Landing page',c:'#f2b9a0',k:'#23201c',a:'#23201c',b:'#f8dccf',m:2,url:'glowlab.co',
  d:'承接社群廣告流量的新品頁。首屏直接放商品與優惠，往下才是成分與使用步驟，從廣告點進來的人不用找。',
  w:[{k:'web',t:'Landing page',dv:['desktop','mobile']}]},
-{id:'lm-022',cat:'LM-022',t:'Kiln',zh:'陶藝展覽 KV',g:'visual',y:2023,client:'Kiln Studio',ind:'藝文展演',pf:'戶外看板 · 社群',role:'主視覺',c:'#10206b',k:'#ffffff',a:'#ff8fc8',b:'#e6e9ff',m:4,ad:{h:'Kiln 陶藝聯展',s:'3.08 — 4.20 · 華山',cta:'了解展覽',tag:'免費'},
+{id:'lm-022',cat:'LM-022',t:'Kiln',zh:'陶藝展覽 KV',g:'visual',y:2023,client:'Kiln Studio',ind:'藝文展演',pf:'戶外看板 · 社群',role:'主視覺',c:'#c4b0e0',k:'#23201c',a:'#23201c',b:'#e2d8f0',m:4,
  d:'陶藝工作室的展覽主視覺，只有一張，延伸用在戶外看板與社群。',
  w:[{k:'image',t:'展覽 KV',r:[3,4]}]},
-{id:'lm-021',cat:'LM-021',t:'Orbit Mobile',zh:'電信 5G 資費廣告',g:'motion',y:2023,client:'Orbit 電信',ind:'電信',pf:'YouTube · App 開屏',role:'動態設計',c:'#151515',k:'#ffffff',a:'#ffd60a',b:'#2a2a2a',m:0,
+{id:'lm-021',cat:'LM-021',t:'Orbit Mobile',zh:'電信 5G 資費廣告',g:'motion',y:2023,client:'Orbit 電信',ind:'電信',pf:'YouTube · App 開屏',role:'動態設計',c:'#2b2a27',k:'#f2f1ec',a:'#f2f1ec',b:'#d9d6cf',m:0,
  d:'電信品牌的 5G 資費廣告，同一段素材剪成 16:9 影片與 640×1386 的 App 開屏版本。',
  w:[{k:'motion',t:'16:9 主片',items:[{r:[16,9],dur:20}]},{k:'motion',t:'App 開屏',items:[{r:[640,1386],dur:5},{r:[640,1386],dur:5}]}]},
-{id:'lm-020',cat:'LM-020',t:'Hearth',zh:'鍋具開箱短影音',g:'motion',y:2022,client:'Hearth 廚具',ind:'電商',pf:'電商 App · Reels',role:'動態設計',c:'#7b2cff',k:'#ffffff',a:'#ffd60a',b:'#efe6ff',m:2,
+{id:'lm-020',cat:'LM-020',t:'Hearth',zh:'鍋具開箱短影音',g:'motion',y:2022,client:'Hearth 廚具',ind:'電商',pf:'電商 App · Reels',role:'動態設計',c:'#e7a7a0',k:'#23201c',a:'#23201c',b:'#f3d3cf',m:2,
  d:'鍋具品牌的開箱短影音。640×1386 用於電商 App 內影音廣告，同步輸出 9:16 給社群。',
  w:[{k:'motion',t:'電商 App 影音',items:[{r:[640,1386],dur:12},{r:[640,1386],dur:12}]},{k:'motion',t:'社群 9:16',items:[{r:[9,16],dur:15}]}]}
 ];
@@ -662,98 +671,30 @@ const tags=p=>uniq(p.w.flatMap(w=>w.tag?[w.tag]:w.k==='motion'?w.items.map(m=>ra
 const spec=w=>SPEC[w.k](w);
 const F=FEAT.map(byId);
 
-/* ---------- generated placeholder artwork ---------- */
-const AF='font-family="Archivo,Noto Sans TC,sans-serif"';
-function art(p,W,H,seed=0,mode){
- const r=rng(hash(p.id)+seed*7919),mn=Math.min(W,H),{c,k,a,b}=p,m=(mode??(p.m+seed))%5;
- let g=`<rect width="${W}" height="${H}" fill="${c}"/>`;
- if(m===0){
-  const R0=mn*(.28+r()*.1),cx=W*(.32+r()*.36),cy=H*(.42+r()*.16);
-  for(let i=7;i>0;i--)g+=`<circle cx="${cx}" cy="${cy}" r="${R0+i*mn*.055}" fill="none" stroke="${k}" stroke-opacity="${(.1+.035*(7-i)).toFixed(2)}" stroke-width="${mn*.005}"/>`;
-  g+=`<circle cx="${cx}" cy="${cy}" r="${R0}" fill="${a}"/><path d="M${cx-R0} ${cy}A${R0} ${R0} 0 0 0 ${cx+R0} ${cy}Z" fill="${k}" fill-opacity=".14"/><circle cx="${cx+R0*.66}" cy="${cy-R0*.66}" r="${mn*.045}" fill="${k}"/>`;
- }else if(m===1){
-  const top=H*(.44+r()*.1),n=9,hh=(H-top)/n,R0=mn*.3,x0=W*(.24+r()*.36);
-  for(let i=0;i<n;i++)g+=`<rect x="0" y="${top+i*hh}" width="${W}" height="${hh*(.18+.72*i/n)}" fill="${k}"/>`;
-  g+=`<path d="M${x0-R0} ${top}A${R0} ${R0} 0 0 1 ${x0+R0} ${top}Z" fill="${a}"/><path d="M${x0} ${top-R0}A${R0} ${R0} 0 0 1 ${x0+R0} ${top}H${x0}Z" fill="${k}" fill-opacity=".12"/>`;
- }else if(m===2){
-  const wd=p.t.replace(/[^A-Za-z]/g,'').slice(0,2).toUpperCase();
-  g+=`<text x="${-mn*.05}" y="${H*.97}" font-size="${mn*.9}" font-weight="900" style="font-stretch:125%" ${AF} fill="${k}" letter-spacing="${-mn*.05}">${esc(wd)}</text><circle cx="${W*.78}" cy="${H*.22}" r="${mn*.13}" fill="${a}"/>`;
-  for(let i=0;i<6;i++)g+=`<rect x="${W*.62}" y="${H*.42+i*mn*.035}" width="${W*.3*(1-i*.12)}" height="${mn*.012}" fill="${k}" fill-opacity=".5"/>`;
- }else if(m===3){
-  const s=mn/12,fx=W*(.25+r()*.5),fy=H*(.3+r()*.4),R1=mn*.75;
-  for(let j=0;j<Math.ceil(H/s);j++)for(let i=0;i<Math.ceil(W/s);i++){const x=(i+.5)*s,y=(j+.5)*s,d=Math.hypot(x-fx,y-fy)/R1,rad=s*.47*Math.max(0,1-d);if(rad>s*.06)g+=`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${rad.toFixed(1)}" fill="${(i*3+j*5)%11===0?a:k}"/>`}
- }else{
-  const s=mn/4;
-  for(let j=0;j<Math.ceil(H/s);j++)for(let i=0;i<Math.ceil(W/s);i++){const o=Math.floor(r()*4),q=r(),col=q<.45?k:q<.75?a:b;if(r()<.14)continue;g+=`<path d="M0 0H${s}A${s} ${s} 0 0 1 0 ${s}Z" transform="translate(${i*s+s/2} ${j*s+s/2}) rotate(${o*90}) translate(${-s/2} ${-s/2})" fill="${col}"/>`}
- }
- return g;
-}
+/* ---------- placeholders: calm, size-labelled boxes until real assets arrive ---------- */
+const AF='font-family="Archivo,Noto Sans TC,sans-serif"',INK='#23201c';
 const svg=(W,H,inner,label='')=>`<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid slice" role="img" aria-label="${esc(label)}" xmlns="http://www.w3.org/2000/svg">${inner}</svg>`;
-function adLayer(p,W,H){
- const {h,s,cta,tag}=p.ad,ar=W/H,mn=Math.min(W,H),ZH='font-family="Noto Sans TC,Archivo,sans-serif"';
- if(ar>2.4){const f=Math.min(H*.3,W*.055),cw=Math.min(H*1.5,W*.26),cf=Math.min(H*.2,cw/5.6);return `<rect width="${W*.66}" height="${H}" fill="${p.c}"/><text x="${H*.3}" y="${H*.5}" font-size="${f}" font-weight="900" ${ZH} fill="${p.k}">${esc(h)}</text><text x="${H*.3}" y="${H*.82}" font-size="${f*.55}" font-weight="700" ${ZH} fill="${p.k}">${esc(s)}</text><rect x="${W-H*.25-cw}" y="${H*.27}" width="${cw}" height="${H*.46}" rx="${H*.23}" fill="${p.k}"/><text x="${W-H*.25-cw/2}" y="${H*.5+cf*.36}" text-anchor="middle" font-size="${cf}" font-weight="700" ${ZH} fill="${p.c}">${esc(cta)}</text>`}
- const ph=mn*.44,y0=H-ph,f=mn*.1,pad=mn*.07;
- return `<rect y="${y0}" width="${W}" height="${ph}" fill="${p.c}"/><text x="${pad}" y="${y0+pad+f*.85}" font-size="${f}" font-weight="900" ${ZH} fill="${p.k}">${esc(h)}</text><text x="${pad}" y="${y0+pad+f*1.6}" font-size="${f*.5}" font-weight="700" ${ZH} fill="${p.k}">${esc(s)}</text><rect x="${pad}" y="${H-pad-mn*.1}" width="${mn*.34}" height="${mn*.1}" rx="${mn*.05}" fill="${p.k}"/><text x="${pad+mn*.17}" y="${H-pad-mn*.035}" text-anchor="middle" font-size="${mn*.045}" font-weight="700" ${ZH} fill="${p.c}">${esc(cta)}</text><circle cx="${W-mn*.16}" cy="${mn*.16}" r="${mn*.11}" fill="${p.k}"/><text x="${W-mn*.16}" y="${mn*.16+mn*.03}" text-anchor="middle" font-size="${mn*.075}" font-weight="900" ${ZH} fill="${p.c}">${esc(tag)}</text>`;
-}
-const cover=(p,W,H,seed=0,cap=false,mode,ad=false)=>{let g=cap?`<rect width="${W}" height="${H}" fill="${p.c}"/>`:art(p,W,H,seed,mode);if(ad&&p.ad)g+=adLayer(p,W,H);if(cap){const f=Math.min(W,H)*.042;g+=`<text x="${f*1.4}" y="${f*2.2}" font-size="${f}" font-weight="800" ${AF} fill="${p.k}">${esc(p.cat)}</text><text x="${W-f*1.4}" y="${f*2.2}" text-anchor="end" font-size="${f}" font-weight="600" ${AF} fill="${p.k}">${G[p.g].en}</text>`}return svg(W,H,g,p.t)};
-const nest=(p,x,y,w,h,seed,mode)=>`<svg x="${x}" y="${y}" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" preserveAspectRatio="xMidYMid slice">${art(p,w,h,seed,mode)}</svg>`;
-const bars=(x,y,w,n,col,op=.16,h=12,gap=24)=>{let g='';for(let i=0;i<n;i++)g+=`<rect x="${x}" y="${y+i*gap}" width="${w*(i===n-1?.55:.92-i*.05)}" height="${h}" rx="${h/2}" fill="${col}" fill-opacity="${op}"/>`;return g};
-
+const lbl=(cx,cy,t,sub,f)=>`<text x="${cx}" y="${cy}" text-anchor="middle" font-size="${f}" font-weight="500" ${AF} fill="${INK}">${esc(t)}</text>`+(sub?`<text x="${cx}" y="${cy+f*1.15}" text-anchor="middle" font-size="${f*.42}" letter-spacing="${f*.04}" ${AF} fill="${INK}" fill-opacity=".55">${esc(sub)}</text>`:'');
+const blk=(x,y,w,h,o=.07,r=0)=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${r}" fill="${INK}" fill-opacity="${o}"/>`;
+function ph(p,W,H,t,sub='示意 · 待替換素材'){const wide=W/H>2.4,f=Math.min(H*.3,W*.07,Math.min(W,H)*.085);return svg(W,H,`<rect width="${W}" height="${H}" fill="${p.b}"/>`+lbl(W/2,H/2+f*(wide?.35:0),t,wide?'':sub,f),p.t+' '+t)}
 let lastH=2800;
 function webShot(p,dev,seed){
- const D=dev==='d',W=D?1440:390,pad=D?96:22,nav=D?88:96,ink='#111',bg=seed%2?'#ffffff':p.b,words=p.t.split(' ');
- let g='',y=nav;
- g+=`<text x="${pad}" y="${D?nav*.6:72}" font-size="${D?24:17}" font-weight="800" style="font-stretch:115%" ${AF} fill="${ink}">${esc(p.t)}</text>`;
- if(D)for(let i=0;i<4;i++)g+=`<rect x="${W-pad-i*120-80}" y="${nav/2-6}" width="80" height="12" rx="6" fill="${ink}" fill-opacity=".22"/>`;
- else g+=`<rect x="${W-pad-26}" y="60" width="26" height="3" fill="${ink}"/><rect x="${W-pad-26}" y="69" width="26" height="3" fill="${ink}"/>`;
- if(D){const hh=820,f=112;words.forEach((wd,i)=>g+=`<text x="${pad}" y="${y+200+i*f*.95}" font-size="${f}" font-weight="800" style="font-stretch:118%" letter-spacing="-4" ${AF} fill="${ink}">${esc(wd)}</text>`);
-  g+=bars(pad,y+260+words.length*f*.95,520,3,ink)+`<rect x="${pad}" y="${y+hh-170}" width="210" height="60" rx="30" fill="${p.c}"/><text x="${pad+105}" y="${y+hh-133}" text-anchor="middle" font-size="18" font-weight="700" ${AF} fill="${p.k}">${seed%3?'立即預約':'開始探索'}</text>`+nest(p,W*.5,y+40,W*.5-pad,hh-110,seed);y+=hh}
- else{const f=46;words.forEach((wd,i)=>g+=`<text x="${pad}" y="${y+70+i*f}" font-size="${f}" font-weight="800" style="font-stretch:112%" letter-spacing="-1.5" ${AF} fill="${ink}">${esc(wd)}</text>`);
-  const ty=y+90+words.length*f;g+=bars(pad,ty,W-pad*2,2,ink,.16,10,20)+nest(p,pad,ty+60,W-pad*2,400,seed)+`<rect x="${pad}" y="${ty+490}" width="${W-pad*2}" height="52" rx="26" fill="${p.c}"/><text x="${W/2}" y="${ty+522}" text-anchor="middle" font-size="16" font-weight="700" ${AF} fill="${p.k}">${seed%3?'立即預約':'開始探索'}</text>`;y=ty+600}
- const band=()=>{const bh=D?520:420;g+=`<rect x="0" y="${y}" width="${W}" height="${bh}" fill="${p.c}"/><text x="${pad}" y="${y+bh*.42}" font-size="${D?92:38}" font-weight="900" font-family="Noto Sans TC,sans-serif" fill="${p.k}">${esc(p.zh.split('｜')[0])}</text>`+bars(pad,y+bh*.55,D?560:W-pad*2,3,p.k,.35,D?14:10,D?30:22)+`<circle cx="${W-pad-(D?160:40)}" cy="${y+bh*.5}" r="${D?150:34}" fill="${p.a}"/>`;y+=bh};
- const cards=()=>{y+=D?110:56;const n=3,gp=D?32:20,cw=D?(W-pad*2-gp*2)/3:W-pad*2,ch=D?360:240;
-  for(let i=0;i<n;i++){const x=D?pad+i*(cw+gp):pad,yy=D?y:y+i*(ch+110);g+=nest(p,x,yy,cw,ch,seed+i+2,(seed+i)%5)+bars(x,yy+ch+26,cw,2,ink,.18,D?14:10,D?28:20)}
-  y+=D?ch+150:3*(ch+110)};
- if(seed%2){cards();band()}else{band();cards()}
- y+=D?40:20;const gw=(W-pad*2-(D?32:14))/2;g+=nest(p,pad,y,gw,D?520:200,seed+5,3)+nest(p,pad+gw+(D?32:14),y,gw,D?520:200,seed+6,4);y+=D?620:260;
- const H=y+(D?380:300);lastH=H;g=`<rect width="${W}" height="${H}" fill="${bg}"/>`+g;
- g+=`<rect x="0" y="${y}" width="${W}" height="${H-y}" fill="#111"/><text x="${pad}" y="${y+(D?90:60)}" font-size="${D?36:22}" font-weight="800" ${AF} fill="#fff">${esc(p.t)}</text>`+bars(pad,y+(D?130:90),D?400:W-pad*2,3,'#fff',.25,10,22);
+ const D=dev==='d',W=D?1440:390,pad=D?96:22,H=D?2800:2000;lastH=H;
+ let g=`<rect width="${W}" height="${H}" fill="${p.b}"/>`+blk(0,0,W,D?88:96,.05);
+ const hy=D?140:150,hh=D?720:560;g+=blk(pad,hy,W-pad*2,hh,.06,D?8:6)+lbl(W/2,hy+hh/2,D?'Desktop · 1440':'Mobile · 390',seed%2?'頁面截圖 · 示意':'整頁長截圖 · 示意',D?56:26);
+ let y=hy+hh+(D?80:40);const n=D?3:1,gap=D?32:16,cw=(W-pad*2-gap*(n-1))/n,ch=D?380:220;
+ for(let r=0;r<(D?2:3);r++){for(let i=0;i<n;i++)g+=blk(pad+i*(cw+gap),y,cw,ch,.045,D?8:6);y+=ch+gap*2}
+ g+=blk(0,y,W,D?380:300,.07)+blk(0,H-(D?320:260),W,D?320:260,.1);
  return svg(W,H,g,p.t+' 網頁');
 }
-function appShot(p,seed){
- const W=390,H=844,ink='#111',r=rng(hash(p.id)+seed*31);let g=`<rect width="${W}" height="${H}" fill="${p.b}"/><text x="28" y="38" font-size="15" font-weight="700" ${AF} fill="${ink}">9:41</text><rect x="318" y="28" width="44" height="12" rx="4" fill="${ink}" fill-opacity=".8"/>`;
- const titles=['本月總覽','分類','轉帳'];g+=`<text x="24" y="112" font-size="32" font-weight="900" font-family="Noto Sans TC,sans-serif" fill="${ink}">${titles[seed%3]}</text>`;
- g+=`<rect x="24" y="138" width="342" height="190" rx="26" fill="${p.c}"/><text x="46" y="186" font-size="15" font-weight="600" ${AF} fill="${p.k}" fill-opacity=".8">${seed%3===2?'可用餘額':'本月支出'}</text><text x="46" y="246" font-size="44" font-weight="800" style="font-stretch:112%" ${AF} fill="${p.k}">NT$ ${(8000+Math.floor(r()*9000)).toLocaleString('en-US')}</text>`;
- for(let i=0;i<7;i++){const h=20+r()*44;g+=`<rect x="${46+i*44}" y="${310-h}" width="22" height="${h}" rx="6" fill="${p.k}" fill-opacity="${i===4?1:.3}"/>`}
- if(seed%3===1){for(let i=0;i<4;i++){const x=24+(i%2)*176,y=356+Math.floor(i/2)*176;g+=`<rect x="${x}" y="${y}" width="166" height="160" rx="22" fill="#fff"/><circle cx="${x+40}" cy="${y+44}" r="20" fill="${i%2?p.a:p.c}"/>`+bars(x+20,y+96,126,2,ink,.2,10,22)}}
- else for(let i=0;i<5;i++){const y=356+i*76;g+=`<rect x="24" y="${y}" width="342" height="64" rx="18" fill="#fff"/><circle cx="56" cy="${y+32}" r="17" fill="${i%2?p.a:p.c}" fill-opacity="${i%2?.9:1}"/>`+bars(86,y+20,150,2,ink,.2,9,16)+`<text x="350" y="${y+38}" text-anchor="end" font-size="15" font-weight="700" ${AF} fill="${ink}">−${(60+Math.floor(r()*900))}</text>`}
- g+=`<rect x="0" y="764" width="${W}" height="80" fill="#fff"/>`;for(let i=0;i<4;i++)g+=`<circle cx="${60+i*90}" cy="796" r="11" fill="${i===seed%3?p.c:ink}" fill-opacity="${i===seed%3?1:.25}"/>`;
- g+=`<rect x="130" y="830" width="130" height="5" rx="3" fill="${ink}"/>`;
- return svg(W,H,g,p.t+' App 畫面');
-}
-function edm(p,W,H){
- let g=`<rect width="${W}" height="${H}" fill="${p.b}"/><rect width="${W}" height="96" fill="${p.c}"/><text x="32" y="60" font-size="28" font-weight="800" style="font-stretch:115%" ${AF} fill="${p.k}">${esc(p.t)}</text><text x="${W-32}" y="60" text-anchor="end" font-size="16" font-weight="600" ${AF} fill="${p.k}">${esc(p.cat)}</text>`,y=96;
- g+=nest(p,0,y,W,640,1,0);y+=640;
- g+=`<text x="40" y="${y+92}" font-size="46" font-weight="900" font-family="Noto Sans TC,sans-serif" fill="#111">${esc(p.zh)}</text>`+bars(40,y+130,W-80,3,'#111',.2,12,26);y+=240;
- const rows=Math.max(2,Math.floor((H-y-560)/260));
- for(let i=0;i<rows;i++){g+=`<text x="40" y="${y+22}" font-size="16" font-weight="800" ${AF} fill="${p.c}">${trk(i,rows)}</text>`+nest(p,40,y+40,190,190,i+3,(i+2)%5)+bars(260,y+70,300,3,'#111',.2,12,26)+`<text x="260" y="${y+210}" font-size="26" font-weight="800" ${AF} fill="#111">NT$ ${420+i*60}</text>`;y+=260}
- g+=`<rect x="40" y="${y+20}" width="${W-80}" height="76" rx="38" fill="#111"/><text x="${W/2}" y="${y+66}" text-anchor="middle" font-size="20" font-weight="700" font-family="Noto Sans TC,sans-serif" fill="#fff">選購本季豆單</text>`;y+=150;
- g+=nest(p,0,y,W,H-y-120,4,3)+`<rect x="0" y="${H-120}" width="${W}" height="120" fill="${p.c}"/>`+bars(40,H-82,W-80,2,p.k,.4,10,22);
- return svg(W,H,g,p.t+' 長圖');
-}
-function motionArt(p,rr,seed){
- const L=rr[0]>rr[1],W=L?1600:Math.round(1600*rr[0]/rr[1]),H=L?Math.round(1600*rr[1]/rr[0]):1600,mn=Math.min(W,H),r=rng(hash(p.id)+seed*101),cx=W*(L?.68:.5),cy=H*(L?.5:.38),R0=mn*.3;
- let g=`<rect width="${W}" height="${H}" fill="${p.c}"/>`;
- for(let i=1;i<5;i++)g+=`<circle cx="${cx}" cy="${cy}" r="${R0+i*mn*.06}" fill="none" stroke="${p.k}" stroke-opacity=".14" stroke-width="2"/>`;
- g+=`<g class="mv-rot"><circle cx="${cx}" cy="${cy}" r="${R0}" fill="${p.a}"/><path d="M${cx} ${cy}L${cx+R0} ${cy}A${R0} ${R0} 0 0 1 ${cx} ${cy+R0}Z" fill="${p.k}" fill-opacity=".85"/></g><circle class="mv-bob" cx="${cx+R0*1.15}" cy="${cy-R0*.95}" r="${mn*.03}" fill="${p.k}"/>`;
- const bx=L?W*.07:W*.1,by=L?H*.3:H*.7;for(let i=0;i<5;i++)g+=`<rect class="mv-bar" style="animation-delay:${(-i*.33).toFixed(2)}s" x="${bx}" y="${by+i*mn*.06}" width="${(L?W*.32:W*.8)*(.45+r()*.55)}" height="${mn*.03}" fill="${p.k}"/>`;
- const fs=mn*.075;g+=`<g class="mv-mq"><text x="0" y="${H-fs*.7}" font-size="${fs}" font-weight="800" style="font-stretch:118%" ${AF} fill="${p.k}">${esc((p.t+' · ').repeat(8))}</text></g>`;
- return svg(W,H,g,p.t+' 動態');
-}
-
+function appShot(p,seed){const W=390,H=844;let g=`<rect width="${W}" height="${H}" fill="${p.b}"/>`+blk(24,104,180,30,.1,4)+blk(24,156,342,190,.08,22)+lbl(W/2,256,'App · 390 × 844','畫面 '+trk(seed%3)+' · 示意',24);for(let i=0;i<5;i++)g+=blk(24,376+i*72,342,60,.05,16);g+=blk(0,764,W,80,.06);return svg(W,H,g,p.t+' App 畫面')}
+function edm(p,W,H){let g=`<rect width="${W}" height="${H}" fill="${p.b}"/>`+blk(0,0,W,96,.08)+blk(0,96,W,640,.05)+lbl(W/2,410,'eDM · '+W+' × '+H,'長圖 · 示意',40);let y=800;while(y<H-420){g+=blk(40,y,190,190,.06,6)+blk(260,y+30,300,14,.08,7)+blk(260,y+60,240,14,.08,7)+blk(260,y+90,200,14,.08,7);y+=260}g+=blk(40,y+20,W-80,76,.12,38)+blk(0,H-120,W,120,.08);return svg(W,H,g,p.t+' 長圖')}
+function motionArt(p,rr,seed){const L=rr[0]>rr[1],W=L?1600:Math.round(1600*rr[0]/rr[1]),H=L?Math.round(1600*rr[1]/rr[0]):1600,mn=Math.min(W,H),cx=W/2,cy=H/2,R=mn*.34;
+ return svg(W,H,`<rect width="${W}" height="${H}" fill="${p.b}"/><circle cx="${cx}" cy="${cy}" r="${R}" fill="none" stroke="${INK}" stroke-opacity=".12" stroke-width="${mn*.006}"/><g class="mv-rot"><circle cx="${cx}" cy="${cy}" r="${R}" fill="none"/><circle cx="${cx}" cy="${cy-R}" r="${mn*.022}" fill="${INK}"/></g>`+lbl(cx,cy+mn*.02,ratio(rr),'影片 · 示意',mn*.09),p.t+' 動態')}
 /* ---------- builders ---------- */
 const rec=p=>`<div class="rec" style="--c:${p.c};--k:${p.k}"><div class="disc" data-o="${hash(p.id)%360}" data-k="${(.8+hash(p.cat)%40/100).toFixed(2)}"><div class="lab"><b>${esc(p.cat)}</b><i>${esc(p.t)}</i><s>${G[p.g].en} · ${p.y}</s></div></div><div class="sheen"></div></div>`;
-const pack=(p,cls='',seed=0)=>`<div class="pack ${cls}" style="--c:${p.c}">${rec(p)}<div class="slv"><div class="lay">${cover(p,1000,1000,seed,true)}</div></div></div>`;
+const sleeve=p=>`<div class="sl" style="--k:${p.k}"><span class="sa">${esc(p.cat)}</span><span class="sb">${p.y} / ${esc(G[p.g].en)}</span><b class="st">${esc(p.t)}</b><span class="sc">${esc(p.zh)}</span><span class="sd">OPEN</span></div>`;
+const pack=(p,cls='',seed=0)=>`<div class="pack ${cls}" style="--c:${p.c}">${rec(p)}<div class="slv"><div class="lay">${sleeve(p)}</div></div></div>`;
 const media=(src,alt,ar)=>/\.(mp4|webm|mov)$/i.test(src)?`<video src="${esc(src)}" muted loop playsinline style="width:100%;aspect-ratio:${ar};display:block"></video>`:`<img src="${esc(src)}" alt="${esc(alt)}" loading="lazy" style="width:100%;aspect-ratio:${ar};display:block">`;
 const browser=(p,w,seed)=>{const im=w.src?.desktop?media(w.src.desktop,p.t,'1440/2800'):webShot(p,'d',seed),sh=w.src?.desktop?-67.86:-(1-900/lastH)*100;return `<div class="frm br"><div class="brb"><i></i><i></i><i></i><span>${esc(p.url||'example.com')}/${seed%2?'rooms':''}</span></div><div class="brv"><div class="pg" style="--sh:${sh.toFixed(2)}%">${im}</div></div></div>`};
 const phone=(p,seed,app,src)=>{const im=src?media(src,p.t,app?'390/844':'390/2000'):app?appShot(p,seed):webShot(p,'m',seed),sh=app?0:src?-57.8:-(1-844/lastH)*100;return `<div class="frm ph${app?' still':''}"><div class="phv"><div class="pg" style="--sh:${sh.toFixed(2)}%">${im}</div></div></div>`};
@@ -763,9 +704,9 @@ function work(p,w,i){
  const s=i*3+1;
  if(w.k==='web')return `<div class="k-web${w.dv.length<2?' solo':''}"><div>${browser(p,w,s)}</div>${w.dv.includes('mobile')?`<div class="slot">${phone(p,s+1,false,w.src?.mobile)}</div>`:''}</div>`;
  if(w.k==='webm')return `<div class="k-webm">${Array.from({length:w.n},(_,j)=>`<div class="slot"><div data-par="${[.0,.07,.03][j%3]}">${phone(p,s+j,w.app,w.src?.[j])}</div></div>`).join('')}</div>`;
- if(w.k==='image'){const ar=w.r[0]/w.r[1],u=1000/Math.min(...w.r)*(ar>3?.5:1);return `<figure class="k-img" style="--ar:${ar}"><div class="art rc">${w.src?media(w.src,w.t,w.r.join('/')):cover(p,Math.round(w.r[0]*u),Math.round(w.r[1]*u),s,false,undefined,true)}</div><figcaption class="fc">${esc(ratio(w.r))}</figcaption></figure>`}
- if(w.k==='series')return `<div class="k-ser" style="${fitRow(w.items,70)}">${w.items.map((r,j)=>`<figure class="rc" style="--ar:${r[0]/r[1]}">${w.src?.[j]?media(w.src[j],w.t,r.join('/')):cover(p,Math.round(r[0]*1000/Math.min(...r)),Math.round(r[1]*1000/Math.min(...r)),s+j,false,(p.m+j)%5,true)}<figcaption class="fc">${esc(ratio(r))}</figcaption></figure>`).join('')}</div>`;
- if(w.k==='set'){const mx=Math.max(...w.items.map(r=>r[0]));return `<div class="k-set">${w.items.map((r,j)=>{const u=1000/Math.min(...r)*(Math.max(r[0]/r[1],r[1]/r[0])>3?.5:1);return `<figure style="--w:${(r[0]/mx).toFixed(4)}"><div class="art rc">${w.src?.[j]?media(w.src[j],w.t,r.join('/')):cover(p,Math.round(r[0]*u),Math.round(r[1]*u),s+j,false,(p.m+j)%5,true)}</div><figcaption class="fc">${esc(ratio(r))}</figcaption></figure>`}).join('')}</div>`}
+ if(w.k==='image'){const ar=w.r[0]/w.r[1],u=1000/Math.min(...w.r)*(ar>3?.5:1);return `<figure class="k-img" style="--ar:${ar}"><div class="art rc">${w.src?media(w.src,w.t,w.r.join('/')):ph(p,Math.round(w.r[0]*u),Math.round(w.r[1]*u),ratio(w.r))}</div><figcaption class="fc">${esc(ratio(w.r))}</figcaption></figure>`}
+ if(w.k==='series')return `<div class="k-ser" style="${fitRow(w.items,70)}">${w.items.map((r,j)=>`<figure class="rc" style="--ar:${r[0]/r[1]}">${w.src?.[j]?media(w.src[j],w.t,r.join('/')):ph(p,Math.round(r[0]*1000/Math.min(...r)),Math.round(r[1]*1000/Math.min(...r)),ratio(r))}<figcaption class="fc">${esc(ratio(r))}</figcaption></figure>`).join('')}</div>`;
+ if(w.k==='set'){const mx=Math.max(...w.items.map(r=>r[0]));return `<div class="k-set">${w.items.map((r,j)=>{const u=1000/Math.min(...r)*(Math.max(r[0]/r[1],r[1]/r[0])>3?.5:1);return `<figure style="--w:${(r[0]/mx).toFixed(4)}"><div class="art rc">${w.src?.[j]?media(w.src[j],w.t,r.join('/')):ph(p,Math.round(r[0]*u),Math.round(r[1]*u),ratio(r))}</div><figcaption class="fc">${esc(ratio(r))}</figcaption></figure>`}).join('')}</div>`}
  if(w.k==='long'){const im=w.src?media(w.src,w.t,w.r.join('/')):edm(p,w.r[0],w.r[1]);return `<div class="k-long"><div class="lg rt">${im}</div><div class="mmap"><div class="mm">${im}<i class="vp"></i></div><p>${esc(ratio(w.r))}</p></div></div>`}
  if(w.k==='motion'){const port=w.items.every(m=>m.r[1]>m.r[0]);return `<div class="k-mo${port?' port':''}" style="${fitRow(w.items.map(m=>m.r),port?74:62)}">${w.items.map((m,j)=>player(p,m,s+j)).join('')}</div>`}
  return '';
@@ -788,8 +729,12 @@ const cnt=g=>P.filter(p=>p.g===g).length;
 $('#totalN').textContent=P.length;
 $('#speeds').innerHTML=Object.entries(G).map(([g,v])=>`<li><button type="button" data-f="${g}"><b>${v.en}</b><span>${v.zh} · ${esc(v.fmt)}</span><em>${cnt(g)} 件</em></button></li>`).join('');
 $('#spd').innerHTML=Object.entries(G).map(([g,v],i)=>`<button type="button" data-f="${g}" aria-current="${i===0}"><b>${v.en}</b><span>${v.zh} ${cnt(g)}</span></button>`).join('');
-const item=(p,i)=>`<a class="it" href="#${p.id}" data-g="${p.g}" style="--i:${i}">${pack(p,'',i)}<div class="cap rg"><span class="cat">${esc(p.cat)}</span><b>${esc(p.t)}</b><span class="yr">${p.y}</span><p>${esc(p.zh)}<br>${esc(tags(p))}</p></div></a>`;
-$('#chaps').innerHTML=Object.entries(G).map(([g,v])=>`<div class="chap ch-${g}" id="ch-${g}" data-g="${g}"><header class="chh rg"><h3 data-split>${v.en}</h3><div><b>${v.zh}</b><span>${esc(v.fmt)}</span></div><em class="num">${String(cnt(g)).padStart(2,'0')}</em></header><div class="grid">${P.filter(p=>p.g===g).map(item).join('')}</div></div>`).join('');
+const proj=p=>`<p class="pc">${esc(p.cat)} · ${p.y}</p><h4 class="pt">${esc(p.t)}</h4><p class="pz">${esc(p.zh)}</p><p class="pf">${esc(tags(p))}</p><p class="pm">${esc(p.client)} · ${esc(p.ind)}</p><a class="vlink" href="#${p.id}">查看專案 <span aria-hidden="true">→</span></a>`;
+$('#chaps').innerHTML=Object.entries(G).map(([g,v],ci)=>{const L=P.filter(p=>p.g===g),n=String(L.length).padStart(2,'0');return `<div class="chap" id="ch-${g}" data-g="${g}">
+ <header class="chd"><p class="ck">${trk(ci)} / ${v.zh}</p><h3 class="cw" data-split>${v.en}</h3><p class="cf">${esc(v.fmt)}</p></header>
+ <div class="cstage"><div class="deck" tabindex="0" role="group" aria-roledescription="carousel" aria-label="${v.en} 作品，左右鍵切換">${L.map((p,i)=>`<a class="card" href="#${p.id}" data-i="${i}" draggable="false" aria-label="${esc(p.t+' '+p.zh)}">${pack(p,'',i)}</a>`).join('')}</div>
+  <div class="dctl"><button class="dbtn" type="button" data-step="-1" aria-label="上一件">←</button><span class="dn num">01</span><span class="dbar"><i></i></span><span class="num">${n}</span><button class="dbtn" type="button" data-step="1" aria-label="下一件">→</button></div></div>
+ <div class="cproj" aria-live="polite">${proj(L[0])}</div></div>`}).join('');
 $('#list').innerHTML=Object.entries(G).map(([g,v])=>`<div class="lgh" id="lg-${g}"><b>${v.en}</b> ${v.zh}<span>${cnt(g)} 件</span></div>`+P.filter(p=>p.g===g).map((p,i)=>`<a class="row" href="#${p.id}" data-g="${p.g}" data-id="${p.id}" style="--c:${p.c};--k:${p.k};--i:${i}"><span class="m c">${esc(p.cat)}</span><b>${esc(p.t)}</b><span class="z">${esc(p.zh)}</span><span class="m t">${esc(tags(p))}</span><span class="m n">${esc(p.ind)}</span><span class="m y">${p.y}</span></a>`).join('')).join('');
 const shelf=P.map(p=>`<span>${esc(p.t)}</span>`).join('');
 $('#sh1').innerHTML=shelf+shelf;$('#sh2').innerHTML=P.map(p=>`<span>${esc(p.zh.split('｜')[0])}</span>`).join('').repeat(2);
@@ -831,13 +776,13 @@ document.addEventListener('click',e=>{
 
 /* ---------- hero record ---------- */
 let hi=0,hlock=false;const hp=$('#hpack');
-function heroInit(){const p=F[0];hp.style.setProperty('--c',p.c);hp.innerHTML=rec(p)+`<div class="slv"><div class="lay">${cover(p,1000,1000,0,true)}</div></div>`;$('#htl').innerHTML=F.map((p,i)=>`<button type="button" data-i="${i}" aria-pressed="${i===0}" aria-label="${esc(p.cat+' '+p.t)}">${trk(i)}</button>`).join('');heroCap()}
+function heroInit(){const p=F[0];hp.style.setProperty('--c',p.c);hp.innerHTML=rec(p)+`<div class="slv"><div class="lay">${sleeve(p)}</div></div>`;$('#htl').innerHTML=F.map((p,i)=>`<button type="button" data-i="${i}" aria-pressed="${i===0}" aria-label="${esc(p.cat+' '+p.t)}">${trk(i)}</button>`).join('');heroCap()}
 function heroCap(){const p=F[hi];$('#hT').textContent=p.t;$('#hM').textContent=`${p.cat} · ${p.zh} · ${G[p.g].en}`;$('#hOpen').href='#'+p.id;$$('#htl button').forEach((b,i)=>b.setAttribute('aria-pressed',i===hi))}
 function heroSet(i){
  if(hlock||i===hi)return;hlock=true;hi=(i+F.length)%F.length;const p=F[hi],r=hp.querySelector('.rec'),lab=hp.querySelector('.lab'),slv=hp.querySelector('.slv');heroCap();
  r.style.setProperty('--out','0');
  setTimeout(()=>{r.style.setProperty('--c',p.c);r.style.setProperty('--k',p.k);lab.querySelector('b').textContent=p.cat;lab.querySelector('i').textContent=p.t;lab.querySelector('s').textContent=`${G[p.g].en} · ${p.y}`;
-  const n=document.createElement('div');n.className='lay new';n.innerHTML=cover(p,1000,1000,0,true);slv.appendChild(n);hp.style.setProperty('--c',p.c);
+  const n=document.createElement('div');n.className='lay new';n.innerHTML=sleeve(p);slv.appendChild(n);hp.style.setProperty('--c',p.c);
   requestAnimationFrame(()=>requestAnimationFrame(()=>n.classList.add('go')));
   setTimeout(()=>{$$('.lay',slv).forEach(l=>{if(l!==n)l.remove()});n.classList.remove('new','go');r.style.setProperty('--out','.5');hlock=false},RM?20:900);
  },RM?0:650);
@@ -850,13 +795,27 @@ const ready=()=>{document.body.classList.add('ready');setTimeout(()=>hp.querySel
 
 /* ---------- crate: speed filter + views ---------- */
 let spin=1;const crate=$('#works'),chaps=$('#chaps'),list=$('#list');let view='grid';
-const goCat=g=>{const t=view==='grid'?$('#ch-'+g):$('#lg-'+g);if(t)scrollTo({top:t.getBoundingClientRect().top+scrollY-(innerWidth>860?150:136),behavior:RM?'auto':'smooth'})};
+const goCat=g=>{const t=view==='grid'?$('#ch-'+g):$('#lg-'+g);if(t)scrollTo({top:t.getBoundingClientRect().top+scrollY-(innerWidth>860?140:126),behavior:RM?'auto':'smooth'})};
 const setCur=g=>$$('#spd button').forEach(b=>b.setAttribute('aria-current',b.dataset.f===g));
 $('#spd').addEventListener('click',e=>{const b=e.target.closest('button');if(b){setCur(b.dataset.f);goCat(b.dataset.f)}});
 $('#speeds').addEventListener('click',e=>{const b=e.target.closest('button');if(b)goCat(b.dataset.f)});
 const chIO=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)setCur(e.target.dataset.g||e.target.id.slice(3))}),{rootMargin:'-40% 0px -55% 0px'});
 $$('.chap,.lgh').forEach(el=>chIO.observe(el));
-$$('.vw button').forEach(b=>b.addEventListener('click',()=>{view=b.dataset.v;$$('.vw button').forEach(x=>x.setAttribute('aria-pressed',x===b));crate.classList.add('swap');setTimeout(()=>{chaps.hidden=view!=='grid';list.hidden=view!=='list';crate.classList.remove('swap');if(view==='grid'&&!RM)$$('.it',chaps).forEach(el=>{el.classList.remove('drop');void el.offsetWidth;el.classList.add('drop')})},RM?0:260)}));
+$$('.vw button').forEach(b=>b.addEventListener('click',()=>{view=b.dataset.v;$$('.vw button').forEach(x=>x.setAttribute('aria-pressed',x===b));crate.classList.add('swap');setTimeout(()=>{chaps.hidden=view!=='grid';list.hidden=view!=='list';crate.classList.remove('swap')},RM?0:260)}));
+/* one focused project per category: stacked sleeves, arrows, swipe, keys */
+$$('.chap').forEach(ch=>{
+ const L=P.filter(p=>p.g===ch.dataset.g),cards=$$('.card',ch),n=cards.length,deck=$('.deck',ch),info=$('.cproj',ch),bar=$('.dbar i',ch),num=$('.dn',ch);let cur=0,sx=null,moved=false;
+ const set=i=>{const nx=(i+n)%n,changed=nx!==cur;cur=nx;
+  cards.forEach((c,j)=>{const d=(j-cur+n)%n;c.dataset.d=n>2&&d===n-1?'out':String(Math.min(d,3));c.tabIndex=d===0?0:-1;c.setAttribute('aria-hidden',d!==0)});
+  num.textContent=trk(cur);bar.style.width=((cur+1)/n*100)+'%';
+  if(changed){info.classList.add('swap');setTimeout(()=>{info.innerHTML=proj(L[cur]);info.classList.remove('swap')},RM?0:220)}};
+ set(0);
+ ch.addEventListener('click',e=>{const b=e.target.closest('.dbtn');if(b)set(cur+ +b.dataset.step)});
+ deck.addEventListener('keydown',e=>{if(e.key==='ArrowRight'){e.preventDefault();set(cur+1)}if(e.key==='ArrowLeft'){e.preventDefault();set(cur-1)}});
+ deck.addEventListener('pointerdown',e=>{sx=e.clientX;moved=false});
+ deck.addEventListener('pointerup',e=>{if(sx===null)return;const dx=e.clientX-sx;sx=null;if(Math.abs(dx)>40){moved=true;set(cur+(dx<0?1:-1))}});
+ deck.addEventListener('click',e=>{const c=e.target.closest('.card');if(moved||(c&&c.dataset.d!=='0')){e.preventDefault();e.stopPropagation();if(!moved&&c)set(+c.dataset.i);moved=false}},true);
+});
 const flo=$('#flo');let fx=0,fy=0,tx=0,ty=0,fcur='';
 if(FINE){list.addEventListener('mouseover',e=>{const r=e.target.closest('.row');if(!r)return;if(r.dataset.id!==fcur){fcur=r.dataset.id;const p=byId(fcur);flo.innerHTML=pack(p,'',2);visIO.observe($('.disc',flo))}flo.classList.add('on')});
  list.addEventListener('mouseleave',()=>{flo.classList.remove('on');fcur=''});
@@ -922,7 +881,7 @@ function tick(t){
  }
  const nr=np.getBoundingClientRect();if(nr.top<vh&&nr.bottom>0){const pr=Math.min(1,Math.max(0,(vh*.5-nr.top)/nr.height));npArm.style.transform=`rotate(${pr<.08?0:(12+15*pr).toFixed(2)}deg)`}
  const pp=Math.min(1,Math.max(0,yW/Math.max(1,document.documentElement.scrollHeight-vh)));pb.style.transform=`scaleX(${pp.toFixed(4)})`;miniArm.style.transform=`rotate(${pp<.004?0:(12+15*pp).toFixed(2)}deg)`;
- $('#mini').classList.toggle('show',yW>vh*.6&&!cur);const mt=Math.round(pp*100)+'%';if(mt!==lastMini){miniT.textContent=mt;lastMini=mt}
+ const cr=crate.getBoundingClientRect();$('#mini').classList.toggle('show',yW>vh*.6&&!cur&&!(cr.top<vh&&cr.bottom>vh*.5));const mt=Math.round(pp*100)+'%';if(mt!==lastMini){miniT.textContent=mt;lastMini=mt}
  for(const el of vis)if(el.classList?.contains('k-long')){const lg=el.querySelector('.lg').getBoundingClientRect(),vp=el.querySelector('.vp');const top=Math.min(1,Math.max(0,-lg.top/lg.height)),hgt=Math.min(1,vh/lg.height);vp.style.top=(top*100).toFixed(2)+'%';vp.style.height=(Math.min(hgt,1-top)*100).toFixed(2)+'%'}
  for(const pl of players)if(pl.on){pl.t=(pl.t+dt/1000)%pl.dur;const tc=pl.el.querySelector('.mot');tc.textContent=fmtT(pl.t)+' / '+fmtT(pl.dur);pl.el.querySelector('.mobar i').style.transform=`scaleX(${(pl.t/pl.dur).toFixed(4)})`}
  requestAnimationFrame(tick);
