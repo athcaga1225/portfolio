@@ -109,7 +109,7 @@ img,svg{max-width:100%}
 .lead{font-size:clamp(19px,1.55vw,23px);line-height:1.55;margin:0;max-width:30em;font-weight:500}
 .lead b{font-weight:900}
 .speeds{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
-.speeds button{display:grid;grid-template-columns:4.2em 1fr auto;align-items:baseline;width:100%;padding:12px 0;border-bottom:1px solid var(--line);text-align:left;min-height:44px;transition:padding .45s var(--ease)}
+.speeds button{display:grid;grid-template-columns:7em 1fr auto;align-items:baseline;width:100%;padding:12px 0;border-bottom:1px solid var(--line);text-align:left;min-height:44px;transition:padding .45s var(--ease)}
 .speeds button:hover{padding-left:10px}
 .speeds b{font:800 26px/1 var(--disp);font-stretch:118%}
 .speeds span{font-size:16px}
@@ -695,7 +695,7 @@ function adLayer(p,W,H){
  const ph=mn*.44,y0=H-ph,f=mn*.1,pad=mn*.07;
  return `<rect y="${y0}" width="${W}" height="${ph}" fill="${p.c}"/><text x="${pad}" y="${y0+pad+f*.85}" font-size="${f}" font-weight="900" ${ZH} fill="${p.k}">${esc(h)}</text><text x="${pad}" y="${y0+pad+f*1.6}" font-size="${f*.5}" font-weight="700" ${ZH} fill="${p.k}">${esc(s)}</text><rect x="${pad}" y="${H-pad-mn*.1}" width="${mn*.34}" height="${mn*.1}" rx="${mn*.05}" fill="${p.k}"/><text x="${pad+mn*.17}" y="${H-pad-mn*.035}" text-anchor="middle" font-size="${mn*.045}" font-weight="700" ${ZH} fill="${p.c}">${esc(cta)}</text><circle cx="${W-mn*.16}" cy="${mn*.16}" r="${mn*.11}" fill="${p.k}"/><text x="${W-mn*.16}" y="${mn*.16+mn*.03}" text-anchor="middle" font-size="${mn*.075}" font-weight="900" ${ZH} fill="${p.c}">${esc(tag)}</text>`;
 }
-const cover=(p,W,H,seed=0,cap=false,mode,ad=false)=>{let g=art(p,W,H,seed,mode);if(ad&&p.ad)g+=adLayer(p,W,H);if(cap){const f=Math.min(W,H)*.042;g+=`<text x="${f*1.4}" y="${f*2.2}" font-size="${f}" font-weight="800" ${AF} fill="${p.k}">${esc(p.cat)}</text><text x="${W-f*1.4}" y="${f*2.2}" text-anchor="end" font-size="${f}" font-weight="600" ${AF} fill="${p.k}">${G[p.g].en}</text>`}return svg(W,H,g,p.t)};
+const cover=(p,W,H,seed=0,cap=false,mode,ad=false)=>{let g=cap?`<rect width="${W}" height="${H}" fill="${p.c}"/>`:art(p,W,H,seed,mode);if(ad&&p.ad)g+=adLayer(p,W,H);if(cap){const f=Math.min(W,H)*.042;g+=`<text x="${f*1.4}" y="${f*2.2}" font-size="${f}" font-weight="800" ${AF} fill="${p.k}">${esc(p.cat)}</text><text x="${W-f*1.4}" y="${f*2.2}" text-anchor="end" font-size="${f}" font-weight="600" ${AF} fill="${p.k}">${G[p.g].en}</text>`}return svg(W,H,g,p.t)};
 const nest=(p,x,y,w,h,seed,mode)=>`<svg x="${x}" y="${y}" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" preserveAspectRatio="xMidYMid slice">${art(p,w,h,seed,mode)}</svg>`;
 const bars=(x,y,w,n,col,op=.16,h=12,gap=24)=>{let g='';for(let i=0;i<n;i++)g+=`<rect x="${x}" y="${y+i*gap}" width="${w*(i===n-1?.55:.92-i*.05)}" height="${h}" rx="${h/2}" fill="${col}" fill-opacity="${op}"/>`;return g};
 
