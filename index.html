@@ -47,16 +47,9 @@ img,svg{max-width:100%}
 .mbtn{display:none;height:44px;padding:0 4px;font:700 15px var(--disp)}
 @media(max-width:860px){.links,.avail{display:none}.mbtn{display:block}}
 
-/* progress: mobile groove line + desktop mini deck */
+/* progress: thin line at the top */
 .prog{position:fixed;left:0;right:0;top:0;height:2px;z-index:60;pointer-events:none}
 .prog i{display:block;height:100%;background:var(--red);transform-origin:left;transform:scaleX(0)}
-.mini{position:fixed;right:20px;bottom:20px;z-index:55;display:flex;align-items:center;gap:10px;padding:6px 14px 6px 6px;background:var(--bg);color:var(--ink);border-radius:40px;box-shadow:0 0 0 1px var(--line);font:600 13px var(--disp);transition:transform .5s var(--ease)}
-.mini svg{width:44px;height:44px;display:block}
-.mini:not(.show){opacity:0;transform:translateY(16px);pointer-events:none}
-.mini{transition:opacity .4s,transform .5s var(--ease)}
-.mini.show:hover{transform:translateY(-2px)}
-@media(min-width:861px){.prog{display:none}}
-@media(max-width:860px){.mini{display:none}}
 .arm g{transform-box:view-box;transform-origin:92px 10px;transition:transform .35s var(--ease)}
 
 /* the record */
@@ -474,10 +467,6 @@ figcaption.fc{font:600 13px var(--disp);color:var(--mute);margin-top:10px}
  </div>
 </header>
 <div class="prog" aria-hidden="true"><i id="progBar"></i></div>
-<button class="mini" id="mini" type="button" aria-label="閱讀進度，點擊回到頂部">
- <svg viewBox="0 0 100 100" class="arm" aria-hidden="true"><circle cx="50" cy="50" r="42" fill="#151515"/><circle cx="50" cy="50" r="15" fill="var(--red)"/><circle cx="50" cy="50" r="2.5" fill="var(--bg)"/><g id="miniArm"><circle cx="92" cy="10" r="7" fill="currentColor"/><path d="M92 10V62L85 72" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/></g></svg>
- <span class="num" id="miniT">0%</span>
-</button>
 
 <main>
 <section class="hero" id="top">
@@ -830,11 +819,10 @@ function toggleMenu(on){mb.setAttribute('aria-expanded',on);if(on){menu.hidden=f
 mb.addEventListener('click',()=>toggleMenu(true));$('#mx').addEventListener('click',()=>toggleMenu(false));
 $$('#menu a').forEach(a=>a.addEventListener('click',()=>toggleMenu(false)));
 $('#mail').addEventListener('click',async()=>{const o=$('#copied');try{await navigator.clipboard.writeText('hello@linmu.studio');o.textContent=' 已複製 Email。'}catch(e){o.textContent=' 請手動複製：hello@linmu.studio'}setTimeout(()=>o.textContent='',3000)});
-$('#mini').addEventListener('click',()=>scrollTo({top:0,behavior:RM?'auto':'smooth'}));
 
 /* ---------- one frame loop: rotation follows scroll, parallax, tonearms ---------- */
 prep(document.body);
-const ch=$$('.wm .ch'),hs=$('#hstage'),sh1=$('#sh1'),sh2=$('#sh2'),shelfEl=$('.shelf'),npArm=$('#npArm'),miniArm=$('#miniArm'),miniT=$('#miniT'),pb=$('#progBar'),roG=$('#roG'),npTime=$('#npTime');
+const ch=$$('.wm .ch'),hs=$('#hstage'),sh1=$('#sh1'),sh2=$('#sh2'),shelfEl=$('.shelf'),npArm=$('#npArm'),pb=$('#progBar'),roG=$('#roG'),npTime=$('#npTime');
 let lt=performance.now(),lastW=scrollY,lastD=0,rot=0,lastMini='';
 const TOTAL=42*60+16;
 function tick(t){
@@ -852,8 +840,7 @@ function tick(t){
   if(flo.classList.contains('on')){fx+=(tx-fx)*.14;fy+=(ty-fy)*.14;flo.style.translate=`${(fx+28).toFixed(1)}px ${(fy-130).toFixed(1)}px`}
  }
  const nr=np.getBoundingClientRect();if(nr.top<vh&&nr.bottom>0){const pr=Math.min(1,Math.max(0,(vh*.5-nr.top)/nr.height));npArm.style.transform=`rotate(${pr<.08?0:(12+15*pr).toFixed(2)}deg)`}
- const pp=Math.min(1,Math.max(0,yW/Math.max(1,document.documentElement.scrollHeight-vh)));pb.style.transform=`scaleX(${pp.toFixed(4)})`;miniArm.style.transform=`rotate(${pp<.004?0:(12+15*pp).toFixed(2)}deg)`;
- const cr=crate.getBoundingClientRect();$('#mini').classList.toggle('show',yW>vh*.6&&!cur&&!(cr.top<vh&&cr.bottom>vh*.5));const mt=Math.round(pp*100)+'%';if(mt!==lastMini){miniT.textContent=mt;lastMini=mt}
+ const pp=Math.min(1,Math.max(0,yW/Math.max(1,document.documentElement.scrollHeight-vh)));pb.style.transform=`scaleX(${pp.toFixed(4)})`; 
  for(const el of vis)if(el.classList?.contains('k-long')){const lg=el.querySelector('.lg').getBoundingClientRect(),vp=el.querySelector('.vp');const top=Math.min(1,Math.max(0,-lg.top/lg.height)),hgt=Math.min(1,vh/lg.height);vp.style.top=(top*100).toFixed(2)+'%';vp.style.height=(Math.min(hgt,1-top)*100).toFixed(2)+'%'}
  for(const pl of players)if(pl.on){pl.t=(pl.t+dt/1000)%pl.dur;const tc=pl.el.querySelector('.mot');tc.textContent=fmtT(pl.t)+' / '+fmtT(pl.dur);pl.el.querySelector('.mobar i').style.transform=`scaleX(${(pl.t/pl.dur).toFixed(4)})`}
  requestAnimationFrame(tick);
