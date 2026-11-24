@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>林沐 Lin Mu 作品集</title>
+<title>Lin Mu 作品集</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -116,18 +116,9 @@ img,svg{max-width:100%}
 .hstage{position:relative}
 .hpack{width:min(28vw,50vh,540px)}
 .hpack>.rec{transition:transform 1.2s var(--ease)}
-.hcap{display:flex;flex-wrap:wrap;align-items:center;gap:12px 22px;margin-top:22px;width:100%}
 .np-tag{display:flex;align-items:center;gap:8px;font:700 14px var(--disp)}
 .np-tag::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--red);animation:blink 1.6s steps(1) infinite}
 @keyframes blink{50%{opacity:.25}}
-.hnow{flex:1 1 170px}
-.hnow b{display:block;font:800 clamp(22px,2vw,30px)/1.1 var(--disp);font-stretch:112%;letter-spacing:-.02em}
-.hnow span{font-size:15px;color:var(--mute)}
-.htl{display:flex;gap:4px}
-.htl button{width:44px;height:44px;border-radius:50%;box-shadow:inset 0 0 0 1px var(--line);font:700 13px var(--disp);transition:background-color .3s,color .3s}
-.htl button[aria-pressed=true]{background:var(--ink);color:var(--bg)}
-.hopen{display:inline-flex;align-items:center;gap:10px;height:44px;padding:0 20px;border-radius:44px;background:var(--ink);color:var(--bg);font:700 15px var(--disp);transition:gap .4s var(--ease)}
-.hopen:hover{gap:16px}
 
 /* shelf strip */
 .shelf{overflow:hidden;border-block:1px solid var(--line);padding:18px 0;white-space:nowrap}
@@ -397,7 +388,6 @@ figcaption.fc{font:600 13px var(--disp);color:var(--mute);margin-top:10px}
  .hg{grid-template-columns:minmax(0,1fr)}
  .hstage{order:-1}
  .hpack{width:min(58vw,440px)}
- .hcap{width:100%}
  .chead{grid-template-columns:minmax(0,1fr)}
  .cnav{top:58px}
  .chap{grid-template-columns:minmax(0,1fr);grid-template-areas:"h" "s" "p";grid-template-rows:auto;min-height:0}
@@ -472,7 +462,7 @@ figcaption.fc{font:600 13px var(--disp);color:var(--mute);margin-top:10px}
 <a class="skip" href="#works">跳到作品</a>
 <header class="nav">
  <div class="wrap">
-  <a class="logo" href="#top" aria-label="林沐 Lin Mu 回到頂部"><i></i>Lin Mu 林沐</a>
+  <a class="logo" href="#top" aria-label="Lin Mu 回到頂部"><i></i>Lin Mu</a>
   <nav class="links" aria-label="主要">
    <a href="#works">Works<small>作品</small></a>
    <a href="#playing">Selected<small>精選</small></a>
@@ -492,20 +482,14 @@ figcaption.fc{font:600 13px var(--disp);color:var(--mute);margin-top:10px}
 <main>
 <section class="hero" id="top">
  <div class="wrap">
-  <h1 class="wm" aria-label="Lin Mu 林沐"><span class="ch" style="--d:0"><span>L</span></span><span class="ch" style="--d:1"><span>I</span></span><span class="ch" style="--d:2"><span>N</span></span><span class="ch" style="--d:3;width:.18em"><span>&nbsp;</span></span><span class="ch" style="--d:4"><span>M</span></span><span class="ch" style="--d:5"><span>U</span></span></h1>
+  <h1 class="wm" aria-label="Lin Mu"><span class="ch" style="--d:0"><span>L</span></span><span class="ch" style="--d:1"><span>I</span></span><span class="ch" style="--d:2"><span>N</span></span><span class="ch" style="--d:3;width:.18em"><span>&nbsp;</span></span><span class="ch" style="--d:4"><span>M</span></span><span class="ch" style="--d:5"><span>U</span></span></h1>
   <div class="hg">
    <div class="hinfo">
-    <p class="lead rt">林沐，台北的商業設計師。為品牌做網站、廣告素材與短影音，這裡收錄 2022 到 2026 年的 <b id="totalN">12</b> 件專案，分成 Web、Visual、Motion 三類。</p>
+    <p class="lead rt">台北的商業設計師。為品牌做網站、廣告素材與短影音，這裡收錄 2022 到 2026 年的 <b id="totalN">12</b> 件專案，分成 Web、Visual、Motion 三類。</p>
     <ul class="speeds rt" id="speeds"></ul>
    </div>
    <div class="hstage" id="hstage">
     <div class="pack hpack" id="hpack"></div>
-    <div class="hcap">
-     <span class="np-tag">Now playing</span>
-     <div class="hnow" aria-live="polite"><b id="hT"></b><span id="hM"></span></div>
-     <div class="htl" id="htl" role="group" aria-label="切換精選唱片"></div>
-     <a class="hopen" id="hOpen" href="#">查看專案 <span aria-hidden="true">→</span></a>
-    </div>
    </div>
   </div>
  </div>
@@ -577,14 +561,14 @@ figcaption.fc{font:600 13px var(--disp);color:var(--mute);margin-top:10px}
   <div class="runout" aria-hidden="true">
    <svg viewBox="0 0 200 200"><defs><path id="ro" d="M100 100m-78 0a78 78 0 1 1 156 0a78 78 0 1 1-156 0"/></defs>
     <circle cx="100" cy="100" r="98" fill="#111"/>
-    <g id="roG"><circle cx="100" cy="100" r="88" fill="none" stroke="#fff" stroke-opacity=".08"/><circle cx="100" cy="100" r="70" fill="none" stroke="#fff" stroke-opacity=".06"/><text font-family="Archivo" font-size="11.2" font-weight="700" fill="#e9e8e3" letter-spacing="2.2"><textPath href="#ro">THANK YOU FOR WATCHING · WEB · VISUAL · MOTION · 林沐 2026 ·</textPath></text><circle cx="100" cy="100" r="40" fill="var(--red)"/><text x="100" y="96" text-anchor="middle" font-family="Archivo" font-size="9" font-weight="800" fill="#111">LIN MU</text><text x="100" y="112" text-anchor="middle" font-family="Archivo" font-size="6.5" font-weight="600" fill="#111">TAIPEI · 2026</text></g>
+    <g id="roG"><circle cx="100" cy="100" r="88" fill="none" stroke="#fff" stroke-opacity=".08"/><circle cx="100" cy="100" r="70" fill="none" stroke="#fff" stroke-opacity=".06"/><text font-family="Archivo" font-size="11.2" font-weight="700" fill="#e9e8e3" letter-spacing="2.2"><textPath href="#ro">THANK YOU FOR WATCHING · WEB · VISUAL · MOTION · LIN MU 2026 ·</textPath></text><circle cx="100" cy="100" r="40" fill="var(--red)"/><text x="100" y="96" text-anchor="middle" font-family="Archivo" font-size="9" font-weight="800" fill="#111">LIN MU</text><text x="100" y="112" text-anchor="middle" font-family="Archivo" font-size="6.5" font-weight="600" fill="#111">TAIPEI · 2026</text></g>
     <circle cx="100" cy="100" r="2.6" fill="var(--red)" stroke="#111"/>
    </svg>
   </div>
  </div>
 </section>
 </main>
-<footer class="foot"><div class="wrap"><span>© 2026 林沐 Lin Mu · 台北</span><span>作品與客戶名稱皆為示意內容</span><a href="#top">回到頂部</a></div></footer>
+<footer class="foot"><div class="wrap"><span>© 2026 Lin Mu · 台北</span><span>作品與客戶名稱皆為示意內容</span><a href="#top">回到頂部</a></div></footer>
 
 <div class="flo" id="flo" aria-hidden="true"></div>
 <div class="menu" id="menu" hidden>
@@ -775,21 +759,9 @@ document.addEventListener('click',e=>{
 });
 
 /* ---------- hero record ---------- */
-let hi=0,hlock=false;const hp=$('#hpack');
-function heroInit(){const p=F[0];hp.style.setProperty('--c',p.c);hp.innerHTML=rec(p)+`<div class="slv"><div class="lay">${sleeve(p)}</div></div>`;$('#htl').innerHTML=F.map((p,i)=>`<button type="button" data-i="${i}" aria-pressed="${i===0}" aria-label="${esc(p.cat+' '+p.t)}">${trk(i)}</button>`).join('');heroCap()}
-function heroCap(){const p=F[hi];$('#hT').textContent=p.t;$('#hM').textContent=`${p.cat} · ${p.zh} · ${G[p.g].en}`;$('#hOpen').href='#'+p.id;$$('#htl button').forEach((b,i)=>b.setAttribute('aria-pressed',i===hi))}
-function heroSet(i){
- if(hlock||i===hi)return;hlock=true;hi=(i+F.length)%F.length;const p=F[hi],r=hp.querySelector('.rec'),lab=hp.querySelector('.lab'),slv=hp.querySelector('.slv');heroCap();
- r.style.setProperty('--out','0');
- setTimeout(()=>{r.style.setProperty('--c',p.c);r.style.setProperty('--k',p.k);lab.querySelector('b').textContent=p.cat;lab.querySelector('i').textContent=p.t;lab.querySelector('s').textContent=`${G[p.g].en} · ${p.y}`;
-  const n=document.createElement('div');n.className='lay new';n.innerHTML=sleeve(p);slv.appendChild(n);hp.style.setProperty('--c',p.c);
-  requestAnimationFrame(()=>requestAnimationFrame(()=>n.classList.add('go')));
-  setTimeout(()=>{$$('.lay',slv).forEach(l=>{if(l!==n)l.remove()});n.classList.remove('new','go');r.style.setProperty('--out','.5');hlock=false},RM?20:900);
- },RM?0:650);
-}
-heroInit();
-$('#htl').addEventListener('click',e=>{const b=e.target.closest('button');if(b)heroSet(+b.dataset.i)});
-hp.addEventListener('click',()=>{location.hash=F[hi].id});hp.style.cursor='pointer';
+const hp=$('#hpack');
+{const p=F[0];hp.style.setProperty('--c',p.c);hp.innerHTML=rec(p)+`<div class="slv"><div class="lay">${sleeve(p)}</div></div>`;hp.setAttribute('role','link');hp.tabIndex=0;hp.setAttribute('aria-label','查看專案 '+p.t);
+ hp.addEventListener('click',()=>{location.hash=p.id});hp.addEventListener('keydown',e=>{if(e.key==='Enter')location.hash=p.id});hp.style.cursor='pointer'}
 const ready=()=>{document.body.classList.add('ready');setTimeout(()=>hp.querySelector('.rec').style.setProperty('--out','.5'),RM?0:700)};
 (document.fonts?.ready||Promise.resolve()).then(()=>setTimeout(ready,80));setTimeout(()=>document.body.classList.contains('ready')||ready(),1500);
 
@@ -836,7 +808,7 @@ const dlg=$('#dlg'),dlgIn=$('#dlgIn'),TITLE=document.title,docEl=document.docume
 document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#lm-"]');if(a){origin=[e.clientX||innerWidth/2,e.clientY||innerHeight/2];opener=a}},true);
 function openP(p){
  const was=!!cur;cur=p;[...players].forEach(pl=>{if(!pl.el.isConnected||dlgIn.contains(pl.el)){play(pl,false);players.delete(pl)}});
- dlgIn.innerHTML=detail(p);prep(dlgIn);document.title=`${p.t} · 林沐`;
+ dlgIn.innerHTML=detail(p);prep(dlgIn);document.title=`${p.t} · Lin Mu`;
  if(!was){const o=origin||[innerWidth/2,innerHeight/2];dlg.style.setProperty('--ox',o[0]+'px');dlg.style.setProperty('--oy',o[1]+'px');dlg.hidden=false;dlg.scrollTop=0;docEl.classList.add('lock');requestAnimationFrame(()=>requestAnimationFrame(()=>dlg.classList.add('on')));setTimeout(()=>$('#dx').focus({preventScroll:true}),60)}
  else{dlg.scrollTop=0}
  origin=null;

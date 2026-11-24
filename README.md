@@ -1,4 +1,4 @@
-# 林沐 Lin Mu — Portfolio
+# Lin Mu — Portfolio
 
 以「黑膠唱片收藏」為概念的個人設計作品集。單一 `index.html`，不需要建置工具，直接用瀏覽器打開即可。
 
