@@ -134,7 +134,10 @@ img,svg{max-width:100%}
 .cnav{position:sticky;top:64px;z-index:30;padding:10px 0;margin-bottom:clamp(24px,3vw,48px)}
 .cnav .spd{display:inline-flex;box-shadow:0 8px 24px -16px rgba(0,0,0,.35)}
 .spd button{min-width:110px}
-.chap{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);grid-template-rows:auto 1fr;grid-template-areas:"h s" "p s";column-gap:clamp(24px,4vw,72px);min-height:min(100svh,960px);padding-block:clamp(72px,7vw,110px) clamp(56px,6vw,96px);border-top:1px solid var(--line)}
+.chap{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);grid-template-rows:auto 1fr;grid-template-areas:"h s" "p s";column-gap:clamp(24px,4vw,72px);min-height:min(100svh,960px);padding-block:clamp(72px,7vw,110px) clamp(56px,6vw,96px);background:var(--cb);box-shadow:0 0 0 100vmax var(--cb);clip-path:inset(0 -100vmax);color:var(--ink)}
+.ch-web{--cb:light-dark(#e8ebe5,#1a1c19)}
+.ch-visual{--cb:light-dark(#efe7da,#201d18)}
+.ch-motion{--cb:#23201c;--ink:#f2f1ec;--mute:#a19e95;--line:#3a3833;--bg:#23201c}
 .chd{grid-area:h}
 .ck{font:600 14px var(--disp);letter-spacing:.06em;color:var(--mute);margin:0 0 12px}
 .cw{font:800 clamp(56px,8vw,132px)/.86 var(--disp);font-stretch:118%;letter-spacing:-.05em;margin:0}
@@ -606,7 +609,7 @@ const P=[
 {id:'lm-022',cat:'LM-022',t:'Kiln',zh:'陶藝展覽 KV',g:'visual',y:2023,client:'Kiln Studio',ind:'藝文展演',pf:'戶外看板 · 社群',role:'主視覺',c:'#c4b0e0',k:'#23201c',a:'#23201c',b:'#e2d8f0',m:4,
  d:'陶藝工作室的展覽主視覺，只有一張，延伸用在戶外看板與社群。',
  w:[{k:'image',t:'展覽 KV',r:[3,4]}]},
-{id:'lm-021',cat:'LM-021',t:'Orbit Mobile',zh:'電信 5G 資費廣告',g:'motion',y:2023,client:'Orbit 電信',ind:'電信',pf:'YouTube · App 開屏',role:'動態設計',c:'#2b2a27',k:'#f2f1ec',a:'#f2f1ec',b:'#d9d6cf',m:0,
+{id:'lm-021',cat:'LM-021',t:'Orbit Mobile',zh:'電信 5G 資費廣告',g:'motion',y:2023,client:'Orbit 電信',ind:'電信',pf:'YouTube · App 開屏',role:'動態設計',c:'#dfe3a4',k:'#23201c',a:'#23201c',b:'#eef0d0',m:0,
  d:'電信品牌的 5G 資費廣告，同一段素材剪成 16:9 影片與 640×1386 的 App 開屏版本。',
  w:[{k:'motion',t:'16:9 主片',items:[{r:[16,9],dur:20}]},{k:'motion',t:'App 開屏',items:[{r:[640,1386],dur:5},{r:[640,1386],dur:5}]}]},
 {id:'lm-020',cat:'LM-020',t:'Hearth',zh:'鍋具開箱短影音',g:'motion',y:2022,client:'Hearth 廚具',ind:'電商',pf:'電商 App · Reels',role:'動態設計',c:'#e7a7a0',k:'#23201c',a:'#23201c',b:'#f3d3cf',m:2,
@@ -692,7 +695,7 @@ function detail(p){
 const cnt=g=>P.filter(p=>p.g===g).length;
 $('#spd').innerHTML=Object.entries(G).map(([g,v],i)=>`<button type="button" data-f="${g}" aria-current="${i===0}"><b>${v.en}</b><span>${v.zh} ${cnt(g)}</span></button>`).join('');
 const proj=p=>`<p class="pc">${esc(p.cat)} · ${p.y}</p><h4 class="pt">${esc(p.t)}</h4><p class="pz">${esc(p.zh)}</p><p class="pf">${esc(tags(p))}</p><p class="pm">${esc(p.client)} · ${esc(p.ind)}</p><a class="vlink" href="#${p.id}">查看專案 <span aria-hidden="true">→</span></a>`;
-$('#chaps').innerHTML=Object.entries(G).map(([g,v],ci)=>{const L=P.filter(p=>p.g===g),n=String(L.length).padStart(2,'0');return `<div class="chap" id="ch-${g}" data-g="${g}">
+$('#chaps').innerHTML=Object.entries(G).map(([g,v],ci)=>{const L=P.filter(p=>p.g===g),n=String(L.length).padStart(2,'0');return `<div class="chap ch-${g}" id="ch-${g}" data-g="${g}">
  <header class="chd"><p class="ck">${trk(ci)} / ${v.zh}</p><h3 class="cw" data-split>${v.en}</h3><p class="cf">${esc(v.fmt)}</p></header>
  <div class="cstage"><div class="deck" tabindex="0" role="group" aria-roledescription="carousel" aria-label="${v.en} 作品，左右鍵切換">${L.map((p,i)=>`<a class="card" href="#${p.id}" data-i="${i}" draggable="false" aria-label="${esc(p.t+' '+p.zh)}">${pack(p,'',i)}</a>`).join('')}</div>
   <div class="dctl"><button class="dbtn" type="button" data-step="-1" aria-label="上一件">←</button><span class="dn num">01</span><span class="dbar"><i></i></span><span class="num">${n}</span><button class="dbtn" type="button" data-step="1" aria-label="下一件">→</button></div></div>
