@@ -9,8 +9,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
 /* VOICE   occasion: a designer's own record shop. Bright, editorial, confident, the works stay loud
-   IDEA    the portfolio is a record collection: each project is a release with catalog no., sleeve, label and tracklist;
-           categories are playback speeds — Web 33⅓ (long play), Visual 45 (singles), Motion 78 (fast)
+   IDEA    the portfolio is browsed like a record collection: each commercial project sits in a sleeve and slides out when picked;
+           the shelf is split into three chapters — Web, Visual, Motion — each with a display suited to its formats
    PICTURE a big record sliding out of a colour-field sleeve; it spins with your scroll, a tonearm tracks your progress
    COLOUR  white ground, near-black ink; every release brings its own flat sleeve colour that floods its section; signal red = now playing
    TYPE    Archivo (wide 125 for display, normal for UI) + Noto Sans TC for Chinese text
@@ -145,8 +145,8 @@ img,svg{max-width:100%}
 .spd button b{display:block;font:800 22px/1 var(--disp);font-stretch:115%}
 .spd button span{font-size:13px;color:var(--mute)}
 .spd button::after{content:"";position:absolute;right:9px;top:9px;width:6px;height:6px;border-radius:50%;background:var(--line);transition:background-color .3s,box-shadow .3s}
-.spd button[aria-pressed=true]{background:var(--bg);box-shadow:0 1px 0 var(--line),0 0 0 1px var(--line)}
-.spd button[aria-pressed=true]::after{background:var(--red);box-shadow:0 0 0 3px color-mix(in srgb,var(--red) 25%,transparent)}
+.spd button[aria-current=true]{background:var(--bg);box-shadow:0 1px 0 var(--line),0 0 0 1px var(--line)}
+.spd button[aria-current=true]::after{background:var(--red);box-shadow:0 0 0 3px color-mix(in srgb,var(--red) 25%,transparent)}
 .spd button:active{transform:translateY(1px)}
 .vw{display:flex;gap:2px;font:700 15px var(--disp)}
 .vw button{min-height:44px;padding:0 10px;color:var(--mute);transition:color .3s}
@@ -154,12 +154,29 @@ img,svg{max-width:100%}
 .cnote{font-size:14px;color:var(--mute);margin:14px 0 0}
 .stage{transition:opacity .25s,transform .35s var(--ease)}
 .swap .stage{opacity:0;transform:translateY(14px)}
-.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:clamp(56px,7vw,120px) clamp(16px,2.2vw,36px);grid-auto-flow:dense;align-items:start}
-.it{display:block;grid-column:span 3;position:relative}
-.it.g-web{grid-column:span 5}
-.it.g-motion{grid-column:span 4}
-.it:nth-child(3n+2){margin-top:clamp(40px,7vw,120px)}
-.it:nth-child(4n+3){margin-top:clamp(20px,3vw,48px)}
+.cnav{position:sticky;top:64px;z-index:30;padding:10px 0;margin-bottom:clamp(24px,3vw,48px)}
+.cnav .spd{display:inline-flex;box-shadow:0 8px 24px -16px rgba(0,0,0,.35)}
+.spd button{min-width:110px}
+.chap{padding-bottom:clamp(72px,9vw,150px)}
+.chh{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:12px 40px;align-items:end;padding-top:22px;margin-bottom:clamp(36px,4vw,64px)}
+.chh h3{font:800 clamp(56px,9vw,150px)/.84 var(--disp);font-stretch:122%;letter-spacing:-.05em;margin:0}
+.chh div{display:flex;flex-direction:column;gap:4px;padding-bottom:6px;max-width:22em}
+.chh div b{font:700 20px/1.2 var(--text)}
+.chh div span{font-size:15px;color:var(--mute)}
+.chh em{font:800 clamp(32px,4vw,64px)/.9 var(--disp);font-style:normal;font-stretch:118%;color:var(--mute)}
+.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:clamp(56px,7vw,120px) clamp(16px,2.2vw,36px);align-items:start}
+.ch-web .it{grid-column:span 6}
+.ch-web .it:nth-child(even){margin-top:clamp(60px,9vw,160px)}
+.ch-visual .it{grid-column:span 3}
+.ch-visual .it:nth-child(4n+2),.ch-visual .it:nth-child(4n+4){margin-top:clamp(40px,6vw,100px)}
+.ch-motion .it{grid-column:span 4}
+.ch-motion .it:nth-child(3n+2){margin-top:clamp(40px,6vw,110px)}
+.lgh{display:flex;align-items:baseline;gap:12px;padding:44px 0 14px;font:700 17px var(--text)}
+.lgh b{font:800 clamp(28px,3vw,40px)/1 var(--disp);font-stretch:118%}
+.lgh span{margin-left:auto;color:var(--mute);font-size:14px}
+.k-set{display:flex;flex-wrap:wrap;gap:28px 20px;align-items:flex-end}
+.k-set figure{margin:0;width:calc(var(--w) * 100%)}
+.it{display:block;position:relative}
 .it .pack{--up:.07}
 .it .pack>.rec{transition:transform .9s var(--ease)}
 .it:hover .pack,.it:focus-visible .pack{--up:.2}
@@ -168,11 +185,11 @@ img,svg{max-width:100%}
 .drop{animation:drop .9s var(--ease) both;animation-delay:calc(var(--i)*55ms)}
 @keyframes drop{from{clip-path:inset(0 0 100% 0);transform:translateY(40px)}to{clip-path:inset(-40% 0 0 0);transform:none}}
 .cap{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:4px 12px;align-items:baseline;margin-top:16px;padding-top:12px}
-.cap .cat,.cap .rpm{font:600 13px var(--disp);color:var(--mute)}
+.cap .cat,.cap .yr{font:600 13px var(--disp);color:var(--mute)}
 .cap b{font:800 clamp(18px,1.5vw,22px)/1.15 var(--disp);font-stretch:110%;letter-spacing:-.015em}
-.cap p{grid-column:2/4;margin:0;font-size:14px;color:var(--mute);line-height:1.4}
+.cap p{grid-column:2/4;margin:0;font-size:14px;color:var(--mute);line-height:1.5}
 .list{border-bottom:1px solid var(--line)}
-.row{position:relative;display:grid;grid-template-columns:90px minmax(0,1.3fr) minmax(0,1fr) 120px 80px 56px;gap:16px;align-items:baseline;padding:22px 0;border-top:1px solid var(--line);isolation:isolate}
+.row{position:relative;display:grid;grid-template-columns:90px minmax(0,1.2fr) minmax(0,1fr) minmax(0,1fr) 90px 56px;gap:16px;align-items:baseline;padding:22px 0;border-top:1px solid var(--line);isolation:isolate}
 .row::before{content:"";position:absolute;inset:0 calc(var(--g)*-1);background:var(--c);z-index:-1;transform:scaleY(0);transform-origin:bottom;transition:transform .55s var(--ease)}
 .row>*{transition:transform .55s var(--ease),color .3s}
 .row b{font:800 clamp(24px,3vw,46px)/1 var(--disp);font-stretch:115%;letter-spacing:-.03em}
@@ -355,9 +372,13 @@ figcaption.fc{font:600 13px var(--disp);color:var(--mute);margin-top:10px}
 
 /* tablet */
 @media(max-width:1100px){
- .grid{grid-template-columns:repeat(6,minmax(0,1fr))}
- .it{grid-column:span 2}.it.g-web{grid-column:span 4}.it.g-motion{grid-column:span 3}
- .row{grid-template-columns:76px minmax(0,1.4fr) minmax(0,1fr) 100px 56px}
+ .ch-visual .it{grid-column:span 4}
+ .ch-visual .it:nth-child(n){margin-top:0}
+ .ch-visual .it:nth-child(3n+2){margin-top:60px}
+ .ch-motion .it{grid-column:span 6}
+ .ch-motion .it:nth-child(n){margin-top:0}
+ .ch-motion .it:nth-child(even){margin-top:80px}
+ .row{grid-template-columns:76px minmax(0,1.4fr) minmax(0,1fr) 90px 56px}
  .row .t{display:none}
  .dtm{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
@@ -367,6 +388,9 @@ figcaption.fc{font:600 13px var(--disp);color:var(--mute);margin-top:10px}
  .hpack{width:min(58vw,440px)}
  .hcap{width:100%}
  .chead{grid-template-columns:minmax(0,1fr)}
+ .chh{grid-template-columns:minmax(0,1fr) auto}
+ .chh div{grid-column:1/3;grid-row:2}
+ .cnav{top:58px}
  .ctrl{justify-content:flex-start}
  .npin{grid-template-columns:minmax(0,1fr)}
  .npst{display:none}
@@ -386,10 +410,15 @@ figcaption.fc{font:600 13px var(--disp);color:var(--mute);margin-top:10px}
 }
 @media(max-width:600px){
  body{font-size:16px}
- .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:48px 14px}
- .it,.it.g-motion{grid-column:span 1}.it.g-web{grid-column:span 2}
- .it:nth-child(n){margin-top:0}
- .it.g-visual:nth-child(even),.it.g-motion:nth-child(even){margin-top:36px}
+ .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:44px 14px}
+ .ch-web .it{grid-column:span 2}
+ .it:nth-child(n),.ch-web .it:nth-child(even){margin-top:0}
+ .ch-visual .it,.ch-motion .it{grid-column:span 1}
+ .ch-visual .it:nth-child(even),.ch-motion .it:nth-child(even){margin-top:36px}
+ .cnav .spd{display:flex}
+ .spd button{min-width:0}
+ .k-set{gap:20px 12px}
+ .k-mo.port .moc>span:last-child{display:none}
  .it .pack{--up:.1}
  .cap{grid-template-columns:minmax(0,1fr) auto}
  .cap .cat{grid-column:1/3}
@@ -436,9 +465,9 @@ figcaption.fc{font:600 13px var(--disp);color:var(--mute);margin-top:10px}
  <div class="wrap">
   <a class="logo" href="#top" aria-label="林沐 Lin Mu 回到頂部"><i></i>Lin Mu 林沐</a>
   <nav class="links" aria-label="主要">
-   <a href="#works">Crate<small>作品</small></a>
-   <a href="#playing">Now playing<small>精選</small></a>
-   <a href="#about">Liner notes<small>關於</small></a>
+   <a href="#works">Works<small>作品</small></a>
+   <a href="#playing">Selected<small>精選</small></a>
+   <a href="#about">About<small>關於</small></a>
    <a href="#contact">Contact<small>聯絡</small></a>
   </nav>
   <span class="avail">2027 Q1 開放接案</span>
@@ -446,9 +475,9 @@ figcaption.fc{font:600 13px var(--disp);color:var(--mute);margin-top:10px}
  </div>
 </header>
 <div class="prog" aria-hidden="true"><i id="progBar"></i></div>
-<button class="mini" id="mini" type="button" aria-label="播放進度，點擊回到頂部">
+<button class="mini" id="mini" type="button" aria-label="閱讀進度，點擊回到頂部">
  <svg viewBox="0 0 100 100" class="arm" aria-hidden="true"><circle cx="50" cy="50" r="42" fill="#151515"/><circle cx="50" cy="50" r="15" fill="var(--red)"/><circle cx="50" cy="50" r="2.5" fill="var(--bg)"/><g id="miniArm"><circle cx="92" cy="10" r="7" fill="currentColor"/><path d="M92 10V62L85 72" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/></g></svg>
- <span class="num" id="miniT">0:00 / 42:16</span>
+ <span class="num" id="miniT">0%</span>
 </button>
 
 <main>
@@ -457,7 +486,7 @@ figcaption.fc{font:600 13px var(--disp);color:var(--mute);margin-top:10px}
   <h1 class="wm" aria-label="Lin Mu 林沐"><span class="ch" style="--d:0"><span>L</span></span><span class="ch" style="--d:1"><span>I</span></span><span class="ch" style="--d:2"><span>N</span></span><span class="ch" style="--d:3;width:.18em"><span>&nbsp;</span></span><span class="ch" style="--d:4"><span>M</span></span><span class="ch" style="--d:5"><span>U</span></span></h1>
   <div class="hg">
    <div class="hinfo">
-    <p class="lead rt">林沐，台北的視覺與互動設計師。為品牌做網站、主視覺與動態，這裡收錄 2019 到 2026 年的 <b id="totalN">11</b> 張作品，依「播放速度」分類。</p>
+    <p class="lead rt">林沐，台北的商業設計師。為品牌做網站、廣告素材與短影音，這裡收錄 2022 到 2026 年的 <b id="totalN">12</b> 件專案，分成 Web、Visual、Motion 三類。</p>
     <ul class="speeds rt" id="speeds"></ul>
    </div>
    <div class="hstage" id="hstage">
@@ -466,7 +495,7 @@ figcaption.fc{font:600 13px var(--disp);color:var(--mute);margin-top:10px}
      <span class="np-tag">Now playing</span>
      <div class="hnow" aria-live="polite"><b id="hT"></b><span id="hM"></span></div>
      <div class="htl" id="htl" role="group" aria-label="切換精選唱片"></div>
-     <a class="hopen" id="hOpen" href="#">打開唱片套 <span aria-hidden="true">→</span></a>
+     <a class="hopen" id="hOpen" href="#">查看專案 <span aria-hidden="true">→</span></a>
     </div>
    </div>
   </div>
@@ -478,16 +507,14 @@ figcaption.fc{font:600 13px var(--disp);color:var(--mute);margin-top:10px}
 <section class="crate" id="works">
  <div class="wrap">
   <div class="chead">
-   <div>
-    <h2 class="sh" data-split>The Crate<small>唱片櫃 · 全部作品</small></h2>
-   </div>
-   <div class="ctrl">
-    <div class="spd" id="spd" role="group" aria-label="依類型篩選"></div>
-    <div class="vw" role="group" aria-label="顯示方式"><button type="button" data-v="grid" aria-pressed="true">封套</button><button type="button" data-v="list" aria-pressed="false">目錄</button></div>
-   </div>
+   <h2 class="sh" data-split>Works<small>作品 · 依 Web、Visual、Motion 分類</small></h2>
+   <div class="vw" role="group" aria-label="顯示方式"><button type="button" data-v="grid" aria-pressed="true">封套</button><button type="button" data-v="list" aria-pressed="false">目錄</button></div>
   </div>
+ </div>
+ <nav class="cnav" aria-label="作品分類"><div class="wrap"><div class="spd" id="spd"></div></div></nav>
+ <div class="wrap">
   <div class="stage" id="stage">
-   <div class="grid" id="grid"></div>
+   <div id="chaps"></div>
    <div class="list" id="list" hidden></div>
   </div>
   <p class="cnote">作品、客戶與經歷皆為示意內容，以色塊與幾何圖形代替實際素材。</p>
@@ -505,8 +532,8 @@ figcaption.fc{font:600 13px var(--disp);color:var(--mute);margin-top:10px}
   </div>
   <div id="npList">
    <div class="npintro">
-    <h2 class="sh" data-split>Now playing<small>精選 · 四張代表作，依序播放</small></h2>
-    <p class="rt">往下捲動就是放下唱針。每張唱片會帶著自己的封套色彩鋪滿畫面，唱臂隨進度往內圈移動。</p>
+    <h2 class="sh" data-split>Selected<small>精選 · 四件代表作</small></h2>
+    <p class="rt">往下捲動，每件作品會帶著自己的品牌色鋪滿畫面，左邊唱盤的唱臂跟著進度往內圈移動。</p>
    </div>
   </div>
  </div>
@@ -515,17 +542,17 @@ figcaption.fc{font:600 13px var(--disp);color:var(--mute);margin-top:10px}
 <section class="liner" id="about">
  <div class="wrap">
   <div class="lntop">
-   <h2 class="sh" data-split>Liner notes<small>關於 · 封底說明</small></h2>
-   <p class="lnlead rt">我習慣把每個案子當成一張唱片來編排：先找到主旋律，再決定哪些細節留給 B 面。網站要能長時間播放，主視覺要像單曲一樣第一秒就記得，動態則講究節拍。</p>
+   <h2 class="sh" data-split>About<small>關於</small></h2>
+   <p class="lnlead rt">我做商業廣告與數位設計：品牌網站、電商活動、社群廣告與短影音。先把主視覺定調，再延伸到每個平台、每個尺寸，讓一整檔活動從官網到 Banner 到影片都像同一個品牌在說話。</p>
   </div>
   <div class="lnproc">
    <div class="lnrec" aria-hidden="true"><svg viewBox="0 0 100 100" id="lnSvg"></svg></div>
    <ol class="steps" id="steps"></ol>
   </div>
   <div class="lncols">
-   <div class="rg"><h4>Tracklist<small> 服務項目</small></h4><ol id="svc"></ol></div>
-   <div class="rg"><h4>Credits<small> 合作對象</small></h4><ol id="cred"></ol></div>
-   <div class="rg"><h4>Pressings<small> 經歷</small></h4><ol id="hist"></ol></div>
+   <div class="rg"><h4>Services<small> 服務項目</small></h4><ol id="svc"></ol></div>
+   <div class="rg"><h4>Clients<small> 合作客戶</small></h4><ol id="cred"></ol></div>
+   <div class="rg"><h4>Experience<small> 經歷</small></h4><ol id="hist"></ol></div>
   </div>
  </div>
 </section>
@@ -533,27 +560,27 @@ figcaption.fc{font:600 13px var(--disp);color:var(--mute);margin-top:10px}
 <section class="end" id="contact">
  <div class="wrap endg">
   <div>
-   <h2 class="sh" data-split>Side B<small>合作邀約</small></h2>
+   <h2 class="sh" data-split>Contact<small>合作邀約</small></h2>
    <button class="mail" id="mail" type="button" aria-label="複製 Email：hello@linmu.studio"><span>hello@linmu.studio</span></button>
-   <p class="endp">2027 第一季開放兩個品牌網站或視覺專案。來信請附上時程與預算範圍，三個工作天內回覆。<span id="copied" aria-live="polite"></span></p>
+   <p class="endp">2027 第一季開放兩檔品牌網站或廣告專案。來信請附上時程與預算範圍，三個工作天內回覆。<span id="copied" aria-live="polite"></span></p>
    <div class="socials"><a href="https://www.behance.net/">Behance</a><a href="https://dribbble.com/">Dribbble</a><a href="https://www.instagram.com/">Instagram</a></div>
   </div>
   <div class="runout" aria-hidden="true">
    <svg viewBox="0 0 200 200"><defs><path id="ro" d="M100 100m-78 0a78 78 0 1 1 156 0a78 78 0 1 1-156 0"/></defs>
     <circle cx="100" cy="100" r="98" fill="#111"/>
-    <g id="roG"><circle cx="100" cy="100" r="88" fill="none" stroke="#fff" stroke-opacity=".08"/><circle cx="100" cy="100" r="70" fill="none" stroke="#fff" stroke-opacity=".06"/><text font-family="Archivo" font-size="11.2" font-weight="700" fill="#e9e8e3" letter-spacing="2.2"><textPath href="#ro">THANK YOU FOR LISTENING · LM 2019—2026 · 刻於台北 · SIDE B ·</textPath></text><circle cx="100" cy="100" r="40" fill="var(--red)"/><text x="100" y="96" text-anchor="middle" font-family="Archivo" font-size="9" font-weight="800" fill="#111">LIN MU</text><text x="100" y="112" text-anchor="middle" font-family="Archivo" font-size="6.5" font-weight="600" fill="#111">LM-END · 33⅓</text></g>
+    <g id="roG"><circle cx="100" cy="100" r="88" fill="none" stroke="#fff" stroke-opacity=".08"/><circle cx="100" cy="100" r="70" fill="none" stroke="#fff" stroke-opacity=".06"/><text font-family="Archivo" font-size="11.2" font-weight="700" fill="#e9e8e3" letter-spacing="2.2"><textPath href="#ro">THANK YOU FOR WATCHING · WEB · VISUAL · MOTION · 林沐 2026 ·</textPath></text><circle cx="100" cy="100" r="40" fill="var(--red)"/><text x="100" y="96" text-anchor="middle" font-family="Archivo" font-size="9" font-weight="800" fill="#111">LIN MU</text><text x="100" y="112" text-anchor="middle" font-family="Archivo" font-size="6.5" font-weight="600" fill="#111">TAIPEI · 2026</text></g>
     <circle cx="100" cy="100" r="2.6" fill="var(--red)" stroke="#111"/>
    </svg>
   </div>
  </div>
 </section>
 </main>
-<footer class="foot"><div class="wrap"><span>© 2026 林沐 Lin Mu · 台北</span><span>作品與客戶名稱皆為示意內容</span><a href="#top">回到 A 面</a></div></footer>
+<footer class="foot"><div class="wrap"><span>© 2026 林沐 Lin Mu · 台北</span><span>作品與客戶名稱皆為示意內容</span><a href="#top">回到頂部</a></div></footer>
 
 <div class="flo" id="flo" aria-hidden="true"></div>
 <div class="menu" id="menu" hidden>
  <button class="mx" id="mx" type="button">Close</button>
- <nav aria-label="行動版選單"><a href="#works">Crate<small>作品</small></a><a href="#playing">Now playing<small>精選</small></a><a href="#about">Liner notes<small>關於</small></a><a href="#contact">Contact<small>聯絡</small></a></nav>
+ <nav aria-label="行動版選單"><a href="#works">Works<small>作品</small></a><a href="#playing">Selected<small>精選</small></a><a href="#about">About<small>關於</small></a><a href="#contact">Contact<small>聯絡</small></a></nav>
  <p>2027 Q1 開放接案 · hello@linmu.studio</p>
 </div>
 <div class="dlg" id="dlg" role="dialog" aria-modal="true" aria-label="作品內容" hidden>
@@ -576,46 +603,48 @@ figcaption.fc{font:600 13px var(--disp);color:var(--mute);margin-top:10px}
      {k:'motion', t, items:[{r:[16,9], dur:秒, src:'a.mp4'}]}
    ============================================================ */
 const P=[
-{id:'lm-031',cat:'LM-031',t:'Tidewater Hotel',zh:'潮汐旅店官網',g:'web',y:2026,client:'Tidewater Hotels',role:'藝術指導、UI、互動',c:'#2a3cff',k:'#ffffff',a:'#ffd60a',b:'#eef0ff',m:0,url:'tidewater.hotel',
- d:'海港旅店的品牌官網與訂房流程。以潮汐的漲退作為版面節奏，房型頁隨滾動像水位一樣揭露，訂房從七步縮成三步。',
- w:[{k:'web',t:'首頁',dv:['desktop','mobile']},{k:'web',t:'房型與訂房',dv:['desktop','mobile']},{k:'webm',t:'會員中心',n:3,app:true}]},
-{id:'lm-030',cat:'LM-030',t:'Night Transit',zh:'夜行城市音樂祭',g:'visual',y:2026,client:'Night Transit Festival',role:'主視覺、活動視覺系統',c:'#151515',k:'#ffffff',a:'#ff3b1f',b:'#2a2a2a',m:2,
- d:'城市夜間音樂祭的年度視覺。以末班車路線圖為母題，延伸成主海報、演出陣容系列與各尺寸廣告。',
- w:[{k:'image',t:'主視覺海報',r:[4,5]},{k:'series',t:'演出陣容系列',items:[[1,1],[1,1],[1,1]]},{k:'image',t:'社群 Banner',r:[1200,628]},{k:'image',t:'網站橫幅',r:[970,250]}]},
-{id:'lm-029',cat:'LM-029',t:'Mono Coffee',zh:'冬季選豆電子報',g:'visual',y:2025,client:'Mono Coffee Roasters',role:'EDM、社群視覺',c:'#ff6a13',k:'#1a0f08',a:'#ffffff',b:'#ffe3d1',m:3,
- d:'精品咖啡的季節電子報。把試飲筆記排成唱片內頁的曲目表，長圖在手機上一指滑完。',
- w:[{k:'long',t:'冬季 EDM',r:[600,2600]},{k:'image',t:'社群單圖',r:[1,1]}]},
-{id:'lm-028',cat:'LM-028',t:'Form & Field',zh:'年度報告開場動態',g:'motion',y:2025,client:'Form & Field 基金會',role:'動態設計、分鏡',c:'#12b886',k:'#05281b',a:'#f8f272',b:'#d6f6e9',m:1,
- d:'永續基金會年度報告的開場影片。數據以節拍呈現：每一個成長數字都對應一個鼓點。',
- w:[{k:'motion',t:'開場影片',items:[{r:[16,9],dur:42}]},{k:'motion',t:'數據段落',items:[{r:[16,9],dur:18},{r:[16,9],dur:12}]}]},
-{id:'lm-027',cat:'LM-027',t:'Pocket',zh:'小口袋記帳 App',g:'web',y:2025,client:'Pocket Labs',role:'產品介面、行銷頁',c:'#ff8fc8',k:'#2a0b1c',a:'#2a3cff',b:'#ffeaf5',m:4,url:'pocket.app',
- d:'給大學生的記帳 App 與行銷頁。只做手機版：所有操作都在拇指範圍內完成。',
- w:[{k:'webm',t:'App 介面',n:3,app:true},{k:'webm',t:'行銷頁',n:2}]},
-{id:'lm-026',cat:'LM-026',t:'Kiln',zh:'窯｜陶藝展覽主視覺',g:'visual',y:2025,client:'Kiln Studio',role:'主視覺',c:'#ffd60a',k:'#1b1600',a:'#151515',b:'#fff6c2',m:0,
- d:'陶藝工作室的展覽主視覺。只有一張：用一個燒製過的圓，說完整個展覽。',
- w:[{k:'image',t:'展覽主視覺',r:[3,4]}]},
-{id:'lm-025',cat:'LM-025',t:'Ripple',zh:'漣漪｜直式短片系列',g:'motion',y:2024,client:'Ripple Sportswear',role:'動態設計、剪輯',c:'#6ec6ff',k:'#04202f',a:'#ff3b1f',b:'#e1f3ff',m:3,
- d:'運動品牌的社群直式短片，三支各 15 秒，為手機單手觀看而剪。',
- w:[{k:'motion',t:'系列短片',items:[{r:[9,16],dur:15},{r:[9,16],dur:15},{r:[9,16],dur:15}]}]},
-{id:'lm-024',cat:'LM-024',t:'Night Garden',zh:'植物園夜間導覽',g:'web',y:2024,client:'城市植物園',role:'網站設計、宣傳動態',c:'#0f5132',k:'#eaffea',a:'#b8ff5c',b:'#e4f5e9',m:1,url:'nightgarden.tw',
- d:'植物園夜間開放的導覽網站。地圖隨時間變暗，花期資訊像曲目一樣依序亮起；另附宣傳動態。',
- w:[{k:'web',t:'導覽網站',dv:['desktop','mobile']},{k:'motion',t:'宣傳動態',items:[{r:[16,9],dur:30},{r:[9,16],dur:15}]}]},
-{id:'lm-023',cat:'LM-023',t:'Studio Hum',zh:'錄音室品牌網站',g:'web',y:2023,client:'Studio Hum',role:'網站設計',c:'#ff3b1f',k:'#ffffff',a:'#151515',b:'#ffe5de',m:2,url:'studiohum.com',
- d:'獨立錄音室的品牌網站，把預約時段做成可以「排歌」的時間表。',
- w:[{k:'web',t:'首頁',dv:['desktop','mobile']},{k:'web',t:'預約時段',dv:['desktop','mobile']}]},
-{id:'lm-022',cat:'LM-022',t:'Paper Moon',zh:'紙月亮書店十週年',g:'visual',y:2023,client:'紙月亮書店',role:'系列視覺、EDM',c:'#10206b',k:'#ffffff',a:'#ff8fc8',b:'#e6e9ff',m:4,
- d:'書店十週年的系列視覺與會員電子報，四張海報各自代表一段書架。',
- w:[{k:'series',t:'十週年海報',items:[[2,3],[2,3],[2,3],[2,3]]},{k:'long',t:'會員 EDM',r:[600,2200]},{k:'image',t:'活動 Banner',r:[1200,628]}]},
-{id:'lm-021',cat:'LM-021',t:'Orbit',zh:'科技媒體品牌片頭',g:'motion',y:2023,client:'Orbit Media',role:'動態設計',c:'#151515',k:'#ffffff',a:'#ffd60a',b:'#2a2a2a',m:0,
- d:'科技媒體的品牌片頭，同一段旋律剪成橫式與直式兩種畫幅。',
- w:[{k:'motion',t:'橫式片頭',items:[{r:[16,9],dur:8}]},{k:'motion',t:'直式版本',items:[{r:[9,16],dur:8}]}]}
+{id:'lm-031',cat:'LM-031',t:'Tidewater Hotel',zh:'旅店官網改版',g:'web',y:2026,client:'Tidewater Hotels',ind:'旅宿',pf:'官網 · 訂房系統',role:'UI 設計、互動',c:'#2a3cff',k:'#ffffff',a:'#ffd60a',b:'#eef0ff',m:0,url:'tidewater.hotel',
+ d:'海港旅店的官網改版與訂房流程。房型頁隨捲動揭露，訂房從七步縮成三步，桌機與手機共用同一套模組。',
+ w:[{k:'web',t:'首頁',dv:['desktop','mobile']},{k:'web',t:'房型與訂房流程',dv:['desktop','mobile']},{k:'webm',t:'會員中心',n:3,app:true}]},
+{id:'lm-030',cat:'LM-030',t:'Brew & Co.',zh:'冬季咖啡節 Campaign',g:'visual',y:2026,client:'Brew & Co.',ind:'餐飲',pf:'Meta · LINE · 官網',role:'KV、社群廣告、Banner',c:'#151515',k:'#ffffff',a:'#ff6a13',b:'#2a2a2a',m:2,ad:{h:'冬季限定',s:'第二杯半價',cta:'立即購買',tag:'50%'},
+ d:'連鎖咖啡的冬季檔期。先定主視覺，再延伸成社群三種版位與電商各尺寸 Banner，所有素材共用一套版型，換檔期只需替換商品與文案。',
+ w:[{k:'image',t:'主視覺 KV',r:[1920,1080]},{k:'series',t:'社群廣告',items:[[1080,1080],[1080,1350],[1080,1920]]},{k:'set',t:'電商 Banner',items:[[1200,628],[970,250],[300,600],[300,250],[728,90],[320,100]]}]},
+{id:'lm-029',cat:'LM-029',t:'Mono Coffee',zh:'會員 eDM',g:'visual',y:2025,client:'Mono Coffee Roasters',ind:'零售',pf:'eDM · LINE',role:'eDM、社群',c:'#ff6a13',k:'#1a0f08',a:'#ffffff',b:'#ffe3d1',m:3,ad:{h:'冬季選豆',s:'會員限定 85 折',cta:'選購豆單',tag:'85折'},
+ d:'精品咖啡的季節會員電子報，同步延伸成 LINE 推播圖。長圖依手機閱讀節奏分段，每一段只說一件事。',
+ w:[{k:'long',t:'會員 eDM',r:[600,2600]},{k:'image',t:'LINE 推播圖',r:[1040,1040],tag:'社群廣告'}]},
+{id:'lm-028',cat:'LM-028',t:'Form & Field',zh:'品牌形象影片',g:'motion',y:2025,client:'Form & Field 基金會',ind:'非營利',pf:'YouTube · Instagram',role:'動態設計、分鏡',c:'#12b886',k:'#05281b',a:'#f8f272',b:'#d6f6e9',m:1,
+ d:'年度品牌形象影片。主片 16:9 投放 YouTube，再剪成 9:16 版本給 Reels 與 Shorts，數據段落以節拍呈現。',
+ w:[{k:'motion',t:'主片',items:[{r:[16,9],dur:42}]},{k:'motion',t:'Reels／Shorts 版本',items:[{r:[9,16],dur:15},{r:[9,16],dur:15}]}]},
+{id:'lm-027',cat:'LM-027',t:'Pocket',zh:'記帳 App 推廣活動頁',g:'web',y:2025,client:'Pocket Labs',ind:'金融科技',pf:'Mobile web · App',role:'活動頁、產品介面',c:'#ff8fc8',k:'#2a0b1c',a:'#2a3cff',b:'#ffeaf5',m:4,url:'pocket.app',
+ d:'給大學生的記帳 App 推廣活動。廣告流量幾乎都來自手機，所以只做手機版，所有操作都在拇指範圍內完成。',
+ w:[{k:'webm',t:'活動頁',n:2},{k:'webm',t:'App 介面',n:3,app:true}]},
+{id:'lm-026',cat:'LM-026',t:'Mira Home',zh:'雙 11 電商 Banner',g:'visual',y:2025,client:'Mira 家電',ind:'電商',pf:'momo · 蝦皮 · Google 多媒體廣告',role:'Banner 系統',c:'#ffd60a',k:'#1b1600',a:'#ff3b1f',b:'#fff6c2',m:0,ad:{h:'雙 11 狂歡',s:'全館最高 69 折',cta:'馬上搶購',tag:'69折'},
+ d:'家電品牌的雙 11 檔期 Banner，一次交付多種平台尺寸。先做好可伸縮的版型，再依各平台規範調整文字與商品比例。',
+ w:[{k:'set',t:'平台 Banner',items:[[1200,628],[1080,1080],[970,250],[300,600],[728,90],[300,250],[320,100]]},{k:'image',t:'活動主視覺',r:[3,4]}]},
+{id:'lm-025',cat:'LM-025',t:'Ripple',zh:'運動品牌 Reels 系列',g:'motion',y:2024,client:'Ripple Sportswear',ind:'運動用品',pf:'Instagram · TikTok',role:'動態設計、剪輯',c:'#6ec6ff',k:'#04202f',a:'#ff3b1f',b:'#e1f3ff',m:3,
+ d:'運動品牌的社群直式短片，三支各 15 秒。前三秒就讓商品出現，為手機單手觀看而剪。',
+ w:[{k:'motion',t:'Reels 系列',items:[{r:[9,16],dur:15},{r:[9,16],dur:15},{r:[9,16],dur:15}]}]},
+{id:'lm-024',cat:'LM-024',t:'Fresh Week',zh:'生鮮電商週年慶',g:'web',y:2024,client:'Fresh Week 生鮮',ind:'電商',pf:'官網 · App 內嵌頁',role:'活動頁設計',c:'#0f5132',k:'#eaffea',a:'#b8ff5c',b:'#e4f5e9',m:1,url:'freshweek.tw',
+ d:'生鮮電商週年慶的活動主頁與 App 內嵌頁。限時商品依時段輪播，同一套模組桌機與手機共用。',
+ w:[{k:'web',t:'活動主頁',dv:['desktop','mobile']},{k:'webm',t:'App 內嵌頁',n:2}]},
+{id:'lm-023',cat:'LM-023',t:'Glow Lab',zh:'保養品新品 Landing page',g:'web',y:2023,client:'Glow Lab',ind:'美妝保養',pf:'Meta 廣告導流頁',role:'Landing page',c:'#ff3b1f',k:'#ffffff',a:'#151515',b:'#ffe5de',m:2,url:'glowlab.co',
+ d:'承接社群廣告流量的新品頁。首屏直接放商品與優惠，往下才是成分與使用步驟，從廣告點進來的人不用找。',
+ w:[{k:'web',t:'Landing page',dv:['desktop','mobile']}]},
+{id:'lm-022',cat:'LM-022',t:'Kiln',zh:'陶藝展覽 KV',g:'visual',y:2023,client:'Kiln Studio',ind:'藝文展演',pf:'戶外看板 · 社群',role:'主視覺',c:'#10206b',k:'#ffffff',a:'#ff8fc8',b:'#e6e9ff',m:4,ad:{h:'Kiln 陶藝聯展',s:'3.08 — 4.20 · 華山',cta:'了解展覽',tag:'免費'},
+ d:'陶藝工作室的展覽主視覺，只有一張，延伸用在戶外看板與社群。',
+ w:[{k:'image',t:'展覽 KV',r:[3,4]}]},
+{id:'lm-021',cat:'LM-021',t:'Orbit Mobile',zh:'電信 5G 資費廣告',g:'motion',y:2023,client:'Orbit 電信',ind:'電信',pf:'YouTube · App 開屏',role:'動態設計',c:'#151515',k:'#ffffff',a:'#ffd60a',b:'#2a2a2a',m:0,
+ d:'電信品牌的 5G 資費廣告，同一段素材剪成 16:9 影片與 640×1386 的 App 開屏版本。',
+ w:[{k:'motion',t:'16:9 主片',items:[{r:[16,9],dur:20}]},{k:'motion',t:'App 開屏',items:[{r:[640,1386],dur:5},{r:[640,1386],dur:5}]}]},
+{id:'lm-020',cat:'LM-020',t:'Hearth',zh:'鍋具開箱短影音',g:'motion',y:2022,client:'Hearth 廚具',ind:'電商',pf:'電商 App · Reels',role:'動態設計',c:'#7b2cff',k:'#ffffff',a:'#ffd60a',b:'#efe6ff',m:2,
+ d:'鍋具品牌的開箱短影音。640×1386 用於電商 App 內影音廣告，同步輸出 9:16 給社群。',
+ w:[{k:'motion',t:'電商 App 影音',items:[{r:[640,1386],dur:12},{r:[640,1386],dur:12}]},{k:'motion',t:'社群 9:16',items:[{r:[9,16],dur:15}]}]}
 ];
 const FEAT=['lm-031','lm-030','lm-028','lm-027'];
-const G={web:{rpm:'33⅓',n:33.3,fmt:'12" LP',en:'Web',zh:'網頁'},visual:{rpm:'45',n:45,fmt:'7" Single',en:'Visual',zh:'視覺'},motion:{rpm:'78',n:78,fmt:'10" 78',en:'Motion',zh:'動態'}};
-const STEPS=[['Listen','聆聽','訪談、研究與競品盤點，找出這個品牌真正的主旋律。'],['Arrange','編曲','資訊架構、版面節奏與動態分鏡，決定哪些是 A 面、哪些留給 B 面。'],['Press','壓片','視覺設計與可互動原型，每一個斷點與狀態都要能播放。'],['Play','播放','與工程協作上線，持續看數據調整，像巡演一樣一次比一次好。']];
-const SVC=[['A1','品牌網站與 RWD','33⅓'],['A2','App 與手機介面','33⅓'],['A3','主視覺與系列海報','45'],['A4','Banner 與 EDM 長圖','45'],['B1','動態設計與片頭','78'],['B2','社群直式短片','78']];
+const G={web:{en:'Web',zh:'網頁',fmt:'Mobile · RWD'},visual:{en:'Visual',zh:'視覺',fmt:'社群廣告 · 電商 Banner · eDM · KV'},motion:{en:'Motion',zh:'動態',fmt:'16:9 · 9:16 · 640×1386'}};
+const STEPS=[['Brief','洞察','從需求單、受眾與投放平台開始，先確認這檔活動要讓誰做什麼。'],['Concept','企劃','定出主視覺方向與版型系統，決定哪些元素在每個尺寸都要保留。'],['Craft','製作','網頁、靜態素材與動態同步製作，每個斷點、版位與秒數都要成立。'],['Launch','上線','依平台規範交付，上線後看成效調整素材，下一檔從這裡開始。']];
+const SVC=[['01','品牌網站與 RWD','Web'],['02','活動頁與 Landing page','Web'],['03','社群廣告素材','Visual'],['04','電商 Banner 與 eDM','Visual'],['05','主視覺 KV','Visual'],['06','品牌影片與短影音','Motion']];
 const HIST=[['2023—','獨立設計，台北','現在'],['2020','Studio Northline 資深設計師','3 年'],['2019','數位代理商 視覺設計師','1 年'],['2018','實踐大學 媒體傳達設計','畢業']];
-
 const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const FINE=matchMedia('(hover:hover) and (pointer:fine)').matches;
 const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
@@ -624,9 +653,12 @@ const hash=s=>{let h=7;for(const ch of s)h=(h*31+ch.charCodeAt(0))%2147483647;re
 const rng=seed=>{let s=seed%2147483646+1;return()=>(s=s*16807%2147483647)/2147483647};
 const byId=id=>P.find(p=>p.id===id);
 const fmtT=s=>Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0');
-const trk=(i,n)=>{const h=Math.ceil(n/2);return i<h?'A'+(i+1):'B'+(i-h+1)};
-const ratio=r=>Math.max(...r)<50?r.join(':'):r.join(' × ')+' px';
-const SPEC={web:w=>w.dv.length>1?'RWD · 1440 / 390':'Desktop · 1440',webm:w=>w.app?'App · 390 × 844':'手機網頁 · 390',image:w=>ratio(w.r),series:w=>w.items.length+' 件 · '+ratio(w.items[0]),long:w=>'長圖 · '+ratio(w.r),motion:w=>w.items.map(m=>m.r.join(':')+' · '+fmtT(m.dur)).join(' / ')};
+const trk=i=>String(i+1).padStart(2,'0');
+const ratio=r=>Math.max(...r)<50?r.join(':'):r.join('×');
+const uniq=a=>[...new Set(a)];
+const SPEC={web:w=>w.dv.length>1?'RWD · 1440 / 390':'Desktop · 1440',webm:w=>w.app?'App · 390×844':'Mobile · 390',image:w=>ratio(w.r),series:w=>uniq(w.items.map(ratio)).join(' · '),set:w=>w.items.length+' 種尺寸',long:w=>'eDM · '+ratio(w.r),motion:w=>uniq(w.items.map(m=>ratio(m.r))).join(' · ')+' · '+uniq(w.items.map(m=>fmtT(m.dur))).join(' / ')};
+const TAG={web:()=>'RWD',webm:w=>w.app?'App':'Mobile',image:()=>'KV',series:()=>'社群廣告',set:()=>'電商 Banner',long:()=>'eDM'};
+const tags=p=>uniq(p.w.flatMap(w=>w.tag?[w.tag]:w.k==='motion'?w.items.map(m=>ratio(m.r)):[TAG[w.k](w)])).join(' · ');
 const spec=w=>SPEC[w.k](w);
 const F=FEAT.map(byId);
 
@@ -657,7 +689,13 @@ function art(p,W,H,seed=0,mode){
  return g;
 }
 const svg=(W,H,inner,label='')=>`<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid slice" role="img" aria-label="${esc(label)}" xmlns="http://www.w3.org/2000/svg">${inner}</svg>`;
-const cover=(p,W,H,seed=0,cap=false,mode)=>{let g=art(p,W,H,seed,mode);if(cap){const f=Math.min(W,H)*.042;g+=`<text x="${f*1.4}" y="${f*2.2}" font-size="${f}" font-weight="800" ${AF} fill="${p.k}">${esc(p.cat)}</text><text x="${W-f*1.4}" y="${f*2.2}" text-anchor="end" font-size="${f}" font-weight="600" ${AF} fill="${p.k}">${G[p.g].rpm} RPM</text>`}return svg(W,H,g,p.t)};
+function adLayer(p,W,H){
+ const {h,s,cta,tag}=p.ad,ar=W/H,mn=Math.min(W,H),ZH='font-family="Noto Sans TC,Archivo,sans-serif"';
+ if(ar>2.4){const f=Math.min(H*.3,W*.055),cw=Math.min(H*1.5,W*.26),cf=Math.min(H*.2,cw/5.6);return `<rect width="${W*.66}" height="${H}" fill="${p.c}"/><text x="${H*.3}" y="${H*.5}" font-size="${f}" font-weight="900" ${ZH} fill="${p.k}">${esc(h)}</text><text x="${H*.3}" y="${H*.82}" font-size="${f*.55}" font-weight="700" ${ZH} fill="${p.k}">${esc(s)}</text><rect x="${W-H*.25-cw}" y="${H*.27}" width="${cw}" height="${H*.46}" rx="${H*.23}" fill="${p.k}"/><text x="${W-H*.25-cw/2}" y="${H*.5+cf*.36}" text-anchor="middle" font-size="${cf}" font-weight="700" ${ZH} fill="${p.c}">${esc(cta)}</text>`}
+ const ph=mn*.44,y0=H-ph,f=mn*.1,pad=mn*.07;
+ return `<rect y="${y0}" width="${W}" height="${ph}" fill="${p.c}"/><text x="${pad}" y="${y0+pad+f*.85}" font-size="${f}" font-weight="900" ${ZH} fill="${p.k}">${esc(h)}</text><text x="${pad}" y="${y0+pad+f*1.6}" font-size="${f*.5}" font-weight="700" ${ZH} fill="${p.k}">${esc(s)}</text><rect x="${pad}" y="${H-pad-mn*.1}" width="${mn*.34}" height="${mn*.1}" rx="${mn*.05}" fill="${p.k}"/><text x="${pad+mn*.17}" y="${H-pad-mn*.035}" text-anchor="middle" font-size="${mn*.045}" font-weight="700" ${ZH} fill="${p.c}">${esc(cta)}</text><circle cx="${W-mn*.16}" cy="${mn*.16}" r="${mn*.11}" fill="${p.k}"/><text x="${W-mn*.16}" y="${mn*.16+mn*.03}" text-anchor="middle" font-size="${mn*.075}" font-weight="900" ${ZH} fill="${p.c}">${esc(tag)}</text>`;
+}
+const cover=(p,W,H,seed=0,cap=false,mode,ad=false)=>{let g=art(p,W,H,seed,mode);if(ad&&p.ad)g+=adLayer(p,W,H);if(cap){const f=Math.min(W,H)*.042;g+=`<text x="${f*1.4}" y="${f*2.2}" font-size="${f}" font-weight="800" ${AF} fill="${p.k}">${esc(p.cat)}</text><text x="${W-f*1.4}" y="${f*2.2}" text-anchor="end" font-size="${f}" font-weight="600" ${AF} fill="${p.k}">${G[p.g].en}</text>`}return svg(W,H,g,p.t)};
 const nest=(p,x,y,w,h,seed,mode)=>`<svg x="${x}" y="${y}" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" preserveAspectRatio="xMidYMid slice">${art(p,w,h,seed,mode)}</svg>`;
 const bars=(x,y,w,n,col,op=.16,h=12,gap=24)=>{let g='';for(let i=0;i<n;i++)g+=`<rect x="${x}" y="${y+i*gap}" width="${w*(i===n-1?.55:.92-i*.05)}" height="${h}" rx="${h/2}" fill="${col}" fill-opacity="${op}"/>`;return g};
 
@@ -704,7 +742,7 @@ function edm(p,W,H){
  return svg(W,H,g,p.t+' 長圖');
 }
 function motionArt(p,rr,seed){
- const L=rr[0]>rr[1],W=L?1600:900,H=L?900:1600,mn=Math.min(W,H),r=rng(hash(p.id)+seed*101),cx=W*(L?.68:.5),cy=H*(L?.5:.38),R0=mn*.3;
+ const L=rr[0]>rr[1],W=L?1600:Math.round(1600*rr[0]/rr[1]),H=L?Math.round(1600*rr[1]/rr[0]):1600,mn=Math.min(W,H),r=rng(hash(p.id)+seed*101),cx=W*(L?.68:.5),cy=H*(L?.5:.38),R0=mn*.3;
  let g=`<rect width="${W}" height="${H}" fill="${p.c}"/>`;
  for(let i=1;i<5;i++)g+=`<circle cx="${cx}" cy="${cy}" r="${R0+i*mn*.06}" fill="none" stroke="${p.k}" stroke-opacity=".14" stroke-width="2"/>`;
  g+=`<g class="mv-rot"><circle cx="${cx}" cy="${cy}" r="${R0}" fill="${p.a}"/><path d="M${cx} ${cy}L${cx+R0} ${cy}A${R0} ${R0} 0 0 1 ${cx} ${cy+R0}Z" fill="${p.k}" fill-opacity=".85"/></g><circle class="mv-bob" cx="${cx+R0*1.15}" cy="${cy-R0*.95}" r="${mn*.03}" fill="${p.k}"/>`;
@@ -714,20 +752,21 @@ function motionArt(p,rr,seed){
 }
 
 /* ---------- builders ---------- */
-const rec=p=>`<div class="rec" style="--c:${p.c};--k:${p.k}"><div class="disc" data-o="${hash(p.id)%360}" data-k="${(.8+hash(p.cat)%40/100).toFixed(2)}"><div class="lab"><b>${esc(p.cat)}</b><i>${esc(p.t)}</i><s>${G[p.g].rpm} RPM · ${esc(G[p.g].fmt)}</s></div></div><div class="sheen"></div></div>`;
+const rec=p=>`<div class="rec" style="--c:${p.c};--k:${p.k}"><div class="disc" data-o="${hash(p.id)%360}" data-k="${(.8+hash(p.cat)%40/100).toFixed(2)}"><div class="lab"><b>${esc(p.cat)}</b><i>${esc(p.t)}</i><s>${G[p.g].en} · ${p.y}</s></div></div><div class="sheen"></div></div>`;
 const pack=(p,cls='',seed=0)=>`<div class="pack ${cls}" style="--c:${p.c}">${rec(p)}<div class="slv"><div class="lay">${cover(p,1000,1000,seed,true)}</div></div></div>`;
 const media=(src,alt,ar)=>/\.(mp4|webm|mov)$/i.test(src)?`<video src="${esc(src)}" muted loop playsinline style="width:100%;aspect-ratio:${ar};display:block"></video>`:`<img src="${esc(src)}" alt="${esc(alt)}" loading="lazy" style="width:100%;aspect-ratio:${ar};display:block">`;
 const browser=(p,w,seed)=>{const im=w.src?.desktop?media(w.src.desktop,p.t,'1440/2800'):webShot(p,'d',seed),sh=w.src?.desktop?-67.86:-(1-900/lastH)*100;return `<div class="frm br"><div class="brb"><i></i><i></i><i></i><span>${esc(p.url||'example.com')}/${seed%2?'rooms':''}</span></div><div class="brv"><div class="pg" style="--sh:${sh.toFixed(2)}%">${im}</div></div></div>`};
 const phone=(p,seed,app,src)=>{const im=src?media(src,p.t,app?'390/844':'390/2000'):app?appShot(p,seed):webShot(p,'m',seed),sh=app?0:src?-57.8:-(1-844/lastH)*100;return `<div class="frm ph${app?' still':''}"><div class="phv"><div class="pg" style="--sh:${sh.toFixed(2)}%">${im}</div></div></div>`};
-const player=(p,m,seed)=>`<figure class="mo" style="--ar:${m.r[0]/m.r[1]}" data-dur="${m.dur}"><div class="mov rc">${m.src?media(m.src,p.t,m.r.join('/')):motionArt(p,m.r,seed)}</div><figcaption class="moc"><button class="mop" type="button" aria-label="播放 ${esc(p.t)}"></button><span class="mot num">0:00 / ${fmtT(m.dur)}</span><span class="mobar"><i></i></span><span>${m.r.join(':')}</span></figcaption></figure>`;
+const player=(p,m,seed)=>`<figure class="mo" style="--ar:${m.r[0]/m.r[1]}" data-dur="${m.dur}"><div class="mov rc">${m.src?media(m.src,p.t,m.r.join('/')):motionArt(p,m.r,seed)}</div><figcaption class="moc"><button class="mop" type="button" aria-label="播放 ${esc(p.t)}"></button><span class="mot num">0:00 / ${fmtT(m.dur)}</span><span class="mobar"><i></i></span><span>${ratio(m.r)}</span></figcaption></figure>`;
 const fitRow=(rs,cap=78)=>{const s=rs.reduce((t,r)=>t+r[0]/r[1],0);return `max-width:calc(${cap}vh * ${s.toFixed(3)} + ${(rs.length-1)*20}px)`};
 function work(p,w,i){
  const s=i*3+1;
  if(w.k==='web')return `<div class="k-web${w.dv.length<2?' solo':''}"><div>${browser(p,w,s)}</div>${w.dv.includes('mobile')?`<div class="slot">${phone(p,s+1,false,w.src?.mobile)}</div>`:''}</div>`;
  if(w.k==='webm')return `<div class="k-webm">${Array.from({length:w.n},(_,j)=>`<div class="slot"><div data-par="${[.0,.07,.03][j%3]}">${phone(p,s+j,w.app,w.src?.[j])}</div></div>`).join('')}</div>`;
- if(w.k==='image'){const ar=w.r[0]/w.r[1],u=1000/Math.min(...w.r)*(ar>3?.5:1);return `<figure class="k-img" style="--ar:${ar}"><div class="art rc">${w.src?media(w.src,w.t,w.r.join('/')):cover(p,Math.round(w.r[0]*u),Math.round(w.r[1]*u),s)}</div><figcaption class="fc">${esc(ratio(w.r))}</figcaption></figure>`}
- if(w.k==='series')return `<div class="k-ser" style="${fitRow(w.items,70)}">${w.items.map((r,j)=>`<figure class="rc" style="--ar:${r[0]/r[1]}">${w.src?.[j]?media(w.src[j],w.t,r.join('/')):cover(p,r[0]*600,r[1]*600,s+j,false,(p.m+j)%5)}</figure>`).join('')}</div>`;
- if(w.k==='long'){const im=w.src?media(w.src,w.t,w.r.join('/')):edm(p,w.r[0],w.r[1]);return `<div class="k-long"><div class="lg rt">${im}</div><div class="mmap"><div class="mm">${im}<i class="vp"></i></div><p>${esc(w.r.join('×'))}</p></div></div>`}
+ if(w.k==='image'){const ar=w.r[0]/w.r[1],u=1000/Math.min(...w.r)*(ar>3?.5:1);return `<figure class="k-img" style="--ar:${ar}"><div class="art rc">${w.src?media(w.src,w.t,w.r.join('/')):cover(p,Math.round(w.r[0]*u),Math.round(w.r[1]*u),s,false,undefined,true)}</div><figcaption class="fc">${esc(ratio(w.r))}</figcaption></figure>`}
+ if(w.k==='series')return `<div class="k-ser" style="${fitRow(w.items,70)}">${w.items.map((r,j)=>`<figure class="rc" style="--ar:${r[0]/r[1]}">${w.src?.[j]?media(w.src[j],w.t,r.join('/')):cover(p,Math.round(r[0]*1000/Math.min(...r)),Math.round(r[1]*1000/Math.min(...r)),s+j,false,(p.m+j)%5,true)}<figcaption class="fc">${esc(ratio(r))}</figcaption></figure>`).join('')}</div>`;
+ if(w.k==='set'){const mx=Math.max(...w.items.map(r=>r[0]));return `<div class="k-set">${w.items.map((r,j)=>{const u=1000/Math.min(...r)*(Math.max(r[0]/r[1],r[1]/r[0])>3?.5:1);return `<figure style="--w:${(r[0]/mx).toFixed(4)}"><div class="art rc">${w.src?.[j]?media(w.src[j],w.t,r.join('/')):cover(p,Math.round(r[0]*u),Math.round(r[1]*u),s+j,false,(p.m+j)%5,true)}</div><figcaption class="fc">${esc(ratio(r))}</figcaption></figure>`}).join('')}</div>`}
+ if(w.k==='long'){const im=w.src?media(w.src,w.t,w.r.join('/')):edm(p,w.r[0],w.r[1]);return `<div class="k-long"><div class="lg rt">${im}</div><div class="mmap"><div class="mm">${im}<i class="vp"></i></div><p>${esc(ratio(w.r))}</p></div></div>`}
  if(w.k==='motion'){const port=w.items.every(m=>m.r[1]>m.r[0]);return `<div class="k-mo${port?' port':''}" style="${fitRow(w.items.map(m=>m.r),port?74:62)}">${w.items.map((m,j)=>player(p,m,s+j)).join('')}</div>`}
  return '';
 }
@@ -735,26 +774,27 @@ const hint=w=>w.k==='web'||(w.k==='webm'&&!w.app)?`<p class="hint">${FINE?'滑�
 function detail(p){
  const i=P.indexOf(p),nx=P[(i+1)%P.length],n=p.w.length;
  return `<header class="dth" style="--c:${p.c};--k:${p.k}"><div class="wrap dtg"><div>
-  <p class="dtk"><span>${esc(p.cat)}</span><span>${G[p.g].rpm} RPM</span><span>${esc(G[p.g].fmt)} · ${esc(G[p.g].en)} ${esc(G[p.g].zh)}</span></p>
+  <p class="dtk"><span>${esc(p.cat)}</span><span>${esc(G[p.g].en)} ${esc(G[p.g].zh)}</span><span>${p.y}</span><span>${esc(tags(p))}</span></p>
   <h2 class="dtt" id="dtTitle" data-split>${esc(p.t)}</h2><p class="dtz rt">${esc(p.zh)}</p><p class="dtd rt">${esc(p.d)}</p>
-  <dl class="dtm rt"><div><dt>Client 客戶</dt><dd>${esc(p.client)}</dd></div><div><dt>Year 年份</dt><dd>${p.y}</dd></div><div><dt>Role 角色</dt><dd>${esc(p.role)}</dd></div><div><dt>Tracks 件數</dt><dd>${n} 首 · ${n>1?'A／B 面':'單曲'}</dd></div></dl>
+  <dl class="dtm rt"><div><dt>Client 客戶</dt><dd>${esc(p.client)}</dd></div><div><dt>Industry 產業</dt><dd>${esc(p.ind)}</dd></div><div><dt>Platform 平台</dt><dd>${esc(p.pf)}</dd></div><div><dt>Role 角色</dt><dd>${esc(p.role)}</dd></div></dl>
  </div>${pack(p,'dtpk rs',0)}</div>
- <ol class="dttl wrap">${p.w.map((w,j)=>`<li class="rg"><button type="button" data-go="wk${j}"><span>${trk(j,n)}</span><b>${esc(w.t)}</b><em>${esc(spec(w))}</em></button></li>`).join('')}</ol></header>
- <div class="wks wrap">${p.w.map((w,j)=>`<section class="wk rg" id="wk${j}"><header class="wkh"><span>${trk(j,n)}</span><h3>${esc(w.t)}</h3><p>${esc(spec(w))}</p>${hint(w)}</header><div class="wk-b">${work(p,w,j)}</div></section>`).join('')}</div>
- <a class="dtn" href="#${nx.id}" style="--c:${nx.c};--k:${nx.k}"><div class="wrap"><div><small>Next release 下一張 · ${esc(nx.cat)}</small><b>${esc(nx.t)}</b></div>${pack(nx)}</div></a>`;
+ <ol class="dttl wrap">${p.w.map((w,j)=>`<li class="rg"><button type="button" data-go="wk${j}"><span>${trk(j)}</span><b>${esc(w.t)}</b><em>${esc(spec(w))}</em></button></li>`).join('')}</ol></header>
+ <div class="wks wrap">${p.w.map((w,j)=>`<section class="wk rg" id="wk${j}"><header class="wkh"><span>${trk(j)}</span><h3>${esc(w.t)}</h3><p>${esc(spec(w))}</p>${hint(w)}</header><div class="wk-b">${work(p,w,j)}</div></section>`).join('')}</div>
+ <a class="dtn" href="#${nx.id}" style="--c:${nx.c};--k:${nx.k}"><div class="wrap"><div><small>Next 下一件 · ${esc(G[nx.g].en)} · ${esc(nx.cat)}</small><b>${esc(nx.t)}</b></div>${pack(nx)}</div></a>`;
 }
 
 /* ---------- render static parts ---------- */
 const cnt=g=>P.filter(p=>p.g===g).length;
 $('#totalN').textContent=P.length;
-$('#speeds').innerHTML=Object.entries(G).map(([g,v])=>`<li><button type="button" data-f="${g}"><b>${v.rpm}</b><span>${v.en} ${v.zh} · ${esc(v.fmt)}</span><em>${cnt(g)} 張</em></button></li>`).join('');
-$('#spd').innerHTML=`<button type="button" data-f="all" aria-pressed="true"><b>All</b><span>全部 ${P.length}</span></button>`+Object.entries(G).map(([g,v])=>`<button type="button" data-f="${g}" aria-pressed="false"><b>${v.rpm}</b><span>${v.en} ${cnt(g)}</span></button>`).join('');
-$('#grid').innerHTML=P.map((p,i)=>`<a class="it g-${p.g}" href="#${p.id}" data-g="${p.g}" style="--i:${i}">${pack(p,'',i)}<div class="cap rg"><span class="cat">${esc(p.cat)}</span><b>${esc(p.t)}</b><span class="rpm">${G[p.g].rpm}</span><p>${esc(p.zh)} · ${p.y} · ${p.w.length} 首</p></div></a>`).join('');
-$('#list').innerHTML=P.map((p,i)=>`<a class="row" href="#${p.id}" data-g="${p.g}" data-id="${p.id}" style="--c:${p.c};--k:${p.k};--i:${i}"><span class="m c">${esc(p.cat)}</span><b>${esc(p.t)}</b><span class="z">${esc(p.zh)}</span><span class="m t">${G[p.g].rpm} · ${G[p.g].en}</span><span class="m n">${p.w.length} 首</span><span class="m y">${p.y}</span></a>`).join('');
+$('#speeds').innerHTML=Object.entries(G).map(([g,v])=>`<li><button type="button" data-f="${g}"><b>${v.en}</b><span>${v.zh} · ${esc(v.fmt)}</span><em>${cnt(g)} 件</em></button></li>`).join('');
+$('#spd').innerHTML=Object.entries(G).map(([g,v],i)=>`<button type="button" data-f="${g}" aria-current="${i===0}"><b>${v.en}</b><span>${v.zh} ${cnt(g)}</span></button>`).join('');
+const item=(p,i)=>`<a class="it" href="#${p.id}" data-g="${p.g}" style="--i:${i}">${pack(p,'',i)}<div class="cap rg"><span class="cat">${esc(p.cat)}</span><b>${esc(p.t)}</b><span class="yr">${p.y}</span><p>${esc(p.zh)}<br>${esc(tags(p))}</p></div></a>`;
+$('#chaps').innerHTML=Object.entries(G).map(([g,v])=>`<div class="chap ch-${g}" id="ch-${g}" data-g="${g}"><header class="chh rg"><h3 data-split>${v.en}</h3><div><b>${v.zh}</b><span>${esc(v.fmt)}</span></div><em class="num">${String(cnt(g)).padStart(2,'0')}</em></header><div class="grid">${P.filter(p=>p.g===g).map(item).join('')}</div></div>`).join('');
+$('#list').innerHTML=Object.entries(G).map(([g,v])=>`<div class="lgh" id="lg-${g}"><b>${v.en}</b> ${v.zh}<span>${cnt(g)} 件</span></div>`+P.filter(p=>p.g===g).map((p,i)=>`<a class="row" href="#${p.id}" data-g="${p.g}" data-id="${p.id}" style="--c:${p.c};--k:${p.k};--i:${i}"><span class="m c">${esc(p.cat)}</span><b>${esc(p.t)}</b><span class="z">${esc(p.zh)}</span><span class="m t">${esc(tags(p))}</span><span class="m n">${esc(p.ind)}</span><span class="m y">${p.y}</span></a>`).join('')).join('');
 const shelf=P.map(p=>`<span>${esc(p.t)}</span>`).join('');
 $('#sh1').innerHTML=shelf+shelf;$('#sh2').innerHTML=P.map(p=>`<span>${esc(p.zh.split('｜')[0])}</span>`).join('').repeat(2);
-$('#npList').insertAdjacentHTML('beforeend',F.map((p,i)=>`<article class="npit" data-i="${i}">${pack(p,'npmob rs',1)}<p class="k1"><span>${trk(i,F.length)}</span><span>${esc(p.cat)}</span><span>${G[p.g].rpm} RPM · ${esc(G[p.g].en)}</span><span>${p.y}</span></p><h3 data-split>${esc(p.t)}</h3><h4 class="rt">${esc(p.zh)}</h4><p class="rt">${esc(p.d)}</p><div class="npprev"><div class="wk-b">${work(p,p.w[0],0)}</div></div><ol class="trks">${p.w.map((w,j)=>`<li class="rg"><span>${trk(j,p.w.length)}</span>${esc(w.t)}<em>${esc(spec(w))}</em></li>`).join('')}</ol><a class="obtn" href="#${p.id}">打開唱片套 <span aria-hidden="true">→</span></a></article>`).join(''));
-$('#steps').innerHTML=STEPS.map((s,i)=>`<li data-i="${i}"><span>A${i+1}</span><div><h3>${s[0]}<small>${s[1]}</small></h3><p>${s[2]}</p></div></li>`).join('');
+$('#npList').insertAdjacentHTML('beforeend',F.map((p,i)=>`<article class="npit" data-i="${i}">${pack(p,'npmob rs',1)}<p class="k1"><span>${trk(i)}</span><span>${esc(p.cat)}</span><span>${esc(G[p.g].en)} ${esc(G[p.g].zh)}</span><span>${esc(p.client)}</span><span>${p.y}</span></p><h3 data-split>${esc(p.t)}</h3><h4 class="rt">${esc(p.zh)}</h4><p class="rt">${esc(p.d)}</p><div class="npprev"><div class="wk-b">${work(p,p.w[0],0)}</div></div><ol class="trks">${p.w.map((w,j)=>`<li class="rg"><span>${trk(j)}</span>${esc(w.t)}<em>${esc(spec(w))}</em></li>`).join('')}</ol><a class="obtn" href="#${p.id}">查看專案 <span aria-hidden="true">→</span></a></article>`).join(''));
+$('#steps').innerHTML=STEPS.map((s,i)=>`<li data-i="${i}"><span>${trk(i)}</span><div><h3>${s[0]}<small>${s[1]}</small></h3><p>${s[2]}</p></div></li>`).join('');
 $('#svc').innerHTML=SVC.map(s=>`<li><span>${s[0]}</span>${esc(s[1])}<em>${s[2]}</em></li>`).join('');
 $('#cred').innerHTML=P.slice(0,6).map((p,i)=>`<li><span>${String(i+1).padStart(2,'0')}</span>${esc(p.client)}<em>${p.y}</em></li>`).join('');
 $('#hist').innerHTML=HIST.map(h=>`<li><span>${esc(h[0])}</span>${esc(h[1])}<em>${esc(h[2])}</em></li>`).join('');
@@ -763,7 +803,7 @@ $('#hist').innerHTML=HIST.map(h=>`<li><span>${esc(h[0])}</span>${esc(h[1])}<em>$
  for(let r=15;r<47;r+=.75)g+=`<circle cx="50" cy="50" r="${r}" fill="none" stroke="#fff" stroke-opacity=".045" stroke-width=".25"/>`;
  B.forEach((b,i)=>g+=`<circle class="band-a" id="band${i}" cx="50" cy="50" r="${(b[0]+b[1])/2}" fill="none" stroke="#151515" stroke-opacity=".001" stroke-width="${b[0]-b[1]}"/>`);
  B.forEach(b=>g+=`<circle cx="50" cy="50" r="${b[1]-.3}" fill="none" stroke="#fff" stroke-opacity=".16" stroke-width=".35"/>`);
- g+=`<circle cx="50" cy="50" r="13.5" fill="var(--red)"/><text x="50" y="48" text-anchor="middle" font-family="Archivo" font-size="3.4" font-weight="800" fill="#111">LIN MU</text><text x="50" y="55" text-anchor="middle" font-family="Archivo" font-size="2.3" font-weight="600" fill="#111">PROCESS · 4 TRACKS</text><circle cx="50" cy="50" r="1.1" fill="var(--bg)"/>`;
+ g+=`<circle cx="50" cy="50" r="13.5" fill="var(--red)"/><text x="50" y="48" text-anchor="middle" font-family="Archivo" font-size="3.4" font-weight="800" fill="#111">LIN MU</text><text x="50" y="55" text-anchor="middle" font-family="Archivo" font-size="2.3" font-weight="600" fill="#111">PROCESS · 4 STEPS</text><circle cx="50" cy="50" r="1.1" fill="var(--bg)"/>`;
  g+=`<g id="lnArm" class="arm-g" style="transform-box:view-box;transform-origin:92px 10px;transition:transform .7s var(--ease)"><rect x="88" y="-1" width="8" height="6" rx="1.5" fill="var(--ink)"/><circle cx="92" cy="10" r="5.5" fill="var(--ink)"/><circle cx="92" cy="10" r="2.2" fill="var(--bg)"/><path d="M92 10V62L86.5 71" fill="none" stroke="var(--ink)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><rect x="83.2" y="69.5" width="6" height="8" rx="1" transform="rotate(32 86 72)" fill="var(--ink)"/></g>`;
  $('#lnSvg').innerHTML=g;
 }
@@ -791,12 +831,12 @@ document.addEventListener('click',e=>{
 
 /* ---------- hero record ---------- */
 let hi=0,hlock=false;const hp=$('#hpack');
-function heroInit(){const p=F[0];hp.style.setProperty('--c',p.c);hp.innerHTML=rec(p)+`<div class="slv"><div class="lay">${cover(p,1000,1000,0,true)}</div></div>`;$('#htl').innerHTML=F.map((p,i)=>`<button type="button" data-i="${i}" aria-pressed="${i===0}" aria-label="${esc(p.cat+' '+p.t)}">${trk(i,F.length)}</button>`).join('');heroCap()}
-function heroCap(){const p=F[hi];$('#hT').textContent=p.t;$('#hM').textContent=`${p.cat} · ${p.zh} · ${G[p.g].rpm} RPM`;$('#hOpen').href='#'+p.id;$$('#htl button').forEach((b,i)=>b.setAttribute('aria-pressed',i===hi))}
+function heroInit(){const p=F[0];hp.style.setProperty('--c',p.c);hp.innerHTML=rec(p)+`<div class="slv"><div class="lay">${cover(p,1000,1000,0,true)}</div></div>`;$('#htl').innerHTML=F.map((p,i)=>`<button type="button" data-i="${i}" aria-pressed="${i===0}" aria-label="${esc(p.cat+' '+p.t)}">${trk(i)}</button>`).join('');heroCap()}
+function heroCap(){const p=F[hi];$('#hT').textContent=p.t;$('#hM').textContent=`${p.cat} · ${p.zh} · ${G[p.g].en}`;$('#hOpen').href='#'+p.id;$$('#htl button').forEach((b,i)=>b.setAttribute('aria-pressed',i===hi))}
 function heroSet(i){
  if(hlock||i===hi)return;hlock=true;hi=(i+F.length)%F.length;const p=F[hi],r=hp.querySelector('.rec'),lab=hp.querySelector('.lab'),slv=hp.querySelector('.slv');heroCap();
  r.style.setProperty('--out','0');
- setTimeout(()=>{r.style.setProperty('--c',p.c);r.style.setProperty('--k',p.k);lab.querySelector('b').textContent=p.cat;lab.querySelector('i').textContent=p.t;lab.querySelector('s').textContent=`${G[p.g].rpm} RPM · ${G[p.g].fmt}`;
+ setTimeout(()=>{r.style.setProperty('--c',p.c);r.style.setProperty('--k',p.k);lab.querySelector('b').textContent=p.cat;lab.querySelector('i').textContent=p.t;lab.querySelector('s').textContent=`${G[p.g].en} · ${p.y}`;
   const n=document.createElement('div');n.className='lay new';n.innerHTML=cover(p,1000,1000,0,true);slv.appendChild(n);hp.style.setProperty('--c',p.c);
   requestAnimationFrame(()=>requestAnimationFrame(()=>n.classList.add('go')));
   setTimeout(()=>{$$('.lay',slv).forEach(l=>{if(l!==n)l.remove()});n.classList.remove('new','go');r.style.setProperty('--out','.5');hlock=false},RM?20:900);
@@ -809,15 +849,14 @@ const ready=()=>{document.body.classList.add('ready');setTimeout(()=>hp.querySel
 (document.fonts?.ready||Promise.resolve()).then(()=>setTimeout(ready,80));setTimeout(()=>document.body.classList.contains('ready')||ready(),1500);
 
 /* ---------- crate: speed filter + views ---------- */
-let flt='all',spin=1;const crate=$('#works'),grid=$('#grid'),list=$('#list');
-function setF(f){
- flt=f;spin=f==='all'?1:G[f].n/33.3;$$('#spd button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.f===f));
- crate.classList.add('swap');
- setTimeout(()=>{let k=0;$$('.it',grid).forEach(el=>{const h=f!=='all'&&el.dataset.g!==f;el.hidden=h;el.classList.remove('drop');if(!h){el.style.setProperty('--i',k++);void el.offsetWidth;if(!RM)el.classList.add('drop')}});$$('.row',list).forEach(el=>el.hidden=f!=='all'&&el.dataset.g!==f);crate.classList.remove('swap')},RM?0:260);
-}
-$('#spd').addEventListener('click',e=>{const b=e.target.closest('button');if(b)setF(b.dataset.f)});
-$('#speeds').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;setF(b.dataset.f);crate.scrollIntoView({behavior:RM?'auto':'smooth'})});
-$$('.vw button').forEach(b=>b.addEventListener('click',()=>{const v=b.dataset.v;$$('.vw button').forEach(x=>x.setAttribute('aria-pressed',x===b));crate.classList.add('swap');setTimeout(()=>{grid.hidden=v!=='grid';list.hidden=v!=='list';crate.classList.remove('swap')},RM?0:260)}));
+let spin=1;const crate=$('#works'),chaps=$('#chaps'),list=$('#list');let view='grid';
+const goCat=g=>{const t=view==='grid'?$('#ch-'+g):$('#lg-'+g);if(t)scrollTo({top:t.getBoundingClientRect().top+scrollY-(innerWidth>860?150:136),behavior:RM?'auto':'smooth'})};
+const setCur=g=>$$('#spd button').forEach(b=>b.setAttribute('aria-current',b.dataset.f===g));
+$('#spd').addEventListener('click',e=>{const b=e.target.closest('button');if(b){setCur(b.dataset.f);goCat(b.dataset.f)}});
+$('#speeds').addEventListener('click',e=>{const b=e.target.closest('button');if(b)goCat(b.dataset.f)});
+const chIO=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)setCur(e.target.dataset.g||e.target.id.slice(3))}),{rootMargin:'-40% 0px -55% 0px'});
+$$('.chap,.lgh').forEach(el=>chIO.observe(el));
+$$('.vw button').forEach(b=>b.addEventListener('click',()=>{view=b.dataset.v;$$('.vw button').forEach(x=>x.setAttribute('aria-pressed',x===b));crate.classList.add('swap');setTimeout(()=>{chaps.hidden=view!=='grid';list.hidden=view!=='list';crate.classList.remove('swap');if(view==='grid'&&!RM)$$('.it',chaps).forEach(el=>{el.classList.remove('drop');void el.offsetWidth;el.classList.add('drop')})},RM?0:260)}));
 const flo=$('#flo');let fx=0,fy=0,tx=0,ty=0,fcur='';
 if(FINE){list.addEventListener('mouseover',e=>{const r=e.target.closest('.row');if(!r)return;if(r.dataset.id!==fcur){fcur=r.dataset.id;const p=byId(fcur);flo.innerHTML=pack(p,'',2);visIO.observe($('.disc',flo))}flo.classList.add('on')});
  list.addEventListener('mouseleave',()=>{flo.classList.remove('on');fcur=''});
@@ -825,8 +864,8 @@ if(FINE){list.addEventListener('mouseover',e=>{const r=e.target.closest('.row');
 
 /* ---------- now playing ---------- */
 const np=$('#playing'),npRec=$('#npRec'),npLab=$('#npLab');let npi=-1;
-function setNP(i){if(i===npi)return;npi=i;const p=F[i];np.style.setProperty('--npc',p.c);np.style.setProperty('--npk',p.k);$('#npCat').textContent=p.cat;$('#npTitle').textContent=p.t;
- npLab.classList.add('swap');setTimeout(()=>{npRec.style.setProperty('--c',p.c);npRec.style.setProperty('--k',p.k);npLab.querySelector('b').textContent=p.cat;npLab.querySelector('i').textContent=p.t;npLab.querySelector('s').textContent=`${G[p.g].rpm} RPM · SIDE ${trk(i,F.length)[0]}`;npLab.classList.remove('swap')},RM?0:220)}
+function setNP(i){if(i===npi)return;npi=i;const p=F[i];np.style.setProperty('--npc',p.c);np.style.setProperty('--npk',p.k);$('#npCat').textContent=p.cat;$('#npTitle').textContent=p.t;$('#npTime').textContent=`${trk(i)} / ${trk(F.length-1)}`;
+ npLab.classList.add('swap');setTimeout(()=>{npRec.style.setProperty('--c',p.c);npRec.style.setProperty('--k',p.k);npLab.querySelector('b').textContent=p.cat;npLab.querySelector('i').textContent=p.t;npLab.querySelector('s').textContent=`${G[p.g].en} · ${p.y}`;npLab.classList.remove('swap')},RM?0:220)}
 setNP(0);
 const npIO=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)setNP(+e.target.dataset.i)}),{rootMargin:'-48% 0px -48% 0px'});
 $$('.npit').forEach(el=>npIO.observe(el));
@@ -881,9 +920,9 @@ function tick(t){
   roG.setAttribute('transform',`rotate(${(rot*.6%360).toFixed(2)} 100 100)`);
   if(flo.classList.contains('on')){fx+=(tx-fx)*.14;fy+=(ty-fy)*.14;flo.style.translate=`${(fx+28).toFixed(1)}px ${(fy-130).toFixed(1)}px`}
  }
- const nr=np.getBoundingClientRect();if(nr.top<vh&&nr.bottom>0){const pr=Math.min(1,Math.max(0,(vh*.5-nr.top)/nr.height));npArm.style.transform=`rotate(${pr<.08?0:(12+15*pr).toFixed(2)}deg)`;npTime.textContent=fmtT(pr*24*60)+' / 24:00'}
+ const nr=np.getBoundingClientRect();if(nr.top<vh&&nr.bottom>0){const pr=Math.min(1,Math.max(0,(vh*.5-nr.top)/nr.height));npArm.style.transform=`rotate(${pr<.08?0:(12+15*pr).toFixed(2)}deg)`}
  const pp=Math.min(1,Math.max(0,yW/Math.max(1,document.documentElement.scrollHeight-vh)));pb.style.transform=`scaleX(${pp.toFixed(4)})`;miniArm.style.transform=`rotate(${pp<.004?0:(12+15*pp).toFixed(2)}deg)`;
- $('#mini').classList.toggle('show',yW>vh*.6&&!cur);const mt=fmtT(pp*TOTAL)+' / 42:16';if(mt!==lastMini){miniT.textContent=mt;lastMini=mt}
+ $('#mini').classList.toggle('show',yW>vh*.6&&!cur);const mt=Math.round(pp*100)+'%';if(mt!==lastMini){miniT.textContent=mt;lastMini=mt}
  for(const el of vis)if(el.classList?.contains('k-long')){const lg=el.querySelector('.lg').getBoundingClientRect(),vp=el.querySelector('.vp');const top=Math.min(1,Math.max(0,-lg.top/lg.height)),hgt=Math.min(1,vh/lg.height);vp.style.top=(top*100).toFixed(2)+'%';vp.style.height=(Math.min(hgt,1-top)*100).toFixed(2)+'%'}
  for(const pl of players)if(pl.on){pl.t=(pl.t+dt/1000)%pl.dur;const tc=pl.el.querySelector('.mot');tc.textContent=fmtT(pl.t)+' / '+fmtT(pl.dur);pl.el.querySelector('.mobar i').style.transform=`scaleX(${(pl.t/pl.dur).toFixed(4)})`}
  requestAnimationFrame(tick);

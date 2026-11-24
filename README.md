@@ -2,8 +2,11 @@
 
 以「黑膠唱片收藏」為概念的個人設計作品集。單一 `index.html`，不需要建置工具，直接用瀏覽器打開即可。
 
-- 每個專案是一張唱片：型號（LM-031）、封套、圓標、曲目（A1／B1…）
-- 分類對應轉速：**Web 33⅓**、**Visual 45**、**Motion 78**
+- 作品像唱片收藏一樣翻閱：每件專案收在封套裡，點開時唱片滑出
+- 作品分三大類，各自有適合的展示方式：
+  - **Web**：RWD（桌機＋手機外框）、只有手機版
+  - **Visual**：社群廣告、電商 Banner（同比例尺排列）、eDM 長圖、KV
+  - **Motion**：16:9、9:16、640×1386
 - 支援桌機／平板／手機 RWD 與 `prefers-reduced-motion`
 
 > 目前的作品、客戶與經歷皆為示意內容，畫面由程式產生的色塊與幾何圖形代替。
@@ -33,10 +36,12 @@ python3 -m http.server 8000
 | 欄位 | 說明 | 範例 |
 |---|---|---|
 | `id` | 網址用的代號，`#lm-031` 會直接開啟該作品 | `'lm-031'` |
-| `cat` | 唱片型號 | `'LM-031'` |
+| `cat` | 專案編號 | `'LM-031'` |
 | `t` / `zh` | 英文標題／中文標題 | `'Tidewater Hotel'` / `'潮汐旅店官網'` |
 | `g` | 分類：`'web'`、`'visual'`、`'motion'` | `'web'` |
 | `y` `client` `role` | 年份、客戶、擔任角色 | |
+| `ind` `pf` | 產業、投放平台 | `'電商'`、`'Meta · LINE'` |
+| `ad` | 示意圖上的廣告文案（換成真實素材後可刪） | `{h:'冬季限定',s:'第二杯半價',cta:'立即購買',tag:'50%'}` |
 | `c` `k` `a` `b` | 封套主色、封套上的文字色、強調色、淺底色 | `'#2a3cff'` |
 | `m` | 封面圖形樣式 0–4（沒有真實封面時使用） | `0` |
 | `url` | 網頁作品在瀏覽器外框顯示的網址 | `'tidewater.hotel'` |
@@ -57,23 +62,29 @@ python3 -m http.server 8000
  src:['assets/lm-027/1.png','assets/lm-027/2.png','assets/lm-027/3.png']}
 
 // 單張視覺／Banner：r 為原始寬高（比例或像素）
-{k:'image', t:'主視覺海報', r:[4,5], src:'assets/lm-030/poster.jpg'}
+{k:'image', t:'主視覺 KV', r:[1920,1080], src:'assets/lm-030/kv.jpg'}
 {k:'image', t:'社群 Banner', r:[1200,628], src:'assets/lm-030/banner.jpg'}
 
-// 系列作品
-{k:'series', t:'演出陣容系列', items:[[1,1],[1,1],[1,1]],
- src:['assets/lm-030/s1.jpg','assets/lm-030/s2.jpg','assets/lm-030/s3.jpg']}
+// 系列／社群廣告：等高並排
+{k:'series', t:'社群廣告', items:[[1080,1080],[1080,1350],[1080,1920]],
+ src:['assets/lm-030/1x1.jpg','assets/lm-030/4x5.jpg','assets/lm-030/9x16.jpg']}
+
+// 電商 Banner 組：所有尺寸用同一個比例尺排列，看得出真實大小差異
+{k:'set', t:'電商 Banner', items:[[1200,628],[970,250],[300,600],[300,250],[728,90]],
+ src:['assets/lm-030/b1.jpg','assets/lm-030/b2.jpg','assets/lm-030/b3.jpg','assets/lm-030/b4.jpg','assets/lm-030/b5.jpg']}
 
 // EDM 長圖：旁邊會自動出現跟隨捲動的縮圖導覽
 {k:'long', t:'冬季 EDM', r:[600,2600], src:'assets/lm-029/edm.jpg'}
 
-// 動態：橫式 16:9、直式 9:16，dur 為秒數；src 支援 .mp4 / .webm / .mov
-{k:'motion', t:'開場影片', items:[{r:[16,9], dur:42, src:'assets/lm-028/opening.mp4'}]}
+// 動態：16:9、9:16、640×1386 等，dur 為秒數；src 支援 .mp4 / .webm / .mov
+{k:'motion', t:'主片', items:[{r:[16,9], dur:42, src:'assets/lm-028/main.mp4'}]}
+{k:'motion', t:'App 開屏', items:[{r:[640,1386], dur:5, src:'assets/lm-021/splash.mp4'}]}
 ```
 
 ### 其他可調整的地方
 
-- **首頁與精選區播放的唱片**：`const FEAT=[...]`，填入專案 `id`，建議 4 張
+- **首頁與精選區的作品**：`const FEAT=[...]`，填入專案 `id`，建議 4 張
+- **分類名稱與格式說明**：`G`
 - **工作流程**：`STEPS`；**服務項目**：`SVC`；**經歷**：`HIST`
 - **個人介紹、Email、社群連結**：直接在 HTML 中搜尋 `hello@linmu.studio`、`Behance` 修改
 - **示意內容說明**：換成真實作品後，記得刪除搜尋 `示意內容` 找到的兩處文字
