@@ -260,8 +260,8 @@ img,svg{max-width:100%}
 .wkh .hint{margin-top:14px;font:500 13px var(--text)}
 .dtn{display:block;background:var(--c);color:var(--k);overflow:hidden}
 .dtn .wrap{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:center;padding-block:clamp(48px,6vw,96px)}
-.dtn small{font:600 14px var(--disp);opacity:.75}
-.dtn b{display:block;font:800 clamp(40px,6.5vw,110px)/.9 var(--disp);font-stretch:120%;letter-spacing:-.045em;margin-top:12px}
+.dtn .nk{font:600 14px var(--disp);opacity:.75}
+.dtn .nt{display:block;font:800 clamp(40px,6.5vw,110px)/.9 var(--disp);font-stretch:120%;letter-spacing:-.045em;margin-top:12px}
 .dtn .pack{width:clamp(120px,18vw,260px);--out:.18;transition:none}
 .dtn .pack>.rec{transition:transform .9s var(--ease)}
 .dtn:hover .pack{--out:.45}
@@ -605,7 +605,7 @@ function detail(p){
  </div>${pack(p,'dtpk rs',0)}</div>
  <ol class="dttl wrap">${p.w.map((w,j)=>`<li class="rg"><button type="button" data-go="wk${j}"><span>${trk(j)}</span><b>${esc(w.t)}</b><em>${esc(spec(w))}</em></button></li>`).join('')}</ol></header>
  <div class="wks wrap">${p.w.map((w,j)=>`<section class="wk rg" id="wk${j}"><header class="wkh"><span>${trk(j)}</span><h3>${esc(w.t)}</h3><p>${esc(spec(w))}</p>${hint(w)}</header><div class="wk-b">${work(p,w,j)}</div></section>`).join('')}</div>
- <a class="dtn" href="#${nx.id}" style="--c:${nx.c};--k:${nx.k}"><div class="wrap"><div><small>Next 下一件 · ${esc(G[nx.g].en)} · ${esc(nx.cat)}</small><b>${esc(nx.t)}</b></div>${pack(nx)}</div></a>`;
+ <a class="dtn" href="#${nx.id}" style="--c:${nx.c};--k:${nx.k}"><div class="wrap"><div><small class="nk">Next 下一件 · ${esc(G[nx.g].en)} · ${esc(nx.cat)}</small><b class="nt">${esc(nx.t)}</b></div>${pack(nx)}</div></a>`;
 }
 
 /* ---------- render static parts ---------- */
@@ -676,9 +676,10 @@ $$('.chap').forEach(ch=>{
  deck.addEventListener('click',e=>{const c=e.target.closest('.card');if(moved||(c&&c.dataset.d!=='0')){e.preventDefault();e.stopPropagation();if(!moved&&c)set(+c.dataset.i);moved=false}},true);
 });
 const flo=$('#flo');let fx=0,fy=0,tx=0,ty=0,fcur='';
-if(FINE){list.addEventListener('mouseover',e=>{const r=e.target.closest('.row');if(!r)return;if(r.dataset.id!==fcur){fcur=r.dataset.id;const p=byId(fcur);flo.innerHTML=pack(p,'',2);visIO.observe($('.disc',flo))}flo.classList.add('on')});
- list.addEventListener('mouseleave',()=>{flo.classList.remove('on');fcur=''});
- addEventListener('mousemove',e=>{tx=e.clientX;ty=e.clientY},{passive:true})}
+let ptrIn=false;
+const floAt=()=>{const el=ptrIn&&!list.hidden?document.elementFromPoint(tx,ty):null,r=el&&!el.closest('.cnav,.nav')?el.closest('.row'):null;if(!r){flo.classList.remove('on');return}if(r.dataset.id!==fcur){fcur=r.dataset.id;flo.innerHTML=pack(byId(fcur),'',2);visIO.observe($('.disc',flo))}if(!flo.classList.contains('on')){fx=tx;fy=ty;flo.classList.add('on')}};
+if(FINE){document.addEventListener('mouseleave',()=>{ptrIn=false;floAt()});
+ addEventListener('mousemove',e=>{tx=e.clientX;ty=e.clientY;ptrIn=true;floAt()},{passive:true});addEventListener('scroll',()=>{if(ptrIn)floAt()},{passive:true})}
 
 /* ---------- detail dialog (hash routed: #lm-031) ---------- */
 const dlg=$('#dlg'),dlgIn=$('#dlgIn'),TITLE=document.title,docEl=document.documentElement;let cur=null,opener=null,origin=null;
