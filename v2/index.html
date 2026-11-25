@@ -2,6 +2,7 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
+<meta name="color-scheme" content="light">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Lin Mu 作品集</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,7 +13,7 @@
    Rules (checked by scripts/lint-design.mjs): no px outside :root, no hex/rgb outside :root,
    no !important, position:absolute only on the allow-list in DESIGN.md (none at present). */
 :root{
- color-scheme:light dark;
+ color-scheme:light;
  /* colour — palette */
  --c-paper:#f2f1ec;--c-paper-dk:#161614;
  --c-ink:#23201c;--c-ink-dk:#efede6;
@@ -342,6 +343,7 @@ img,svg{max-width:100%}
 .k-img{margin:0;width:min(100%,calc(var(--media-h)*var(--ar)))}
 .k-img .art,.k-ser figure>svg,.k-ser figure>img,.k-long .lg,.mov{box-shadow:0 0 0 var(--hair) var(--edge)}
 .art svg,.k-ser svg,.lg svg{display:block;width:100%;height:auto}
+.sdots{display:none}
 .fc{margin-top:var(--s-3);font:600 var(--fs-s) var(--font);color:var(--mute)}
 .k-ser,.k-mo{display:flex;gap:var(--s-6);align-items:flex-start;max-width:var(--mw,none)}
 .k-ser figure,.mo{margin:0;flex:var(--ar) 1 0}
@@ -392,17 +394,22 @@ img,svg{max-width:100%}
  .row .y{grid-row:2;grid-column:2}
  .k-web{grid-template-columns:minmax(0,1fr)}
  .k-web .slot{width:min(64%,var(--phone));justify-self:center}
- .k-webm,.k-ser,.k-mo.port{max-width:none;overflow-x:auto;scroll-snap-type:x mandatory;justify-content:flex-start;margin-inline:calc(var(--gutter)*-1);padding-inline:var(--gutter);scrollbar-width:none}
- .k-webm .slot{flex:0 0 66vw;scroll-snap-align:center}
+ .k-webm,.k-ser,.k-mo.port{max-width:none;overflow-x:auto;scroll-snap-type:x mandatory;justify-content:flex-start;gap:calc(var(--gutter)*2);margin-inline:calc(var(--gutter)*-1);padding-inline:var(--gutter);scroll-padding-inline:var(--gutter);scrollbar-width:none;overscroll-behavior-x:contain}
+ .k-webm .slot{flex:0 0 100%;display:grid;justify-items:center;scroll-snap-align:center;scroll-snap-stop:always}
+ .k-webm .slot>*{width:min(100%,var(--phone))}
  .k-webm .slot:nth-child(2){margin-top:0}
- .k-ser figure{flex:0 0 auto;width:min(80vw,calc(58svh*var(--ar)));scroll-snap-align:center}
+ .k-ser figure{flex:0 0 100%;display:grid;justify-items:center;scroll-snap-align:center;scroll-snap-stop:always}
+ .k-ser figure>:not(figcaption){width:min(100%,calc(58svh*var(--ar)))}
  .k-mo{flex-direction:column}
  .k-mo.port{flex-direction:row}
- .k-mo.port .mo{flex:0 0 64vw;scroll-snap-align:center}
+ .k-mo.port .mo{flex:0 0 100%;padding-inline:max(0%,calc((100% - 58svh*var(--ar))/2));scroll-snap-align:center;scroll-snap-stop:always}
  .k-mo.port .moc>span:last-child{display:none}
  .k-set{gap:var(--s-6) var(--s-4)}
- .k-long{grid-template-columns:minmax(0,1fr) var(--mmap-s);gap:var(--s-4)}
- .mmap{width:var(--mmap-s)}
+ .k-long{grid-template-columns:minmax(0,1fr)}
+ .mmap{display:none}
+ .sdots{display:flex;justify-content:center;gap:var(--s-3);margin-top:var(--s-5)}
+ .sdots i{width:var(--dot-s);height:var(--dot-s);border-radius:50%;background:currentColor;opacity:.25;transition:opacity var(--t-1)}
+ .sdots i.on{opacity:1}
  .dttl li{flex-basis:100%}
  .lncols{grid-template-columns:minmax(0,1fr)}
  .stair li{width:auto;margin-left:calc(var(--i)*5vw)}
@@ -672,9 +679,11 @@ if(FINE){document.addEventListener('mouseleave',()=>{ptrIn=false;floAt();dtnAt()
 /* ---------- detail dialog (hash routed: #lm-031) ---------- */
 const dlg=$('#dlg'),dlgIn=$('#dlgIn'),TITLE=document.title,docEl=document.documentElement;let cur=null,opener=null,origin=null;
 document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#lm-"]');if(a){origin=[e.clientX||innerWidth/2,e.clientY||innerHeight/2];opener=a}},true);
+const addDots=root=>$$('.k-webm,.k-ser,.k-mo.port',root).forEach(s=>{const n=s.children.length;if(n<2)return;const d=document.createElement('div');d.className='sdots';d.setAttribute('aria-hidden','true');d.innerHTML='<i></i>'.repeat(n);s.after(d);
+ const upd=()=>{const m=s.scrollWidth-s.clientWidth,i=m>0?Math.round(s.scrollLeft/m*(n-1)):0;[...d.children].forEach((x,j)=>x.classList.toggle('on',j===i))};s.addEventListener('scroll',upd,{passive:true});upd()});
 function openP(p){
  const was=!!cur;cur=p;[...players].forEach(pl=>{if(!pl.el.isConnected||dlgIn.contains(pl.el)){play(pl,false);players.delete(pl)}});
- dlgIn.innerHTML=detail(p);prep(dlgIn);document.title=`${p.t} · Lin Mu`;
+ dlgIn.innerHTML=detail(p);prep(dlgIn);addDots(dlgIn);document.title=`${p.t} · Lin Mu`;
  if(!was){const o=origin||[innerWidth/2,innerHeight/2];dlg.style.setProperty('--ox',o[0]+'px');dlg.style.setProperty('--oy',o[1]+'px');dlg.hidden=false;dlg.scrollTop=0;docEl.classList.add('lock');requestAnimationFrame(()=>requestAnimationFrame(()=>dlg.classList.add('on')));setTimeout(()=>kbFocus($('#dx'),dlg),60)}
  else{dlg.scrollTop=0}
  origin=null;
@@ -688,10 +697,10 @@ function route(){const p=byId(location.hash.slice(1));if(p)openP(p);else if(cur)
 addEventListener('hashchange',route);route();
 $('#dx').addEventListener('click',()=>closeP(false));
 /* touch screens: a full-screen viewer for long page screenshots, one simple scroll */
-const vwr=$('#vwr'),vwrS=$('#vwrS');let vFrom=null;
+const vwr=$('#vwr'),vwrS=$('#vwrS');let vFrom=null,vT=0;
 function openV(f){vFrom=f;const desk=f.classList.contains('br');$('#vwrT').textContent=(cur?cur.t+' · ':'')+(desk?'Desktop · 1440':'Mobile · 390');
- vwrS.innerHTML=`<div class="pgc${desk?' desk':''}">${f.querySelector('.pg').innerHTML}</div>`;vwrS.scrollTop=0;vwr.hidden=false;requestAnimationFrame(()=>requestAnimationFrame(()=>vwr.classList.add('on')));setTimeout(()=>kbFocus($('#vwrX'),vwr),60)}
-function closeV(){if(vwr.hidden)return;vwr.classList.remove('on');setTimeout(()=>{vwr.hidden=true;vwrS.innerHTML=''},RM?0:400);kbFocus(vFrom)}
+ vwrS.innerHTML=`<div class="pgc${desk?' desk':''}">${f.querySelector('.pg').innerHTML}</div>`;clearTimeout(vT);vwr.hidden=false;vwrS.scrollTop=0;requestAnimationFrame(()=>{vwrS.scrollTop=0;requestAnimationFrame(()=>vwr.classList.add('on'))});setTimeout(()=>kbFocus($('#vwrX'),vwr),60)}
+function closeV(){if(vwr.hidden)return;vwr.classList.remove('on');vT=setTimeout(()=>{vwr.hidden=true;vwrS.innerHTML='';vwrS.scrollTop=0},RM?0:400);kbFocus(vFrom)}
 $('#vwrX').addEventListener('click',closeV);
 addEventListener('keydown',e=>{if(e.key==='Escape'&&!vwr.hidden){e.stopImmediatePropagation();closeV()}},true);
 addEventListener('keydown',e=>{if(e.key==='Escape'){if(cur)closeP(false);else if(menu.classList.contains('on'))toggleMenu(false)}
