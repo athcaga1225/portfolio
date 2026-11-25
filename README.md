@@ -119,3 +119,6 @@ python3 -m http.server 8000
 | 動態 | MP4（H.264），1080p，靜音循環播放，單檔盡量 10MB 內 |
 
 建議依專案分資料夾：`assets/lm-031/`、`assets/lm-030/`……
+
+## Design system
+規則與 token 見 [DESIGN.md](DESIGN.md)；修改後執行 `node scripts/lint-design.mjs`。
