@@ -42,10 +42,8 @@ img,svg{max-width:100%}
 .links a::after{content:"";position:absolute;left:0;right:0;bottom:6px;height:1.5px;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform .5s var(--ease)}
 .links a:hover::after{transform:scaleX(1);transform-origin:left}
 .links small{font-size:13px;opacity:.6;margin-left:4px}
-.avail{font-size:14px;display:flex;align-items:center;gap:8px}
-.avail::before{content:"";width:8px;height:8px;border-radius:50%;background:#fff}
 .mbtn{display:none;height:44px;padding:0 4px;font:700 15px var(--disp)}
-@media(max-width:860px){.links,.avail{display:none}.mbtn{display:block}}
+@media(max-width:860px){.links.mbtn{display:block}}
 
 /* progress: thin line at the top */
 .prog{position:fixed;left:0;right:0;top:0;height:2px;z-index:60;pointer-events:none}
@@ -90,16 +88,18 @@ img,svg{max-width:100%}
 .rs.in>.rec{--out:var(--to,.42)!important;transition-delay:.35s}
 
 /* hero */
-.wm{display:flex;justify-content:space-between;align-items:baseline;white-space:nowrap;margin:0;font:800 100px/.86 var(--disp);font-stretch:118%;letter-spacing:-.045em;text-transform:uppercase;user-select:none}
-.wr{display:block;flex:none;transition:opacity .4s}
-.wr[aria-current=false]{opacity:.2}
-.wm:has(.wr:hover) .wr{opacity:.2}
-.wm .wr:hover,.wm .wr:focus-visible{opacity:1}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.cnav{position:sticky;top:64px;z-index:30;padding:10px 0 12px}
+.spd{display:inline-flex;gap:6px;padding:6px;border-radius:14px;background:var(--soft);box-shadow:0 8px 24px -16px rgba(0,0,0,.35)}
+.spd button{position:relative;min-width:120px;min-height:58px;padding:8px 14px 7px;border-radius:9px;text-align:left;transition:background-color .3s,box-shadow .3s,transform .15s}
+.spd button b{display:block;font:800 22px/1 var(--disp);font-stretch:115%}
+.spd button span{font-size:13px;color:var(--mute)}
+.spd button::after{content:"";position:absolute;right:9px;top:9px;width:6px;height:6px;border-radius:50%;background:var(--line);transition:background-color .3s,box-shadow .3s}
+.spd button[aria-current=true]{background:var(--bg);box-shadow:0 1px 0 var(--line),0 0 0 1px var(--line)}
+.spd button[aria-current=true]::after{background:var(--red);box-shadow:0 0 0 3px color-mix(in srgb,var(--red) 25%,transparent)}
+.spd button:active{transform:translateY(1px)}
 .top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px 24px;padding-top:clamp(92px,8vw,112px);margin-bottom:clamp(14px,1.6vw,24px)}
 .top .lead{font-size:clamp(16px,1.25vw,19px);max-width:none}
-.wm .ch{display:block;overflow:hidden;padding:.04em .02em .02em}
-.wm .ch>span{display:block;transform:translateY(105%);transition:transform 1.3s var(--ease);transition-delay:calc(var(--d)*80ms)}
-.ready .wm .ch>span{transform:none}
 .hg{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(24px,4vw,72px);margin-top:clamp(40px,5vw,88px);align-items:start}
 .hinfo{display:contents}
 .lead{font-size:clamp(19px,1.55vw,23px);line-height:1.55;margin:0;max-width:30em;font-weight:500}
@@ -196,7 +196,8 @@ img,svg{max-width:100%}
 .lntop{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(24px,4vw,72px);align-items:end}
 .lnlead{font:500 clamp(22px,2.3vw,34px)/1.45 var(--text);margin:0;letter-spacing:-.01em}
 .stair{list-style:none;margin:clamp(64px,8vw,140px) 0 0;padding:0}
-.stair li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px clamp(16px,2vw,32px);width:min(100%,620px);margin-left:calc(var(--i) * min(13vw,230px));padding:clamp(22px,2.6vw,36px) 0;border-top:1px solid var(--line);color:color-mix(in srgb,var(--ink) calc(var(--p,0) * 100%),color-mix(in srgb,var(--ink) 14%,var(--bg)))}
+.stair li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px clamp(16px,2vw,32px);width:min(100%,620px);margin-left:calc(var(--i) * min(13vw,230px));padding:clamp(22px,2.6vw,36px) 0;border-top:1px solid var(--line);color:color-mix(in srgb,var(--ink) 16%,var(--bg))}
+.stair li.on{color:var(--ink)}
 .stair li>span{font:800 clamp(44px,5.6vw,92px)/.86 var(--disp);font-stretch:118%;letter-spacing:-.04em}
 .stair h3{font:800 clamp(28px,3vw,46px)/1 var(--disp);font-stretch:118%;letter-spacing:-.03em;margin:4px 0 0}
 .stair h3 small{font:700 17px var(--text);letter-spacing:0;margin-left:10px}
@@ -380,18 +381,20 @@ figcaption.fc{font:600 13px var(--disp);color:var(--mute);margin-top:10px}
  .dttl li{flex-basis:100%}
  .lncols{grid-template-columns:minmax(0,1fr)}
  .stair li{margin-left:calc(var(--i) * 5vw);width:auto}
+ .cnav{top:58px}
+ .cnav .spd{display:flex}
+ .spd button{flex:1;min-width:0;padding-inline:8px}
  .dtn .wrap{grid-template-columns:minmax(0,1fr)}
  .dtn .pack{width:44vw}
 }
 
 @media(prefers-reduced-motion:reduce){
- .w>span,.wm .ch>span{transform:none!important;transition:none}
+ .w>span{transform:none!important;transition:none}
  .rt,.rc{opacity:1;transform:none;clip-path:none;transition:none}
  .rg::before{transform:none;transition:none}
  .drop{animation:none}
  .pack>.rec,.lay.new,.dlg,.menu,.pg,.row::before,.row>*{transition-duration:.01s!important}
  .cue span{animation:none}
- .stair li{--p:1}
 }
 </style>
 </head>
@@ -405,7 +408,6 @@ figcaption.fc{font:600 13px var(--disp);color:var(--mute);margin-top:10px}
    <a href="#about">About<small>關於</small></a>
    <a href="#contact">Contact<small>聯絡</small></a>
   </nav>
-  <span class="avail">2027 Q1 開放接案</span>
   <button class="mbtn" id="mbtn" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
  </div>
 </header>
@@ -418,8 +420,9 @@ figcaption.fc{font:600 13px var(--disp);color:var(--mute);margin-top:10px}
    <p class="lead rt"><b>Lin Mu</b>　台北的商業設計師，做網站、廣告素材與短影音。</p>
    <div class="vw" role="group" aria-label="顯示方式"><button type="button" data-v="grid" aria-pressed="true">聚焦</button><button type="button" data-v="list" aria-pressed="false">全部列表</button></div>
   </div>
-  <nav aria-label="作品分類"><h1 class="wm" id="wm" aria-label="Web、Visual、Motion 作品集"><a class="wr" href="#ch-web" data-g="web" aria-current="true"><span class="ch" style="--d:0"><span>Web</span></span></a><a class="wr" href="#ch-visual" data-g="visual" aria-current="false"><span class="ch" style="--d:1"><span>Visual</span></span></a><a class="wr" href="#ch-motion" data-g="motion" aria-current="false"><span class="ch" style="--d:2"><span>Motion</span></span></a></h1></nav>
+  <h1 class="sr">Lin Mu 作品集：Web、Visual、Motion</h1>
  </div>
+ <nav class="cnav" aria-label="作品分類"><div class="wrap"><div class="spd" id="spd"></div></div></nav>
  <div class="wrap">
   <div class="stage" id="stage">
    <div id="chaps"></div>
@@ -451,7 +454,7 @@ figcaption.fc{font:600 13px var(--disp);color:var(--mute);margin-top:10px}
   <div>
    <h2 class="sh" data-split>Contact<small>合作邀約</small></h2>
    <button class="mail" id="mail" type="button" aria-label="複製 Email：hello@linmu.studio"><span>hello@linmu.studio</span></button>
-   <p class="endp">2027 第一季開放兩檔品牌網站或廣告專案。來信請附上時程與預算範圍，三個工作天內回覆。<span id="copied" aria-live="polite"></span></p>
+   <p class="endp">品牌網站與廣告專案合作，來信請附上時程與預算範圍，三個工作天內回覆。<span id="copied" aria-live="polite"></span></p>
    <div class="socials"><a href="https://www.behance.net/">Behance</a><a href="https://dribbble.com/">Dribbble</a><a href="https://www.instagram.com/">Instagram</a></div>
   </div>
   <div class="runout" aria-hidden="true">
@@ -470,7 +473,7 @@ figcaption.fc{font:600 13px var(--disp);color:var(--mute);margin-top:10px}
 <div class="menu" id="menu" hidden>
  <button class="mx" id="mx" type="button">Close</button>
  <nav aria-label="行動版選單"><a href="#works">Works<small>作品</small></a><a href="#about">About<small>關於</small></a><a href="#contact">Contact<small>聯絡</small></a></nav>
- <p>2027 Q1 開放接案 · hello@linmu.studio</p>
+ <p>hello@linmu.studio</p>
 </div>
 <div class="dlg" id="dlg" role="dialog" aria-modal="true" aria-label="作品內容" hidden>
  <button class="dx" id="dx" type="button" aria-label="關閉，回到唱片櫃"></button>
@@ -645,11 +648,10 @@ const ready=()=>document.body.classList.add('ready');
 
 /* ---------- crate: speed filter + views ---------- */
 let spin=1;const crate=$('#works'),chaps=$('#chaps'),list=$('#list');let view='grid';
-const goCat=g=>{const t=view==='grid'?$('#ch-'+g):$('#lg-'+g);if(t)scrollTo({top:t.getBoundingClientRect().top+scrollY-(view==='grid'?0:80),behavior:RM?'auto':'smooth'})};
-const setCur=g=>$$('.wr').forEach(b=>b.setAttribute('aria-current',b.dataset.g===g));
-$$('.wr').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();goCat(a.dataset.g)}));
-const wmEl=$('#wm'),fitWm=()=>{wmEl.style.fontSize='100px';const w=$$('.wr').reduce((t,a)=>t+a.getBoundingClientRect().width,0)+60;wmEl.style.fontSize=Math.min(320,100*wmEl.clientWidth/w).toFixed(2)+'px'};
-fitWm();addEventListener('resize',fitWm);document.fonts?.ready.then(fitWm);
+const goCat=g=>{const t=view==='grid'?$('#ch-'+g):$('#lg-'+g);if(t)scrollTo({top:t.getBoundingClientRect().top+scrollY-(view==='grid'?(innerWidth>860?60:90):150),behavior:RM?'auto':'smooth'})};
+$('#spd').innerHTML=Object.entries(G).map(([g,v],i)=>`<button type="button" data-f="${g}" aria-current="${i===0}"><b>${v.en}</b><span>${v.zh} ${cnt(g)}</span></button>`).join('');
+const setCur=g=>$$('#spd button').forEach(b=>b.setAttribute('aria-current',b.dataset.f===g));
+$('#spd').addEventListener('click',e=>{const b=e.target.closest('button');if(b){setCur(b.dataset.f);goCat(b.dataset.f)}});
 const chIO=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)setCur(e.target.dataset.g||e.target.id.slice(3))}),{rootMargin:'-40% 0px -55% 0px'});
 $$('.chap,.lgh').forEach(el=>chIO.observe(el));
 $$('.vw button').forEach(b=>b.addEventListener('click',()=>{view=b.dataset.v;$$('.vw button').forEach(x=>x.setAttribute('aria-pressed',x===b));crate.classList.add('swap');setTimeout(()=>{chaps.hidden=view!=='grid';list.hidden=view!=='list';crate.classList.remove('swap')},RM?0:260)}));
@@ -702,7 +704,7 @@ $('#mail').addEventListener('click',async()=>{const o=$('#copied');try{await nav
 
 /* ---------- one frame loop: rotation follows scroll, parallax, tonearms ---------- */
 prep(document.body);
-const ch=$$('.wm .ch'),sh1=$('#sh1'),sh2=$('#sh2'),shelfEl=$('.shelf'),pb=$('#progBar'),roG=$('#roG');
+const sh1=$('#sh1'),sh2=$('#sh2'),shelfEl=$('.shelf'),pb=$('#progBar'),roG=$('#roG');
 let lt=performance.now(),lastW=scrollY,lastD=0,rot=0,lastMini='';
 const stair=$$('#steps li');
 function tick(t){
@@ -718,7 +720,7 @@ function tick(t){
   roG.setAttribute('transform',`rotate(${(rot*.6%360).toFixed(2)} 100 100)`);
   if(flo.classList.contains('on')){fx+=(tx-fx)*.14;fy+=(ty-fy)*.14;flo.style.translate=`${(fx+28).toFixed(1)}px ${(fy-130).toFixed(1)}px`}
  }
- for(const li of stair){const r=li.getBoundingClientRect();if(r.top<vh&&r.bottom>0)li.style.setProperty('--p',RM?1:Math.min(1,Math.max(0,(vh*.88-r.top)/(vh*.38))).toFixed(3))}
+ stair.forEach(li=>li.classList.toggle('on',RM||li.getBoundingClientRect().top<vh*.62));
  const pp=Math.min(1,Math.max(0,yW/Math.max(1,document.documentElement.scrollHeight-vh)));pb.style.transform=`scaleX(${pp.toFixed(4)})`; 
  for(const el of vis)if(el.classList?.contains('k-long')){const lg=el.querySelector('.lg').getBoundingClientRect(),vp=el.querySelector('.vp');const top=Math.min(1,Math.max(0,-lg.top/lg.height)),hgt=Math.min(1,vh/lg.height);vp.style.top=(top*100).toFixed(2)+'%';vp.style.height=(Math.min(hgt,1-top)*100).toFixed(2)+'%'}
  for(const pl of players)if(pl.on){pl.t=(pl.t+dt/1000)%pl.dur;const tc=pl.el.querySelector('.mot');tc.textContent=fmtT(pl.t)+' / '+fmtT(pl.dur);pl.el.querySelector('.mobar i').style.transform=`scaleX(${(pl.t/pl.dur).toFixed(4)})`}
