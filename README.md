@@ -60,30 +60,30 @@ python3 -m http.server 8000
 ```js
 // 網頁 RWD：整頁長截圖（桌機 1440 寬、手機 390 寬）
 {k:'web', t:'首頁', dv:['desktop','mobile'],
- src:{desktop:'assets/lm-031/home-d.jpg', mobile:'assets/lm-031/home-m.jpg'}}
+ src:{desktop:'../assets/lm-031/home-d.jpg', mobile:'../assets/lm-031/home-m.jpg'}}
 
 // 只有手機版：n 張畫面；app:true 表示單一螢幕（390×844），否則為可捲動的長頁
 {k:'webm', t:'App 介面', n:3, app:true,
- src:['assets/lm-027/1.png','assets/lm-027/2.png','assets/lm-027/3.png']}
+ src:['../assets/lm-027/1.png','../assets/lm-027/2.png','../assets/lm-027/3.png']}
 
 // 單張視覺／Banner：r 為原始寬高（比例或像素）
-{k:'image', t:'主視覺 KV', r:[1920,1080], src:'assets/lm-030/kv.jpg'}
-{k:'image', t:'社群 Banner', r:[1200,628], src:'assets/lm-030/banner.jpg'}
+{k:'image', t:'主視覺 KV', r:[1920,1080], src:'../assets/lm-030/kv.jpg'}
+{k:'image', t:'社群 Banner', r:[1200,628], src:'../assets/lm-030/banner.jpg'}
 
 // 系列／社群廣告：等高並排
 {k:'series', t:'社群廣告', items:[[1080,1080],[1080,1350],[1080,1920]],
- src:['assets/lm-030/1x1.jpg','assets/lm-030/4x5.jpg','assets/lm-030/9x16.jpg']}
+ src:['../assets/lm-030/1x1.jpg','../assets/lm-030/4x5.jpg','../assets/lm-030/9x16.jpg']}
 
 // 電商 Banner 組：所有尺寸用同一個比例尺排列，看得出真實大小差異
 {k:'set', t:'電商 Banner', items:[[1200,628],[970,250],[300,600],[300,250],[728,90]],
- src:['assets/lm-030/b1.jpg','assets/lm-030/b2.jpg','assets/lm-030/b3.jpg','assets/lm-030/b4.jpg','assets/lm-030/b5.jpg']}
+ src:['../assets/lm-030/b1.jpg','../assets/lm-030/b2.jpg','../assets/lm-030/b3.jpg','../assets/lm-030/b4.jpg','../assets/lm-030/b5.jpg']}
 
 // EDM 長圖：旁邊會自動出現跟隨捲動的縮圖導覽
-{k:'long', t:'冬季 EDM', r:[600,2600], src:'assets/lm-029/edm.jpg'}
+{k:'long', t:'冬季 EDM', r:[600,2600], src:'../assets/lm-029/edm.jpg'}
 
 // 動態：16:9、9:16、640×1386 等，dur 為秒數；src 支援 .mp4 / .webm / .mov
-{k:'motion', t:'主片', items:[{r:[16,9], dur:42, src:'assets/lm-028/main.mp4'}]}
-{k:'motion', t:'App 開屏', items:[{r:[640,1386], dur:5, src:'assets/lm-021/splash.mp4'}]}
+{k:'motion', t:'主片', items:[{r:[16,9], dur:42, src:'../assets/lm-028/main.mp4'}]}
+{k:'motion', t:'App 開屏', items:[{r:[640,1386], dur:5, src:'../assets/lm-021/splash.mp4'}]}
 ```
 
 ### 其他可調整的地方
