@@ -34,6 +34,22 @@ python3 -m http.server 8000
 # 開啟 http://localhost:8000
 ```
 
+## 用後台編輯作品（Pages CMS）
+
+新版的作品資料在 `v2/works.json`，可以用 [Pages CMS](https://pagescms.org) 的網頁後台編輯，不用改程式碼。設定檔是根目錄的 `.pages.yml`。
+
+1. 打開 https://app.pagescms.org ，用 GitHub 帳號登入並授權。
+2. 選 `athcaga1225/portfolio`，分支選 `main`。
+3. 左側點「作品」，就能新增、刪除、排序專案；每個專案裡的「作品」可上傳圖片或影片（存到 `v2/assets/`）。
+4. 按 Save，修改會直接存回 GitHub，GitHub Pages 幾分鐘後更新。
+
+本機預覽請用伺服器開啟（直接雙擊會讀不到 works.json）：
+
+```bash
+python3 -m http.server 8000
+# 開啟 http://localhost:8000/v2/
+```
+
 ## 替換成真實作品
 
 所有作品資料都在 `v2/index.html` 的 `const P=[ ... ]` 陣列（搜尋 `const P=[`）。

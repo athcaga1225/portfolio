@@ -1,0 +1,123 @@
+# Pages CMS 設定：https://pagescms.org
+# 後台會編輯 v2/works.json，上傳的檔案存到 v2/assets/
+media:
+  input: v2/assets
+  output: /portfolio/v2/assets
+
+content:
+  - name: works
+    label: 作品
+    type: file
+    path: v2/works.json
+    fields:
+      - name: projects
+        label: 專案
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{fields.cat} {fields.t}（{fields.g}）"
+        fields:
+          - name: id
+            label: 網址代號（小寫英數，例 lm-032，不可重複）
+            type: string
+          - name: cat
+            label: 編號（例 LM-032）
+            type: string
+          - name: t
+            label: 英文名稱
+            type: string
+          - name: zh
+            label: 中文名稱
+            type: string
+          - name: g
+            label: 分類
+            type: select
+            options:
+              values:
+                - name: web
+                  label: Web 網頁
+                - name: visual
+                  label: Visual 視覺
+                - name: motion
+                  label: Motion 動態
+          - name: y
+            label: 年份
+            type: number
+          - name: client
+            label: 客戶
+            type: string
+          - name: ind
+            label: 產業
+            type: string
+          - name: pf
+            label: 投放平台
+            type: string
+          - name: role
+            label: 負責內容
+            type: string
+          - name: d
+            label: 專案說明
+            type: text
+          - name: url
+            label: 網址（網頁作品，顯示在瀏覽器外框）
+            type: string
+          - name: c
+            label: 封套顏色（色碼，例 #b9c8e6）
+            type: string
+          - name: k
+            label: 封套文字顏色（例 #23201c）
+            type: string
+          - name: b
+            label: 示意框底色（例 #dfe6f3）
+            type: string
+          - name: w
+            label: 作品（依顯示順序）
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{fields.t}（{fields.k}）"
+            fields:
+              - name: k
+                label: 作品類型
+                type: select
+                options:
+                  values:
+                    - name: web
+                      label: 網頁 RWD（桌機＋手機長截圖）
+                    - name: webm
+                      label: 只有手機版
+                    - name: image
+                      label: 單張（KV／Banner）
+                    - name: series
+                      label: 系列（等高並排，例社群廣告）
+                    - name: set
+                      label: Banner 組（同比例尺排列）
+                    - name: long
+                      label: eDM 長圖
+                    - name: motion
+                      label: 動態影片
+              - name: t
+                label: 作品名稱
+                type: string
+              - name: sizes
+                label: 尺寸（逗號分隔，例 1080x1080, 1080x1350；網頁與只有手機版可留空）
+                type: string
+              - name: dur
+                label: 影片秒數（動態用，逗號分隔，對應每支影片，例 15, 15）
+                type: string
+              - name: count
+                label: 畫面數（只有手機版用）
+                type: number
+              - name: app
+                label: App 單一畫面（只有手機版用；不勾則為可捲動長頁）
+                type: boolean
+              - name: mobile
+                label: 有手機版截圖（網頁用）
+                type: boolean
+              - name: src
+                label: 檔案（依序上傳；網頁為「桌機、手機」；動態上傳 mp4）
+                type: file
+                options:
+                  multiple: true

@@ -111,7 +111,7 @@ img,svg{max-width:100%}
 .pnow b{font:800 16px/1 var(--disp);font-stretch:115%}
 .pz{font:700 12px var(--text);color:#23201c}
 .ptrk{display:flex;gap:4px}
-.ptrk button{display:grid;gap:3px;text-align:left;min-height:22px;padding:0;font:600 10px var(--disp);color:#8a877f}
+.ptrk button{display:grid;gap:4px;text-align:left;min-height:26px;padding:0;font:600 13px var(--disp);color:#8a877f}
 .ptrk button i{display:block;height:2px;border-radius:2px;background:rgba(35,32,28,.14);overflow:hidden;position:relative}
 .ptrk button em{position:absolute;inset:0;background:#23201c;transform-origin:left;transform:scaleX(var(--f,0))}
 .ptrk button[aria-current=true]{color:#23201c}
@@ -134,7 +134,7 @@ img,svg{max-width:100%}
 .shelf span::after{content:"";display:inline-block;width:.42em;height:.42em;margin:0 .45em;border-radius:50%;vertical-align:.12em;background:#23201c}
 
 /* crate */
-.crate{display:flow-root;padding-bottom:clamp(120px,12vw,200px);--lt:.45s linear;transition:background-color var(--lt),color var(--lt)}
+.crate{display:flow-root;padding-bottom:clamp(120px,12vw,200px);--lt:.32s linear;--ltc:.32s steps(2,jump-none);transition:background-color var(--lt),color var(--ltc)}
 .crate.lv{background:var(--lb,var(--bg));color:var(--ink)}
 .crate.lv[data-lg=web]{--lb:#2a3cff;--ink:#ffffff;--mute:rgba(255,255,255,.72);--line:rgba(255,255,255,.3)}
 .crate.lv[data-lg=visual]{--lb:#12b886;--ink:#05281b;--mute:rgba(5,40,27,.66);--line:rgba(5,40,27,.25)}
@@ -145,7 +145,7 @@ img,svg{max-width:100%}
 .crate.lv .row,.crate.lv .row>*{transition:transform .5s var(--ease)}
 .crate.lv .row .m,.crate.lv .ltm span,.crate.lv .ltm em{color:inherit;opacity:.68}
 .crate.lv .row,.crate.lv .lrows,.crate.lv .lgh{border-color:color-mix(in srgb,currentColor 28%,transparent)}
-.crate.lv .lab,.crate.lv .ltt .plat{transition:background-color var(--lt),color var(--lt)}
+.crate.lv .lab,.crate.lv .ltt .plat{transition:background-color var(--lt),color var(--ltc)}
 @media(hover:hover){html:not(.scrolling) .crate.lv .row:hover::before{opacity:1}html.scrolling .crate.lv .row{pointer-events:none}html:not(.scrolling) .crate.lv .row:hover,html:not(.scrolling) .crate.lv .row:hover .m{color:#23201c}}
 .crate.lv .cnav{--ink:light-dark(#23201c,#efede6);--mute:light-dark(#6d6a62,#9c998f);color:var(--ink)}
 .chead{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:32px;align-items:end;margin-bottom:clamp(40px,5vw,80px)}
@@ -549,75 +549,22 @@ figcaption.fc{font:600 13px var(--disp);color:var(--mute);margin-top:10px}
 </div>
 
 <script>
-{
 /* ============================================================
-   作品資料 — 替換真實素材時只需修改這裡。
-   g: 'web' | 'visual' | 'motion'（決定 33⅓ / 45 / 78 分類）
-   c 封套主色, k 封套上的文字色, a 強調色, b 淺底色, m 封面圖形樣式 0–4
-   w 作品（tracks），可加 src 欄位改用真實檔案：
-     {k:'web', t, dv:['desktop','mobile'], src:{desktop:'d.jpg', mobile:'m.jpg'}}  整頁長截圖
-     {k:'webm', t, n, app?, src:['1.jpg','2.jpg']}  只有手機版
-     {k:'image', t, r:[寬,高], src:'a.jpg'}
-     {k:'series', t, items:[[寬,高],...], src:[...]}
-     {k:'long', t, r:[寬,高], src:'edm.jpg'}  EDM 長圖
-     {k:'motion', t, items:[{r:[16,9], dur:秒, src:'a.mp4'}]}
+   作品資料放在同資料夾的 works.json（可用 Pages CMS 後台編輯）。
+   欄位：id, cat 編號, t 英文名, zh 中文名, g 分類 web|visual|motion, y 年份,
+   client, ind 產業, pf 平台, role, c 封套色, k 封套字色, b 示意框底色, url, d 說明, w 作品
+   w 每件：k 類型, t 名稱, sizes 尺寸（例 1080x1080, 1080x1350）, dur 秒數（動態, 逗號分隔）,
+          count 畫面數（只有手機版）, app 單一 App 畫面, mobile 有手機版（網頁）, src 檔案（依序）
    ============================================================ */
-const P=[
-{id:'lm-031',cat:'LM-031',t:'Tidewater Hotel',zh:'旅店官網改版',g:'web',y:2026,client:'Tidewater Hotels',ind:'旅宿',pf:'官網 · 訂房系統',role:'UI 設計、互動',c:'#b9c8e6',k:'#23201c',a:'#23201c',b:'#dfe6f3',m:0,url:'tidewater.hotel',
- d:'海港旅店的官網改版與訂房流程。房型頁隨捲動揭露，訂房從七步縮成三步，桌機與手機共用同一套模組。',
- w:[{k:'web',t:'首頁',dv:['desktop','mobile']},{k:'web',t:'房型與訂房流程',dv:['desktop','mobile']},{k:'webm',t:'會員中心',n:3,app:true}]},
-{id:'lm-030',cat:'LM-030',t:'Brew & Co.',zh:'冬季咖啡節 Campaign',g:'visual',y:2026,client:'Brew & Co.',ind:'餐飲',pf:'Meta · LINE · 官網',role:'KV、社群廣告、Banner',c:'#d9c6a8',k:'#23201c',a:'#23201c',b:'#ece2d2',m:2,
- d:'連鎖咖啡的冬季檔期。先定主視覺，再延伸成社群三種版位與電商各尺寸 Banner，所有素材共用一套版型，換檔期只需替換商品與文案。',
- w:[{k:'image',t:'主視覺 KV',r:[1920,1080]},{k:'series',t:'社群廣告',items:[[1080,1080],[1080,1350],[1080,1920]]},{k:'set',t:'電商 Banner',items:[[1200,628],[970,250],[300,600],[300,250],[728,90],[320,100]]}]},
-{id:'lm-029',cat:'LM-029',t:'Mono Coffee',zh:'會員 eDM',g:'visual',y:2025,client:'Mono Coffee Roasters',ind:'零售',pf:'eDM · LINE',role:'eDM、社群',c:'#ee8a62',k:'#23201c',a:'#23201c',b:'#f6c9b3',m:3,
- d:'精品咖啡的季節會員電子報，同步延伸成 LINE 推播圖。長圖依手機閱讀節奏分段，每一段只說一件事。',
- w:[{k:'long',t:'會員 eDM',r:[600,2600]},{k:'image',t:'LINE 推播圖',r:[1040,1040],tag:'社群廣告'}]},
-{id:'lm-028',cat:'LM-028',t:'Form & Field',zh:'品牌形象影片',g:'motion',y:2025,client:'Form & Field 基金會',ind:'非營利',pf:'YouTube · Instagram',role:'動態設計、分鏡',c:'#b8cdb4',k:'#23201c',a:'#23201c',b:'#dce6d9',m:1,
- d:'年度品牌形象影片。主片 16:9 投放 YouTube，再剪成 9:16 版本給 Reels 與 Shorts，數據段落以節拍呈現。',
- w:[{k:'motion',t:'主片',items:[{r:[16,9],dur:42}]},{k:'motion',t:'Reels／Shorts 版本',items:[{r:[9,16],dur:15},{r:[9,16],dur:15}]}]},
-{id:'lm-027',cat:'LM-027',t:'Pocket',zh:'記帳 App 推廣活動頁',g:'web',y:2025,client:'Pocket Labs',ind:'金融科技',pf:'Mobile web · App',role:'活動頁、產品介面',c:'#f0bfd0',k:'#23201c',a:'#23201c',b:'#f8e1e8',m:4,url:'pocket.app',
- d:'給大學生的記帳 App 推廣活動。廣告流量幾乎都來自手機，所以只做手機版，所有操作都在拇指範圍內完成。',
- w:[{k:'webm',t:'活動頁',n:2},{k:'webm',t:'App 介面',n:3,app:true}]},
-{id:'lm-026',cat:'LM-026',t:'Mira Home',zh:'雙 11 電商 Banner',g:'visual',y:2025,client:'Mira 家電',ind:'電商',pf:'momo · 蝦皮 · Google 多媒體廣告',role:'Banner 系統',c:'#f1dc86',k:'#23201c',a:'#23201c',b:'#f8eec2',m:0,
- d:'家電品牌的雙 11 檔期 Banner，一次交付多種平台尺寸。先做好可伸縮的版型，再依各平台規範調整文字與商品比例。',
- w:[{k:'set',t:'平台 Banner',items:[[1200,628],[1080,1080],[970,250],[300,600],[728,90],[300,250],[320,100]]},{k:'image',t:'活動主視覺',r:[3,4]}]},
-{id:'lm-025',cat:'LM-025',t:'Ripple',zh:'運動品牌 Reels 系列',g:'motion',y:2024,client:'Ripple Sportswear',ind:'運動用品',pf:'Instagram · TikTok',role:'動態設計、剪輯',c:'#a9d6e5',k:'#23201c',a:'#23201c',b:'#d6ebf2',m:3,
- d:'運動品牌的社群直式短片，三支各 15 秒。前三秒就讓商品出現，為手機單手觀看而剪。',
- w:[{k:'motion',t:'Reels 系列',items:[{r:[9,16],dur:15},{r:[9,16],dur:15},{r:[9,16],dur:15}]}]},
-{id:'lm-024',cat:'LM-024',t:'Fresh Week',zh:'生鮮電商週年慶',g:'web',y:2024,client:'Fresh Week 生鮮',ind:'電商',pf:'官網 · App 內嵌頁',role:'活動頁設計',c:'#cfe07a',k:'#23201c',a:'#23201c',b:'#e8efbf',m:1,url:'freshweek.tw',
- d:'生鮮電商週年慶的活動主頁與 App 內嵌頁。限時商品依時段輪播，同一套模組桌機與手機共用。',
- w:[{k:'web',t:'活動主頁',dv:['desktop','mobile']},{k:'webm',t:'App 內嵌頁',n:2}]},
-{id:'lm-023',cat:'LM-023',t:'Glow Lab',zh:'保養品新品 Landing page',g:'web',y:2023,client:'Glow Lab',ind:'美妝保養',pf:'Meta 廣告導流頁',role:'Landing page',c:'#f2b9a0',k:'#23201c',a:'#23201c',b:'#f8dccf',m:2,url:'glowlab.co',
- d:'承接社群廣告流量的新品頁。首屏直接放商品與優惠，往下才是成分與使用步驟，從廣告點進來的人不用找。',
- w:[{k:'web',t:'Landing page',dv:['desktop','mobile']}]},
-{id:'lm-022',cat:'LM-022',t:'Kiln',zh:'陶藝展覽 KV',g:'visual',y:2023,client:'Kiln Studio',ind:'藝文展演',pf:'戶外看板 · 社群',role:'主視覺',c:'#c4b0e0',k:'#23201c',a:'#23201c',b:'#e2d8f0',m:4,
- d:'陶藝工作室的展覽主視覺，只有一張，延伸用在戶外看板與社群。',
- w:[{k:'image',t:'展覽 KV',r:[3,4]}]},
-{id:'lm-021',cat:'LM-021',t:'Orbit Mobile',zh:'電信 5G 資費廣告',g:'motion',y:2023,client:'Orbit 電信',ind:'電信',pf:'YouTube · App 開屏',role:'動態設計',c:'#dfe3a4',k:'#23201c',a:'#23201c',b:'#eef0d0',m:0,
- d:'電信品牌的 5G 資費廣告，同一段素材剪成 16:9 影片與 640×1386 的 App 開屏版本。',
- w:[{k:'motion',t:'16:9 主片',items:[{r:[16,9],dur:20}]},{k:'motion',t:'App 開屏',items:[{r:[640,1386],dur:5},{r:[640,1386],dur:5}]}]},
-{id:'lm-020',cat:'LM-020',t:'Hearth',zh:'鍋具開箱短影音',g:'motion',y:2022,client:'Hearth 廚具',ind:'電商',pf:'電商 App · Reels',role:'動態設計',c:'#e7a7a0',k:'#23201c',a:'#23201c',b:'#f3d3cf',m:2,
- d:'鍋具品牌的開箱短影音。640×1386 用於電商 App 內影音廣告，同步輸出 9:16 給社群。',
- w:[{k:'motion',t:'電商 App 影音',items:[{r:[640,1386],dur:12},{r:[640,1386],dur:12}]},{k:'motion',t:'社群 9:16',items:[{r:[9,16],dur:15}]}]},
-{id:'lm-019',cat:'LM-019',t:'Sunday Market',zh:'週末市集社群廣告',g:'visual',y:2024,client:'Sunday Market',ind:'活動',pf:'Instagram · Facebook',role:'社群廣告',c:'#f3c98b',k:'#23201c',a:'#23201c',b:'#f9e7cb',m:1,
- d:'週末市集的社群廣告系列，同一套版型輪替不同攤商，每週只換照片與店名。',
- w:[{k:'series',t:'社群廣告',items:[[1080,1080],[1080,1350],[1080,1920]]},{k:'series',t:'攤商介紹',items:[[1080,1350],[1080,1350],[1080,1350]]}]},
-{id:'lm-018',cat:'LM-018',t:'Lumen Optical',zh:'眼鏡品牌週年慶 Banner',g:'visual',y:2024,client:'Lumen 眼鏡',ind:'零售',pf:'官網 · Google 多媒體廣告',role:'Banner 系統',c:'#c7d9e8',k:'#23201c',a:'#23201c',b:'#e4eef6',m:4,
- d:'眼鏡品牌週年慶的全通路 Banner，從官網首頁大圖延伸到聯播網各尺寸。',
- w:[{k:'set',t:'聯播網 Banner',items:[[1200,628],[970,250],[300,600],[300,250],[728,90],[320,50]]},{k:'image',t:'官網首頁大圖',r:[1920,800]}]},
-{id:'lm-017',cat:'LM-017',t:'Tea Ritual',zh:'茶飲新品 KV',g:'visual',y:2024,client:'Tea Ritual 茶飲',ind:'餐飲',pf:'門市海報 · 社群',role:'主視覺',c:'#d9c2e0',k:'#23201c',a:'#23201c',b:'#eee3f1',m:0,
- d:'茶飲品牌春季新品的主視覺，延伸成門市海報與社群單圖。',
- w:[{k:'image',t:'新品 KV',r:[3,4]},{k:'series',t:'門市海報',items:[[2,3],[2,3]]}]},
-{id:'lm-016',cat:'LM-016',t:'Northwind Travel',zh:'旅遊會員 eDM',g:'visual',y:2023,client:'Northwind 旅行社',ind:'旅遊',pf:'eDM · LINE',role:'eDM',c:'#a9d3c4',k:'#23201c',a:'#23201c',b:'#d8ece4',m:3,
- d:'旅行社的季度會員電子報，依目的地分段，手機上一段一張大圖。',
- w:[{k:'long',t:'會員 eDM',r:[600,2400]},{k:'image',t:'LINE 推播圖',r:[1040,1040]}]},
-{id:'lm-015',cat:'LM-015',t:'Pixel Arcade',zh:'遊戲上市社群素材',g:'visual',y:2023,client:'Pixel Arcade',ind:'遊戲',pf:'Instagram · X · Discord',role:'社群廣告',c:'#f0a6a0',k:'#23201c',a:'#23201c',b:'#f8d6d2',m:2,
- d:'獨立遊戲上市檔期的社群素材包，一週內交付 20 張不同版位的圖。',
- w:[{k:'series',t:'上市倒數',items:[[1080,1080],[1080,1080],[1080,1080]]},{k:'image',t:'X 橫幅',r:[1500,500]}]},
-{id:'lm-014',cat:'LM-014',t:'Field Notes Co.',zh:'文具品牌形象 KV',g:'visual',y:2022,client:'Field Notes Co.',ind:'文具',pf:'戶外看板 · 官網',role:'主視覺',c:'#cfd6a6',k:'#23201c',a:'#23201c',b:'#e9edd2',m:1,
- d:'文具品牌的年度形象主視覺，一張橫式大圖延伸到戶外看板與官網。',
- w:[{k:'image',t:'形象 KV',r:[16,9]}]}
-];
+const toWork=w=>{const src=(w.src||[]).filter(Boolean),sz=String(w.sizes||'').split(/[,，\s]+/).filter(Boolean).map(x=>x.split(/[x×:＊*]/i).map(Number)).filter(r=>r.length===2&&r[0]>0&&r[1]>0),k=w.k||'image',o={k,t:w.t||''};
+ if(k==='web'){o.dv=w.mobile===false?['desktop']:['desktop','mobile'];if(src.length)o.src={desktop:src[0],mobile:src[1]}}
+ else if(k==='webm'){o.n=Math.max(1,+w.count||src.length||1);o.app=!!w.app;if(src.length)o.src=src}
+ else if(k==='image'||k==='long'){o.r=sz[0]||(k==='long'?[600,2400]:[1,1]);if(src[0])o.src=src[0]}
+ else if(k==='series'||k==='set'){o.items=sz.length?sz:[[1,1]];if(src.length)o.src=src}
+ else if(k==='motion'){const d=String(w.dur||'').split(/[,，\s]+/).filter(Boolean).map(Number);o.items=(sz.length?sz:[[16,9]]).map((r,i)=>({r,dur:d[i]||d[0]||15,src:src[i]}))}
+ return o};
+const toProject=p=>({...p,y:+p.y||'',m:0,a:p.k,w:(p.w||[]).map(toWork)});
+const LM_BOOT=P=>{
 const G={web:{en:'Web',zh:'網頁',fmt:'Mobile · RWD'},visual:{en:'Visual',zh:'視覺',fmt:'社群廣告 · 電商 Banner · eDM · KV'},motion:{en:'Motion',zh:'動態',fmt:'16:9 · 9:16 · 640×1386'}};
 const STEPS=[['Brief','洞察','從需求單、受眾與投放平台開始，先確認這檔活動要讓誰做什麼。'],['Concept','企劃','定出主視覺方向與版型系統，決定哪些元素在每個尺寸都要保留。'],['Craft','製作','網頁、靜態素材與動態同步製作，每個斷點、版位與秒數都要成立。'],['Launch','上線','依平台規範交付，上線後看成效調整素材，下一檔從這裡開始。']];
 const SVC=[['01','品牌網站與 RWD','Web'],['02','活動頁與 Landing page','Web'],['03','社群廣告素材','Visual'],['04','電商 Banner 與 eDM','Visual'],['05','主視覺 KV','Visual'],['06','品牌影片與短影音','Motion']];
@@ -845,7 +792,8 @@ function tick(t){
  requestAnimationFrame(tick);
 }
 requestAnimationFrame(tick);
-}
+};
+fetch('works.json',{cache:'no-cache'}).then(r=>{if(!r.ok)throw 0;return r.json()}).then(d=>LM_BOOT((d.projects||[]).map(toProject))).catch(()=>{document.getElementById('lrows').innerHTML='<p style="padding:40px 0">讀不到 works.json。請用網址開啟，或在本機執行 python3 -m http.server 後開啟。</p>'});
 </script>
 </body>
 </html>
