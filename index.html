@@ -110,22 +110,21 @@ img,svg{max-width:100%}
 @keyframes blink{50%{opacity:.25}}
 
 /* shelf strip */
-.shelf{overflow:hidden;background:#23201c;color:#f2f1ec;padding:clamp(22px,3vw,44px) 0;white-space:nowrap}
+.shelf{overflow:hidden;background:#c9bde6;color:#23201c;padding:clamp(22px,3vw,44px) 0;white-space:nowrap}
 .shelf div{font:800 clamp(36px,6vw,96px)/1.08 var(--disp);font-stretch:118%;letter-spacing:-.035em;will-change:transform}
-.shelf div+div{color:#9c998f;font-weight:300;font-stretch:100%}
+.shelf div+div{color:#5d5670;font-weight:300;font-stretch:100%}
 .shelf span::after{content:"";display:inline-block;width:.42em;height:.42em;margin:0 .45em;border-radius:50%;vertical-align:.12em;background:radial-gradient(circle,var(--red) 0 30%,currentColor 31%)}
 
 /* crate */
-.crate{padding-bottom:clamp(40px,5vw,80px)}
+.crate{padding-bottom:0}
 .chead{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:32px;align-items:end;margin-bottom:clamp(40px,5vw,80px)}
 .ctrl{display:flex;flex-wrap:wrap;gap:20px 28px;align-items:flex-end;justify-content:flex-end}
 .vw{display:flex;gap:2px;font:700 15px var(--disp)}
 .vw button{min-height:44px;padding:0 10px;color:var(--mute);transition:color .3s}
 .vw button[aria-pressed=true]{color:var(--ink);text-decoration:underline;text-underline-offset:6px;text-decoration-thickness:2px}
-.cnote{font-size:14px;color:var(--mute);margin:14px 0 0}
 .stage{transition:opacity .25s,transform .35s var(--ease)}
 .swap .stage{opacity:0;transform:translateY(14px)}
-.chap{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);grid-template-rows:auto 1fr;grid-template-areas:"h s" "p s";column-gap:clamp(24px,4vw,72px);min-height:min(100svh,960px);padding-block:clamp(72px,7vw,110px) clamp(56px,6vw,96px);background:var(--cb);box-shadow:0 0 0 100vmax var(--cb);clip-path:inset(0 -100vmax);color:var(--ink)}
+.chap{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);grid-template-rows:auto 1fr;grid-template-areas:"h s" "p s";column-gap:clamp(24px,4vw,72px);min-height:min(100svh,960px);padding-block:clamp(150px,12vw,190px) clamp(56px,6vw,96px);background:var(--cb);box-shadow:0 0 0 100vmax var(--cb);clip-path:inset(0 -100vmax);color:var(--ink)}
 .ch-web{--cb:light-dark(#e8ebe5,#1a1c19)}
 .ch-visual{--cb:light-dark(#efe7da,#201d18)}
 .ch-motion{--cb:#23201c;--ink:#f2f1ec;--mute:#a19e95;--line:#3a3833;--bg:#23201c}
@@ -208,6 +207,9 @@ img,svg{max-width:100%}
 .lncols li{display:grid;grid-template-columns:2.6em minmax(0,1fr) auto;gap:8px;padding:10px 0;border-bottom:1px solid var(--line);font-size:16px}
 .lncols #hist li{grid-template-columns:4.4em minmax(0,1fr) auto}
 .lncols li span{font:700 14px var(--disp);color:var(--mute)}
+.cn{display:flex;align-items:baseline;gap:12px;margin:0 0 18px}
+.cn b{font:800 clamp(64px,7vw,112px)/.86 var(--disp);font-stretch:118%;letter-spacing:-.04em}
+.cn span{font-size:15px;color:var(--mute)}
 .cl{margin:0;display:flex;flex-wrap:wrap;gap:8px 22px;font-size:16px;line-height:1.6}
 .cl em{font-style:normal;color:var(--mute)}
 .lncols li em{font-style:normal;color:var(--mute);font-size:14px;white-space:nowrap}
@@ -340,7 +342,7 @@ figcaption.fc{font:600 13px var(--disp);color:var(--mute);margin-top:10px}
  .hg{grid-template-columns:minmax(0,1fr)}
  .cue{justify-self:start}
  .chead{grid-template-columns:minmax(0,1fr)}
- .chap{grid-template-columns:minmax(0,1fr);grid-template-areas:"h" "s" "p";grid-template-rows:auto;min-height:0}
+ .chap{grid-template-columns:minmax(0,1fr);grid-template-areas:"h" "s" "p";grid-template-rows:auto;min-height:0;padding-top:140px}
  .deck{width:min(72vw,440px);margin:56px 0 0 4vw}
  .cproj{padding-block:28px 0}
  .dctl{gap:12px}
@@ -433,7 +435,6 @@ figcaption.fc{font:600 13px var(--disp);color:var(--mute);margin-top:10px}
    <div id="chaps"></div>
    <div class="list" id="list" hidden></div>
   </div>
-  <p class="cnote">作品、客戶與經歷皆為示意內容，以標示尺寸的示意框代替實際素材。</p>
  </div>
 </section>
 
@@ -449,7 +450,7 @@ figcaption.fc{font:600 13px var(--disp);color:var(--mute);margin-top:10px}
   <div class="lncols">
    <div class="rg"><h4>Services<small> 服務項目</small></h4><ol id="svc"></ol></div>
    <div class="rg"><h4>Experience<small> 經歷</small></h4><ol id="hist"></ol></div>
-   <div class="rg"><h4>Clients<small> 合作客戶</small></h4><p class="cl" id="cred"></p></div>
+   <div class="rg"><h4>Clients<small> 合作客戶</small></h4><p class="cn"><b>50+</b><span>合作品牌</span></p><p class="cl" id="cred"></p></div>
   </div>
  </div>
 </section>
@@ -659,7 +660,7 @@ let scA=0;
 const smoothTo=y=>{cancelAnimationFrame(scA);y=Math.max(0,Math.min(y,document.documentElement.scrollHeight-innerHeight));if(RM){scrollTo(0,y);return}const y0=scrollY,dy=y-y0,dur=Math.min(1600,Math.max(800,Math.abs(dy)*.5)),t0=performance.now(),ez=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;const step=now=>{const p=Math.min(1,(now-t0)/dur);scrollTo(0,y0+dy*ez(p));if(p<1)scA=requestAnimationFrame(step)};scA=requestAnimationFrame(step)};
 ['wheel','touchstart','keydown'].forEach(ev=>addEventListener(ev,()=>cancelAnimationFrame(scA),{passive:true}));
 document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(!a||a.closest('.dlg'))return;const id=a.getAttribute('href').slice(1);if(!id||byId(id))return;const t=document.getElementById(id);if(!t)return;e.preventDefault();smoothTo(id==='top'?0:t.getBoundingClientRect().top+scrollY-(id==='works'?0:20))});
-const goCat=g=>{const t=view==='grid'?$('#ch-'+g):$('#lg-'+g);if(t)smoothTo(t.getBoundingClientRect().top+scrollY-(view==='grid'?(innerWidth>860?60:90):150))};
+const goCat=g=>{const t=view==='grid'?$('#ch-'+g):$('#lg-'+g);if(t)smoothTo(t.getBoundingClientRect().top+scrollY-(view==='grid'?0:150))};
 $('#spd').innerHTML=Object.entries(G).map(([g,v],i)=>`<button type="button" data-f="${g}" aria-current="${i===0}"><b>${v.en}</b><span>${v.zh}</span></button>`).join('');
 const setCur=g=>$$('#spd button').forEach(b=>b.setAttribute('aria-current',b.dataset.f===g));
 $('#spd').addEventListener('click',e=>{const b=e.target.closest('button');if(b){setCur(b.dataset.f);goCat(b.dataset.f)}});
