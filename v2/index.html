@@ -282,7 +282,7 @@ img,svg{max-width:100%}
 .dtg{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:var(--sp-col);align-items:end}
 .dtk{display:flex;flex-wrap:wrap;align-items:baseline;line-height:var(--lh-snug);gap:var(--s-2) var(--s-5);margin:0 0 var(--s-6);font:600 var(--fs-s) var(--font);opacity:.8}
 .dtt{font:800 var(--fs-d2)/var(--lh-tight) var(--font);font-stretch:122%;letter-spacing:-.05em;margin:0}
-.dtz{font:700 var(--fs-h3)/1.3 var(--font);margin:var(--s-5) 0 0}
+.dtz{font:700 var(--fs-h2)/1.25 var(--font);margin:var(--s-5) 0 0}
 .dtd{margin:var(--s-7) 0 0;max-width:32em;font-size:var(--fs-base)}
 .dtm{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--s-5);margin:var(--s-9) 0 0}
 .dtm div{padding-top:var(--s-3);border-top:var(--hair) solid currentColor}
@@ -435,8 +435,8 @@ img,svg{max-width:100%}
  <div class="wrap">
   <a class="logo" href="#top" aria-label="Lin Mu 回到頂部" data-s-label="{name} 回到頂部"><i></i><span data-s="name">Lin Mu</span></a>
   <nav class="links" aria-label="主要">
-   <a href="#works">Works<small>作品</small></a>
-   <a href="#about">About<small>關於</small></a>
+   <a href="#works">Works<small>精選作品</small></a>
+   <a href="#about">About<small>關於我</small></a>
    <a href="#contact">Contact<small>聯絡</small></a>
   </nav>
   <button class="mbtn" id="mbtn" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
@@ -471,14 +471,14 @@ img,svg{max-width:100%}
 <section class="liner" id="about">
  <div class="wrap">
   <div class="lntop">
-   <h2 class="sh" data-split>About<small>關於</small></h2>
+   <h2 class="sh" data-split>About<small>關於我</small></h2>
    <p class="lnlead rt">我做商業廣告與數位設計：品牌網站、電商活動、社群廣告與短影音。先把主視覺定調，再延伸到每個平台、每個尺寸，讓一整檔活動從官網到 Banner 到影片都像同一個品牌在說話。</p>
   </div>
   <ol class="stair" id="steps"></ol>
   <div class="lncols">
-   <div class="rg"><h3>Services<small> 服務項目</small></h3><ol id="svc"></ol></div>
-   <div class="rg"><h3>Experience<small> 經歷</small></h3><ol id="hist"></ol></div>
-   <div class="rg"><h3>Clients<small> 合作客戶</small></h3><p class="cn"><b>50+</b><span>合作品牌</span></p><p class="cl" id="cred"></p></div>
+   <div class="rg"><h3>Expertise<small> 專業領域</small></h3><ol id="svc"></ol></div>
+   <div class="rg"><h3>Experience<small> 工作經歷</small></h3><ol id="hist"></ol></div>
+   <div class="rg"><h3>Clients<small> 合作品牌</small></h3><p class="cn"><b>50+</b><span>個品牌</span></p><p class="cl" id="cred"></p></div>
   </div>
  </div>
 </section>
@@ -486,7 +486,7 @@ img,svg{max-width:100%}
 <section class="end" id="contact">
  <div class="wrap endg">
   <div>
-   <h2 class="sh" data-split>Contact<small>合作邀約</small></h2>
+   <h2 class="sh" data-split>Contact<small>聯絡</small></h2>
    <button class="mail" id="mail" type="button" aria-label="複製 Email：hello@linmu.studio" data-s-label="複製 Email：{email}"><span data-s="email">hello@linmu.studio</span></button>
    <p class="endp">品牌網站與廣告專案合作，來信請附上時程與預算範圍，三個工作天內回覆。<span id="copied" aria-live="polite"></span></p>
    <div class="socials"><a href="https://www.behance.net/">Behance</a><a href="https://dribbble.com/">Dribbble</a><a href="https://www.instagram.com/">Instagram</a></div>
@@ -505,7 +505,7 @@ img,svg{max-width:100%}
 
 <div class="menu" id="menu" tabindex="-1" hidden>
  <button class="mx" id="mx" type="button">Close</button>
- <nav aria-label="行動版選單"><a href="#works">Works<small>作品</small></a><a href="#about">About<small>關於</small></a><a href="#contact">Contact<small>聯絡</small></a></nav>
+ <nav aria-label="行動版選單"><a href="#works">Works<small>精選作品</small></a><a href="#about">About<small>關於我</small></a><a href="#contact">Contact<small>聯絡</small></a></nav>
  <p data-s="email">hello@linmu.studio</p>
 </div>
 <div class="vwr" id="vwr" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="vwrT" hidden>
@@ -535,7 +535,7 @@ const toWork=w=>{const src=(w.src||[]).filter(Boolean),sz=String(w.sizes||'').sp
 const toProject=p=>({...p,y:+p.y||'',m:0,a:p.k,w:(p.w||[]).map(toWork)});
 const LM_BOOT=P=>{
 const G={web:{en:'Web',zh:'網頁',fmt:'Mobile · RWD'},visual:{en:'Visual',zh:'視覺',fmt:'社群廣告 · 電商 Banner · eDM · KV'},motion:{en:'Motion',zh:'動態',fmt:'16:9 · 9:16 · 640×1386'}};
-const STEPS=[['Brief','洞察','從需求單、受眾與投放平台開始，先確認這檔活動要讓誰做什麼。'],['Concept','企劃','定出主視覺方向與版型系統，決定哪些元素在每個尺寸都要保留。'],['Craft','製作','網頁、靜態素材與動態同步製作，每個斷點、版位與秒數都要成立。'],['Launch','上線','依平台規範交付，上線後看成效調整素材，下一檔從這裡開始。']];
+const STEPS=[['Brief','需求理解','理解品牌、受眾與專案目標，梳理設計需求與溝通重點。'],['Concept','概念發展','建立視覺方向，發展色彩、構圖與整體設計語言。'],['Craft','設計實踐','將設計概念轉化為網頁、平面與動態影像，兼顧細節與跨媒介的一致性。'],['Delivery','成果交付','依據不同媒介與平台規格完成製作，確保設計成果完整呈現。']];
 const SVC=[['01','品牌網站與 RWD','Web'],['02','活動頁與 Landing page','Web'],['03','社群廣告素材','Visual'],['04','電商 Banner 與 eDM','Visual'],['05','主視覺 KV','Visual'],['06','品牌影片與短影音','Motion']];
 const HIST=[['2023—','獨立設計，台北','現在'],['2020','Studio Northline 資深設計師','3 年'],['2019','數位代理商 視覺設計師','1 年'],['2018','實踐大學 媒體傳達設計','畢業']];
 const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -603,11 +603,11 @@ function detail(p){
  return `<header class="dth" style="--c:${p.c};--k:${p.k}"><div class="wrap dtg"><div>
   <p class="dtk"><span>${esc(G[p.g].en)} ${esc(G[p.g].zh)}</span><span>${p.y}</span><span>${esc(tags(p))}</span></p>
   <h2 class="dtt" id="dtTitle" data-split>${esc(p.t)}</h2><p class="dtz rt">${esc(p.zh)}</p><p class="dtd rt">${esc(p.d)}</p>
-  <dl class="dtm rt"><div><dt>Client 客戶</dt><dd>${esc(p.client)}</dd></div><div><dt>Industry 產業</dt><dd>${esc(p.ind)}</dd></div><div><dt>Platform 平台</dt><dd>${esc(p.pf)}</dd></div><div><dt>Role 角色</dt><dd>${esc(p.role)}</dd></div></dl>
+  <dl class="dtm rt">${[['Client 客戶',p.client],['Industry 產業',p.ind],['Platform 平台',p.pf],['Scope 負責範疇',p.role]].filter(r=>String(r[1]||'').trim()).map(([k,v])=>`<div><dt>${k}</dt><dd>${esc(v)}</dd></div>`).join('')}</dl>
  </div>${pack(p,'dtpk rs',0)}</div>
- <ol class="dttl wrap">${p.w.map((w,j)=>`<li class="rg"><button type="button" data-go="wk${j}"><span>${trk(j)}</span><b>${esc(w.t)}</b><em>${esc(spec(w))}</em></button></li>`).join('')}</ol></header>
+${p.w.length>1?`<ol class="dttl wrap">${p.w.map((w,j)=>`<li class="rg"><button type="button" data-go="wk${j}"><span>${trk(j)}</span><b>${esc(w.t)}</b><em>${esc(spec(w))}</em></button></li>`).join('')}</ol>`:''}</header>
  <div class="wks wrap">${p.w.map((w,j)=>`<section class="wk rg" id="wk${j}"><header class="wkh"><span>${trk(j)}</span><h3>${esc(w.t)}</h3><p>${esc(spec(w))}</p>${hint(w)}</header><div class="wk-b">${work(p,w,j)}</div></section>`).join('')}</div>
- <a class="dtn" href="#${nx.id}" style="--c:${nx.c};--k:${nx.k}"><div class="wrap"><div><small class="nk">Next 下一件 · ${esc(G[nx.g].en)}</small><b class="nt">${esc(nx.t)}</b></div>${pack(nx)}</div></a>`;
+ <a class="dtn" href="#${nx.id}" style="--c:${nx.c};--k:${nx.k}"><div class="wrap"><div><small class="nk">Next Project 下一個專案 · ${esc(G[nx.g].en)}</small><b class="nt">${esc(nx.t)}</b></div>${pack(nx)}</div></a>`;
 }
 
 /* ---------- render static parts ---------- */
