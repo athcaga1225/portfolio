@@ -2,7 +2,6 @@
   "projects": [
     {
       "id": "lm-031",
-      "cat": "LM-031",
       "t": "Tidewater Hotel",
       "zh": "旅店官網改版",
       "g": "web",
@@ -40,7 +39,6 @@
     },
     {
       "id": "lm-030",
-      "cat": "LM-030",
       "t": "Brew & Co.",
       "zh": "冬季咖啡節 Campaign",
       "g": "visual",
@@ -79,7 +77,6 @@
     },
     {
       "id": "lm-029",
-      "cat": "LM-029",
       "t": "Mono Coffee",
       "zh": "會員 eDM",
       "g": "visual",
@@ -111,7 +108,6 @@
     },
     {
       "id": "lm-028",
-      "cat": "LM-028",
       "t": "Form & Field",
       "zh": "品牌形象影片",
       "g": "motion",
@@ -145,7 +141,6 @@
     },
     {
       "id": "lm-027",
-      "cat": "LM-027",
       "t": "Pocket",
       "zh": "記帳 App 推廣活動頁",
       "g": "web",
@@ -178,7 +173,6 @@
     },
     {
       "id": "lm-026",
-      "cat": "LM-026",
       "t": "Mira Home",
       "zh": "雙 11 電商 Banner",
       "g": "visual",
@@ -210,7 +204,6 @@
     },
     {
       "id": "lm-025",
-      "cat": "LM-025",
       "t": "Ripple",
       "zh": "運動品牌 Reels 系列",
       "g": "motion",
@@ -236,7 +229,6 @@
     },
     {
       "id": "lm-024",
-      "cat": "LM-024",
       "t": "Fresh Week",
       "zh": "生鮮電商週年慶",
       "g": "web",
@@ -268,7 +260,6 @@
     },
     {
       "id": "lm-023",
-      "cat": "LM-023",
       "t": "Glow Lab",
       "zh": "保養品新品 Landing page",
       "g": "web",
@@ -293,7 +284,6 @@
     },
     {
       "id": "lm-022",
-      "cat": "LM-022",
       "t": "Kiln",
       "zh": "陶藝展覽 KV",
       "g": "visual",
@@ -318,7 +308,6 @@
     },
     {
       "id": "lm-021",
-      "cat": "LM-021",
       "t": "Orbit Mobile",
       "zh": "電信 5G 資費廣告",
       "g": "motion",
@@ -352,7 +341,6 @@
     },
     {
       "id": "lm-020",
-      "cat": "LM-020",
       "t": "Hearth",
       "zh": "鍋具開箱短影音",
       "g": "motion",
@@ -386,7 +374,6 @@
     },
     {
       "id": "lm-019",
-      "cat": "LM-019",
       "t": "Sunday Market",
       "zh": "週末市集社群廣告",
       "g": "visual",
@@ -418,7 +405,6 @@
     },
     {
       "id": "lm-018",
-      "cat": "LM-018",
       "t": "Lumen Optical",
       "zh": "眼鏡品牌週年慶 Banner",
       "g": "visual",
@@ -450,7 +436,6 @@
     },
     {
       "id": "lm-017",
-      "cat": "LM-017",
       "t": "Tea Ritual",
       "zh": "茶飲新品 KV",
       "g": "visual",
@@ -482,7 +467,6 @@
     },
     {
       "id": "lm-016",
-      "cat": "LM-016",
       "t": "Northwind Travel",
       "zh": "旅遊會員 eDM",
       "g": "visual",
@@ -514,7 +498,6 @@
     },
     {
       "id": "lm-015",
-      "cat": "LM-015",
       "t": "Pixel Arcade",
       "zh": "遊戲上市社群素材",
       "g": "visual",
@@ -546,7 +529,6 @@
     },
     {
       "id": "lm-014",
-      "cat": "LM-014",
       "t": "Field Notes Co.",
       "zh": "文具品牌形象 KV",
       "g": "visual",

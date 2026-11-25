@@ -114,7 +114,7 @@ img,svg{max-width:100%}
 .rec{display:grid;aspect-ratio:1;border-radius:50%;container-type:inline-size}
 .rec>*{grid-area:1/1}
 .disc{display:grid;place-items:center;border-radius:50%;will-change:transform;background:radial-gradient(circle closest-side,transparent 0 55%,color-mix(in srgb,var(--c-white) 9%,transparent) 55.4% 55.9%,transparent 56.3% 72%,color-mix(in srgb,var(--c-white) 8%,transparent) 72.3% 72.8%,transparent 73.2% 87%,color-mix(in srgb,var(--c-white) 7%,transparent) 87.3% 87.8%,transparent 88.2% 97.4%,var(--c-vinyl-edge) 97.6%),repeating-radial-gradient(circle closest-side,var(--c-vinyl) 0 .4%,var(--c-vinyl-groove) .4% .8%)}
-.lab{display:grid;grid-template-rows:20% auto 1fr auto auto 12%;justify-items:center;width:38%;aspect-ratio:1;padding-inline:14%;border-radius:50%;color:var(--k);font-family:var(--font);text-align:center;line-height:1.05;
+.lab{display:grid;grid-template-rows:20% auto 1fr auto auto 12%;justify-items:center;width:38%;aspect-ratio:1;padding-inline:5%;border-radius:50%;color:var(--k);font-family:var(--font);text-align:center;line-height:1.05;
  background:radial-gradient(circle,var(--c-black) 0 4.5%,transparent 4.7%),radial-gradient(circle closest-side,transparent 0 92.5%,color-mix(in srgb,currentColor 28%,transparent) 92.6% 93.2%,transparent 93.3%),var(--c);transition:background-color var(--t-2),color var(--t-2)}
 .lab b{grid-row:2;font-size:3.1cqw;font-weight:800;letter-spacing:.04em}
 .lab i{grid-row:4;max-width:100%;font-style:normal;font-size:3.4cqw;font-weight:800;font-stretch:110%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -185,7 +185,12 @@ img,svg{max-width:100%}
 .plat{display:grid;place-items:center;width:min(100%,calc(100svh - var(--tt-reserve)),var(--tt-max));aspect-ratio:1;color:var(--ink);transition:color var(--ltc)}
 .plat>*{grid-area:1/1}
 .plat .arm{position:relative;z-index:1}
+.crate[data-lg=visual] .plat{color:var(--c-white)}
 .plat .rec{width:84%;--c:var(--lb);--k:var(--ink)}
+.plat .lab b,.plat .lab s{white-space:nowrap}
+.plat .lab b{font-size:3.4cqw}
+.plat .lab i{font-size:4.6cqw}
+.plat .lab s{margin-top:var(--s-1);font-size:3cqw;font-weight:700;opacity:1}
 .plat .lab{transition:background-color var(--lt),color var(--ltc)}
 .arm{width:100%;height:100%;overflow:visible}
 .arm g{transform-box:view-box;transform-origin:var(--arm-pivot);transition:transform var(--t-1) var(--ease)}
@@ -197,7 +202,7 @@ img,svg{max-width:100%}
 .lgh:first-child{padding-top:var(--s-8)}
 .lgh b{font:800 var(--fs-h2)/1 var(--font);font-stretch:var(--wide)}
 .lgh span{margin-left:auto;font-size:var(--fs-s);opacity:var(--o-mute)}
-.row{display:grid;grid-template-columns:var(--s-12) minmax(0,1.3fr) minmax(0,1fr) var(--s-11);gap:var(--s-5);align-items:baseline;padding-block:var(--s-6);border-top:var(--hair) solid color-mix(in srgb,currentColor 28%,transparent);
+.row{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) var(--s-11);gap:var(--s-5);align-items:baseline;padding-block:var(--s-6);border-top:var(--hair) solid color-mix(in srgb,currentColor 28%,transparent);
  --bleed:var(--gutter);transition:background-color var(--t-fast) linear,box-shadow var(--t-fast) linear}
 .row:first-of-type{border-top:0}
 .row>*{transition:transform var(--t-2) var(--ease)}
@@ -222,7 +227,7 @@ img,svg{max-width:100%}
 .liner{padding-block:var(--sp-section)}
 .lntop{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:var(--sp-col);align-items:end}
 .lnlead{font:500 var(--fs-lead)/1.45 var(--font);margin:0;letter-spacing:-.01em}
-.stair{list-style:none;margin:var(--sp-section) 0 0;padding:0}
+.stair{list-style:none;max-width:calc(38em + 3 * min(13vw,15em));margin:var(--sp-section) auto 0;padding:0}
 .stair li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:var(--s-2) var(--s-8);width:min(100%,38em);margin-left:calc(var(--i)*min(13vw,15em));padding-block:var(--s-8);border-top:var(--hair) solid var(--line);color:color-mix(in srgb,var(--ink) 16%,var(--bg))}
 .stair li.on{color:var(--ink)}
 .stair li>span{font:800 var(--fs-d4)/var(--lh-tight) var(--font);font-stretch:var(--wide);letter-spacing:-.04em}
@@ -371,7 +376,7 @@ img,svg{max-width:100%}
 
 /* tablet */
 @media(max-width:68.75em){
- .row{grid-template-columns:var(--s-11) minmax(0,1.4fr) minmax(0,1fr) var(--s-11)}
+ .row{grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) var(--s-11)}
  .dtm{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media(max-width:53.75em){
@@ -390,7 +395,6 @@ img,svg{max-width:100%}
  .cnav{top:calc(var(--nav-h) - var(--s-4))}
  .plr{width:100%}
  .row{grid-template-columns:minmax(0,1fr) auto;gap:var(--s-2) var(--s-4);padding-block:var(--s-5)}
- .row .c{grid-column:1/3;order:-1}
  .row .z{grid-column:1/2}
  .row .y{grid-row:2;grid-column:2}
  .k-web{grid-template-columns:minmax(0,1fr)}
@@ -520,7 +524,7 @@ img,svg{max-width:100%}
 <script>
 /* ============================================================
    作品資料放在同資料夾的 works.json（可用 Pages CMS 後台編輯）。
-   欄位：id, cat 編號, t 英文名, zh 中文名, g 分類 web|visual|motion, y 年份,
+   欄位：id 網址代號(選填), t 英文名, zh 中文名, g 分類 web|visual|motion, y 年份,
    client, ind 產業, pf 平台, role, c 封套色, k 封套字色, b 示意框底色, url, d 說明, w 作品
    w 每件：k 類型, t 名稱, sizes 尺寸（例 1080x1080, 1080x1350）, dur 秒數（動態, 逗號分隔）,
           count 畫面數（只有手機版）, app 單一 App 畫面, mobile 有手機版（網頁）, src 檔案（依序）
@@ -578,8 +582,8 @@ function edm(p,W,H){let g=`<rect width="${W}" height="${H}" fill="${p.b}"/>`+blk
 function motionArt(p,rr,seed){const L=rr[0]>rr[1],W=L?1600:Math.round(1600*rr[0]/rr[1]),H=L?Math.round(1600*rr[1]/rr[0]):1600,mn=Math.min(W,H),cx=W/2,cy=H/2,R=mn*.34;
  return svg(W,H,`<rect width="${W}" height="${H}" fill="${p.b}"/><circle cx="${cx}" cy="${cy}" r="${R}" fill="none" stroke="${INK}" stroke-opacity=".12" stroke-width="${mn*.006}"/><g class="mv-rot"><circle cx="${cx}" cy="${cy}" r="${R}" fill="none"/><circle cx="${cx}" cy="${cy-R}" r="${mn*.022}" fill="${INK}"/></g>`+lbl(cx,cy+mn*.02,ratio(rr),'影片 · 示意',mn*.09),p.t+' 動態')}
 /* ---------- builders ---------- */
-const rec=p=>`<div class="rec" style="--c:${p.c};--k:${p.k}"><div class="disc" data-o="${hash(p.id)%360}" data-k="${(.8+hash(p.cat)%40/100).toFixed(2)}"><div class="lab"><b>${esc(p.cat)}</b><i>${esc(p.t)}</i><s>${G[p.g].en} · ${p.y}</s></div></div><div class="sheen"></div></div>`;
-const sleeve=p=>`<div class="sl" style="--k:${p.k}"><span class="sa">${esc(p.cat)}</span><span class="sb">${p.y} / ${esc(G[p.g].en)}</span><b class="st">${esc(p.t)}</b><span class="sc">${esc(p.zh)}</span><span class="sd">OPEN</span></div>`;
+const rec=p=>`<div class="rec" style="--c:${p.c};--k:${p.k}"><div class="disc" data-o="${hash(p.id)%360}" data-k="${(.8+hash(p.id)%40/100).toFixed(2)}"><div class="lab"><b>${esc(G[p.g].en)}</b><i>${esc(p.t)}</i><s>${p.y}</s></div></div><div class="sheen"></div></div>`;
+const sleeve=p=>`<div class="sl" style="--k:${p.k}"><span class="sa">${p.y}</span><span class="sb">${esc(G[p.g].en)}</span><b class="st">${esc(p.t)}</b><span class="sc">${esc(p.zh)}</span><span class="sd">OPEN</span></div>`;
 const pack=(p,cls='',seed=0)=>`<div class="pack ${cls}" style="--c:${p.c}">${rec(p)}<div class="slv"><div class="lay">${sleeve(p)}</div></div></div>`;
 const media=(src,alt,ar)=>/\.(mp4|webm|mov)$/i.test(src)?`<video src="${esc(src)}" muted loop playsinline style="width:100%;aspect-ratio:${ar};display:block"></video>`:`<img src="${esc(src)}" alt="${esc(alt)}" loading="lazy" style="width:100%;aspect-ratio:${ar};display:block">`;
 const browser=(p,w,seed)=>{const im=w.src?.desktop?media(w.src.desktop,p.t,'1440/2800'):webShot(p,'d',seed),sh=w.src?.desktop?-67.86:-(1-900/lastH)*100;return `<div class="frm br"><div class="brb"><i></i><i></i><i></i><span>${esc(p.url||'example.com')}/${seed%2?'rooms':''}</span></div><div class="brv"><div class="pg" style="--sh:${sh.toFixed(2)}%">${im}</div></div></div>`};
@@ -601,18 +605,18 @@ const hint=w=>w.k==='web'||(w.k==='webm'&&!w.app)?`<p class="hint">${FINE?'在�
 function detail(p){
  const i=P.indexOf(p),nx=P[(i+1)%P.length],n=p.w.length;
  return `<header class="dth" style="--c:${p.c};--k:${p.k}"><div class="wrap dtg"><div>
-  <p class="dtk"><span>${esc(p.cat)}</span><span>${esc(G[p.g].en)} ${esc(G[p.g].zh)}</span><span>${p.y}</span><span>${esc(tags(p))}</span></p>
+  <p class="dtk"><span>${esc(G[p.g].en)} ${esc(G[p.g].zh)}</span><span>${p.y}</span><span>${esc(tags(p))}</span></p>
   <h2 class="dtt" id="dtTitle" data-split>${esc(p.t)}</h2><p class="dtz rt">${esc(p.zh)}</p><p class="dtd rt">${esc(p.d)}</p>
   <dl class="dtm rt"><div><dt>Client 客戶</dt><dd>${esc(p.client)}</dd></div><div><dt>Industry 產業</dt><dd>${esc(p.ind)}</dd></div><div><dt>Platform 平台</dt><dd>${esc(p.pf)}</dd></div><div><dt>Role 角色</dt><dd>${esc(p.role)}</dd></div></dl>
  </div>${pack(p,'dtpk rs',0)}</div>
  <ol class="dttl wrap">${p.w.map((w,j)=>`<li class="rg"><button type="button" data-go="wk${j}"><span>${trk(j)}</span><b>${esc(w.t)}</b><em>${esc(spec(w))}</em></button></li>`).join('')}</ol></header>
  <div class="wks wrap">${p.w.map((w,j)=>`<section class="wk rg" id="wk${j}"><header class="wkh"><span>${trk(j)}</span><h3>${esc(w.t)}</h3><p>${esc(spec(w))}</p>${hint(w)}</header><div class="wk-b">${work(p,w,j)}</div></section>`).join('')}</div>
- <a class="dtn" href="#${nx.id}" style="--c:${nx.c};--k:${nx.k}"><div class="wrap"><div><small class="nk">Next 下一件 · ${esc(G[nx.g].en)} · ${esc(nx.cat)}</small><b class="nt">${esc(nx.t)}</b></div>${pack(nx)}</div></a>`;
+ <a class="dtn" href="#${nx.id}" style="--c:${nx.c};--k:${nx.k}"><div class="wrap"><div><small class="nk">Next 下一件 · ${esc(G[nx.g].en)}</small><b class="nt">${esc(nx.t)}</b></div>${pack(nx)}</div></a>`;
 }
 
 /* ---------- render static parts ---------- */
 const cnt=g=>P.filter(p=>p.g===g).length;
-$('#lrows').innerHTML=Object.entries(G).map(([g,v])=>`<h2 class="lgh" id="lg-${g}" data-g="${g}"><b>${v.en}</b> ${v.zh}<span>${(L=>`${L.length} 件 · ${Math.min(...L.map(p=>p.y))}—${Math.max(...L.map(p=>p.y))}`)(P.filter(p=>p.g===g))}</span></h2>`+P.filter(p=>p.g===g).map((p,i)=>`<a class="row" href="#${p.id}" data-g="${p.g}" data-id="${p.id}" style="--c:${p.c};--k:${p.k};--i:${i}"><span class="m c">${esc(p.cat)}</span><b>${esc(p.t)}</b><span class="z">${esc(p.zh)}</span><span class="m t">${esc(tags(p))}</span><span class="m n">${esc(p.ind)}</span><span class="m y">${p.y}</span></a>`).join('')).join('');
+$('#lrows').innerHTML=Object.entries(G).map(([g,v])=>`<h2 class="lgh" id="lg-${g}" data-g="${g}"><b>${v.en}</b> ${v.zh}<span>${(L=>`${L.length} 件 · ${Math.min(...L.map(p=>p.y))}—${Math.max(...L.map(p=>p.y))}`)(P.filter(p=>p.g===g))}</span></h2>`+P.filter(p=>p.g===g).map((p,i)=>`<a class="row" href="#${p.id}" data-g="${p.g}" data-id="${p.id}" style="--c:${p.c};--k:${p.k};--i:${i}"><b>${esc(p.t)}</b><span class="z">${esc(p.zh)}</span><span class="m t">${esc(tags(p))}</span><span class="m n">${esc(p.ind)}</span><span class="m y">${p.y}</span></a>`).join('')).join('');
 const shelf=P.map(p=>`<span>${esc(p.t)}</span>`).join('');
 $('#sh1').innerHTML=shelf+shelf;$('#sh2').innerHTML=P.map(p=>`<span>${esc(p.zh.split('｜')[0])}</span>`).join('').repeat(2);
 $('#steps').innerHTML=STEPS.map((s,i)=>`<li data-i="${i}" style="--i:${i}"><span>${trk(i)}</span><div><h3>${s[0]}<small>${s[1]}</small></h3><p>${s[2]}</p></div></li>`).join('');
@@ -667,7 +671,7 @@ let curG='web';const spy=vh=>{if(lockG)return;const L=view==='grid'?$$('.chap'):
 $$('.vw button').forEach(b=>b.addEventListener('click',()=>{view=b.dataset.v;curG='';$$('.vw button').forEach(x=>x.setAttribute('aria-pressed',x===b));crate.classList.add('swap');setTimeout(()=>{chaps.hidden=view!=='grid';list.hidden=view!=='list';crate.classList.toggle('lv',view==='list');crate.classList.remove('swap')},RM?0:260)}));
 
 let tx=0,ty=0,fcur='',ptrIn=false;const ltRec=$('#ltRec'),ltLab=$('#ltLab'),ltArm=$('#ltArm');
-const ltCatSet=g=>{const k=Object.keys(G).indexOf(g);ltLab.querySelector('b').textContent=`${trk(k)} / ${G[g].zh}`;ltLab.querySelector('i').textContent=G[g].en;ltLab.querySelector('s').textContent=G[g].fmt.split(' · ').slice(0,2).join(' · ')};
+const ltCatSet=g=>{const k=Object.keys(G).indexOf(g);ltLab.querySelector('b').textContent=trk(k);ltLab.querySelector('i').textContent=G[g].en;ltLab.querySelector('s').textContent=G[g].zh};
 ltCatSet('web');
 const ltSet=g=>{const k=Object.keys(G).indexOf(g);$('#ltT').textContent=`${trk(k)} / ${G[g].en} ${G[g].zh}`;$('#ltZ').textContent=G[g].fmt};
 ltSet('web');
@@ -750,7 +754,7 @@ const applySite=d=>{for(const k in SITE)if(typeof d?.[k]==='string'&&d[k].trim()
  document.querySelectorAll('[data-s-label]').forEach(e=>e.setAttribute('aria-label',e.dataset.sLabel.replace(/\{(\w+)\}/g,(_,k)=>SITE[k])));
  if(!document.title.includes(' · '))document.title=SITE.name+' 作品集'};
 fetch('site.json',{cache:'no-cache'}).then(r=>r.ok?r.json():null).then(applySite).catch(()=>{});
-fetch('works.json',{cache:'no-cache'}).then(r=>{if(!r.ok)throw 0;return r.json()}).then(d=>LM_BOOT((d.projects||[]).map(toProject))).catch(()=>{document.getElementById('lrows').innerHTML='<p class="err">讀不到 works.json。請用網址開啟，或在本機執行 python3 -m http.server 後開啟。</p>'});
+fetch('works.json',{cache:'no-cache'}).then(r=>{if(!r.ok)throw 0;return r.json()}).then(d=>{const seen=new Set();LM_BOOT((d.projects||[]).map(p=>{let id=(p.id||'').trim()||String(p.t||'work').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')||'work',b=id,n=2;while(seen.has(id))id=b+'-'+n++;seen.add(id);return toProject({...p,id})}))}).catch(()=>{document.getElementById('lrows').innerHTML='<p class="err">讀不到 works.json。請用網址開啟，或在本機執行 python3 -m http.server 後開啟。</p>'});
 </script>
 </body>
 </html>

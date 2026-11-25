@@ -32,13 +32,10 @@ content:
         list:
           collapsible:
             collapsed: true
-            summary: "{fields.cat} {fields.t}（{fields.g}）"
+            summary: "{fields.t}（{fields.g}）"
         fields:
           - name: id
-            label: 網址代號（小寫英數，例 lm-032，不可重複）
-            type: string
-          - name: cat
-            label: 編號（例 LM-032）
+            label: 網址代號（選填；留空會用英文標題自動產生）
             type: string
           - name: t
             label: 英文名稱
