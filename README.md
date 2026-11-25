@@ -14,9 +14,16 @@
 ## 檔案結構
 
 ```
-index.html   網站本體（樣式、資料、程式都在這裡）
-assets/      真實作品素材放這裡
+index.html      第一版（黑膠唱片櫃，保留作比較）
+v2/index.html   新版（作品優先、Web／Visual／Motion 聚焦翻頁）← 之後修改這個
+assets/         真實作品素材放這裡
 ```
+
+線上網址：
+- 第一版：https://athcaga1225.github.io/portfolio/
+- 新版：https://athcaga1225.github.io/portfolio/v2/
+
+要把新版設為正式首頁時，把 `v2/index.html` 搬到根目錄取代 `index.html` 即可（素材路徑也要從 `../assets/` 改回 `assets/`）。
 
 ## 本機預覽
 
@@ -29,7 +36,7 @@ python3 -m http.server 8000
 
 ## 替換成真實作品
 
-所有作品資料都在 `index.html` 的 `const P=[ ... ]` 陣列（搜尋 `const P=[`）。
+所有作品資料都在 `v2/index.html` 的 `const P=[ ... ]` 陣列（搜尋 `const P=[`）。
 
 ### 專案欄位
 
@@ -48,7 +55,7 @@ python3 -m http.server 8000
 
 ### 作品類型（`w` 陣列）
 
-加上 `src` 欄位就會改用真實檔案，不加則顯示標示尺寸的示意框。所有作品都以原始比例呈現，不裁切。
+加上 `src` 欄位就會改用真實檔案（新版在 `v2/` 資料夾內，素材路徑請寫成 `../assets/...`），不加則顯示標示尺寸的示意框。所有作品都以原始比例呈現，不裁切。
 
 ```js
 // 網頁 RWD：整頁長截圖（桌機 1440 寬、手機 390 寬）
