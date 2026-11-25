@@ -184,6 +184,7 @@ img,svg{max-width:100%}
 .ltt{position:sticky;top:var(--tt-top);display:flex;flex-direction:column;gap:var(--s-5);padding-top:var(--s-8)}
 .plat{display:grid;place-items:center;width:min(100%,calc(100svh - var(--tt-reserve)),var(--tt-max));aspect-ratio:1;color:var(--ink);transition:color var(--ltc)}
 .plat>*{grid-area:1/1}
+.plat .arm{position:relative;z-index:1}
 .plat .rec{width:84%;--c:var(--lb);--k:var(--ink)}
 .plat .lab{transition:background-color var(--lt),color var(--ltc)}
 .arm{width:100%;height:100%;overflow:visible}
@@ -432,7 +433,7 @@ img,svg{max-width:100%}
 <a class="skip" href="#works">跳到作品</a>
 <header class="nav">
  <div class="wrap">
-  <a class="logo" href="#top" aria-label="Lin Mu 回到頂部"><i></i>Lin Mu</a>
+  <a class="logo" href="#top" aria-label="Lin Mu 回到頂部" data-s-label="{name} 回到頂部"><i></i><span data-s="name">Lin Mu</span></a>
   <nav class="links" aria-label="主要">
    <a href="#works">Works<small>作品</small></a>
    <a href="#about">About<small>關於</small></a>
@@ -446,7 +447,7 @@ img,svg{max-width:100%}
 <main>
 <section class="crate lv" id="works" data-lg="web"><span id="top"></span>
  <div class="wrap">
-  <h1 class="sr">Lin Mu 作品集：Web、Visual、Motion</h1>
+  <h1 class="sr"><span data-s="name">Lin Mu</span> 作品集：Web、Visual、Motion</h1>
  </div>
  <div class="cnav"><div class="wrap"><nav class="spd plr" id="spd" aria-label="作品分類播放器"></nav><div class="vw" hidden role="group" aria-label="顯示方式"><button type="button" data-v="grid" aria-pressed="true">聚焦</button><button type="button" data-v="list" aria-pressed="false">列表</button></div></div></div>
  <div class="wrap">
@@ -486,7 +487,7 @@ img,svg{max-width:100%}
  <div class="wrap endg">
   <div>
    <h2 class="sh" data-split>Contact<small>合作邀約</small></h2>
-   <button class="mail" id="mail" type="button" aria-label="複製 Email：hello@linmu.studio"><span>hello@linmu.studio</span></button>
+   <button class="mail" id="mail" type="button" aria-label="複製 Email：hello@linmu.studio" data-s-label="複製 Email：{email}"><span data-s="email">hello@linmu.studio</span></button>
    <p class="endp">品牌網站與廣告專案合作，來信請附上時程與預算範圍，三個工作天內回覆。<span id="copied" aria-live="polite"></span></p>
    <div class="socials"><a href="https://www.behance.net/">Behance</a><a href="https://dribbble.com/">Dribbble</a><a href="https://www.instagram.com/">Instagram</a></div>
   </div>
@@ -500,12 +501,12 @@ img,svg{max-width:100%}
  </div>
 </section>
 </main>
-<footer class="foot"><div class="wrap"><span>© 2026 Lin Mu · 台北</span><span>作品與客戶名稱皆為示意內容</span><a href="#top">回到頂部</a></div></footer>
+<footer class="foot"><div class="wrap"><span>© 2026 <span data-s="name">Lin Mu</span> · <span data-s="city">台北</span></span><span>作品與客戶名稱皆為示意內容</span><a href="#top">回到頂部</a></div></footer>
 
 <div class="menu" id="menu" tabindex="-1" hidden>
  <button class="mx" id="mx" type="button">Close</button>
  <nav aria-label="行動版選單"><a href="#works">Works<small>作品</small></a><a href="#about">About<small>關於</small></a><a href="#contact">Contact<small>聯絡</small></a></nav>
- <p>hello@linmu.studio</p>
+ <p data-s="email">hello@linmu.studio</p>
 </div>
 <div class="vwr" id="vwr" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="vwrT" hidden>
  <div class="vwrb"><span id="vwrT"></span><button class="vwrx" id="vwrX" type="button" aria-label="關閉整頁預覽"></button></div>
@@ -677,19 +678,19 @@ if(FINE){document.addEventListener('mouseleave',()=>{ptrIn=false;floAt();dtnAt()
  addEventListener('mousemove',e=>{tx=e.clientX;ty=e.clientY;ptrIn=true;floAt();dtnAt()},{passive:true});addEventListener('scroll',()=>{if(ptrIn)floAt()},{passive:true})}
 
 /* ---------- detail dialog (hash routed: #lm-031) ---------- */
-const dlg=$('#dlg'),dlgIn=$('#dlgIn'),TITLE=document.title,docEl=document.documentElement;let cur=null,opener=null,origin=null;
+const dlg=$('#dlg'),dlgIn=$('#dlgIn'),docEl=document.documentElement;let cur=null,opener=null,origin=null;
 document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#lm-"]');if(a){origin=[e.clientX||innerWidth/2,e.clientY||innerHeight/2];opener=a}},true);
 const addDots=root=>$$('.k-webm,.k-ser,.k-mo.port',root).forEach(s=>{const n=s.children.length;if(n<2)return;const d=document.createElement('div');d.className='sdots';d.setAttribute('aria-hidden','true');d.innerHTML='<i></i>'.repeat(n);s.after(d);
  const upd=()=>{const m=s.scrollWidth-s.clientWidth,i=m>0?Math.round(s.scrollLeft/m*(n-1)):0;[...d.children].forEach((x,j)=>x.classList.toggle('on',j===i))};s.addEventListener('scroll',upd,{passive:true});upd()});
 function openP(p){
  const was=!!cur;cur=p;[...players].forEach(pl=>{if(!pl.el.isConnected||dlgIn.contains(pl.el)){play(pl,false);players.delete(pl)}});
- dlgIn.innerHTML=detail(p);prep(dlgIn);addDots(dlgIn);document.title=`${p.t} · Lin Mu`;
+ dlgIn.innerHTML=detail(p);prep(dlgIn);addDots(dlgIn);document.title=`${p.t} · ${SITE.name}`;
  if(!was){const o=origin||[innerWidth/2,innerHeight/2];dlg.style.setProperty('--ox',o[0]+'px');dlg.style.setProperty('--oy',o[1]+'px');dlg.hidden=false;dlg.scrollTop=0;docEl.classList.add('lock');requestAnimationFrame(()=>requestAnimationFrame(()=>dlg.classList.add('on')));setTimeout(()=>kbFocus($('#dx'),dlg),60)}
  else{dlg.scrollTop=0}
  origin=null;
 }
 function closeP(fromHash){
- if(!cur)return;cur=null;dlg.classList.remove('on');document.title=TITLE;
+ if(!cur)return;cur=null;dlg.classList.remove('on');document.title=SITE.name+' 作品集';
  setTimeout(()=>{if(cur)return;dlg.hidden=true;[...players].forEach(pl=>{if(dlgIn.contains(pl.el)){play(pl,false);players.delete(pl)}});dlgIn.innerHTML='';docEl.classList.remove('lock');kbFocus(opener)},RM?0:1250);
  if(!fromHash){const y=scrollY;try{history.replaceState(null,'',location.pathname+location.search)}catch(e){location.hash='';scrollTo(0,y)}}
 }
@@ -712,7 +713,7 @@ const menu=$('#menu'),mb=$('#mbtn');
 let menuT=0;function toggleMenu(on){mb.setAttribute('aria-expanded',on);clearTimeout(menuT);if(on){menu.hidden=false;requestAnimationFrame(()=>requestAnimationFrame(()=>menu.classList.add('on')));setTimeout(()=>kbFocus($('#mx'),menu),50)}else{menu.classList.remove('on');menuT=setTimeout(()=>{menu.hidden=true},RM?0:700);kbFocus(mb)}}
 mb.addEventListener('click',()=>toggleMenu(true));$('#mx').addEventListener('click',()=>toggleMenu(false));
 $$('#menu a').forEach(a=>a.addEventListener('click',()=>toggleMenu(false)));
-$('#mail').addEventListener('click',async()=>{const o=$('#copied');try{await navigator.clipboard.writeText('hello@linmu.studio');o.textContent=' 已複製 Email。'}catch(e){o.textContent=' 請手動複製：hello@linmu.studio'}setTimeout(()=>o.textContent='',3000)});
+$('#mail').addEventListener('click',async()=>{const o=$('#copied');try{await navigator.clipboard.writeText(SITE.email);o.textContent=' 已複製 Email。'}catch(e){o.textContent=' 請手動複製：'+SITE.email}setTimeout(()=>o.textContent='',3000)});
 
 /* ---------- one frame loop: rotation follows scroll, parallax, tonearms ---------- */
 prep(document.body);
@@ -743,6 +744,12 @@ function tick(t){
 }
 requestAnimationFrame(tick);
 };
+const SITE={name:'Lin Mu',email:'hello@linmu.studio',city:'台北'};
+const applySite=d=>{for(const k in SITE)if(typeof d?.[k]==='string'&&d[k].trim())SITE[k]=d[k].trim();
+ document.querySelectorAll('[data-s]').forEach(e=>{e.textContent=SITE[e.dataset.s]});
+ document.querySelectorAll('[data-s-label]').forEach(e=>e.setAttribute('aria-label',e.dataset.sLabel.replace(/\{(\w+)\}/g,(_,k)=>SITE[k])));
+ if(!document.title.includes(' · '))document.title=SITE.name+' 作品集'};
+fetch('site.json',{cache:'no-cache'}).then(r=>r.ok?r.json():null).then(applySite).catch(()=>{});
 fetch('works.json',{cache:'no-cache'}).then(r=>{if(!r.ok)throw 0;return r.json()}).then(d=>LM_BOOT((d.projects||[]).map(toProject))).catch(()=>{document.getElementById('lrows').innerHTML='<p class="err">讀不到 works.json。請用網址開啟，或在本機執行 python3 -m http.server 後開啟。</p>'});
 </script>
 </body>
