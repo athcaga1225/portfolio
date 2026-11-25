@@ -122,3 +122,6 @@ python3 -m http.server 8000
 
 ## Design system
 規則與 token 見 [DESIGN.md](DESIGN.md)；修改後執行 `node scripts/lint-design.mjs`。
+
+### 網站設定
+Pages CMS 左側「網站設定」可改名字、Email、城市（存在 `v2/site.json`）。

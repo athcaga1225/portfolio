@@ -5,6 +5,22 @@ media:
   output: /portfolio/v2/assets
 
 content:
+  - name: site
+    label: 網站設定
+    type: file
+    path: v2/site.json
+    fields:
+      - name: name
+        label: 名字（左上角、頁尾、分頁標題）
+        type: string
+        required: true
+      - name: email
+        label: Email（聯絡區、複製按鈕）
+        type: string
+        required: true
+      - name: city
+        label: 城市（頁尾）
+        type: string
   - name: works
     label: 作品
     type: file
