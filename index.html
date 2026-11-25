@@ -208,6 +208,8 @@ img,svg{max-width:100%}
 .lncols li{display:grid;grid-template-columns:2.6em minmax(0,1fr) auto;gap:8px;padding:10px 0;border-bottom:1px solid var(--line);font-size:16px}
 .lncols #hist li{grid-template-columns:4.4em minmax(0,1fr) auto}
 .lncols li span{font:700 14px var(--disp);color:var(--mute)}
+.cl{margin:0;display:flex;flex-wrap:wrap;gap:8px 22px;font-size:16px;line-height:1.6}
+.cl em{font-style:normal;color:var(--mute)}
 .lncols li em{font-style:normal;color:var(--mute);font-size:14px;white-space:nowrap}
 
 /* contact + run-out */
@@ -446,8 +448,8 @@ figcaption.fc{font:600 13px var(--disp);color:var(--mute);margin-top:10px}
   <ol class="stair" id="steps"></ol>
   <div class="lncols">
    <div class="rg"><h4>Services<small> 服務項目</small></h4><ol id="svc"></ol></div>
-   <div class="rg"><h4>Clients<small> 合作客戶</small></h4><ol id="cred"></ol></div>
    <div class="rg"><h4>Experience<small> 經歷</small></h4><ol id="hist"></ol></div>
+   <div class="rg"><h4>Clients<small> 合作客戶</small></h4><p class="cl" id="cred"></p></div>
   </div>
  </div>
 </section>
@@ -621,7 +623,9 @@ const shelf=P.map(p=>`<span>${esc(p.t)}</span>`).join('');
 $('#sh1').innerHTML=shelf+shelf;$('#sh2').innerHTML=P.map(p=>`<span>${esc(p.zh.split('｜')[0])}</span>`).join('').repeat(2);
 $('#steps').innerHTML=STEPS.map((s,i)=>`<li data-i="${i}" style="--i:${i}"><span>${trk(i)}</span><div><h3>${s[0]}<small>${s[1]}</small></h3><p>${s[2]}</p></div></li>`).join('');
 $('#svc').innerHTML=SVC.map(s=>`<li><span>${s[0]}</span>${esc(s[1])}<em>${s[2]}</em></li>`).join('');
-$('#cred').innerHTML=P.slice(0,6).map((p,i)=>`<li><span>${String(i+1).padStart(2,'0')}</span>${esc(p.client)}<em>${p.y}</em></li>`).join('');
+/* clients: one short wrapped line of names, edit CLIENTS to list your own (keep it to a dozen or so) */
+const CLIENTS=[...new Set(P.map(p=>p.client))];
+$('#cred').innerHTML=CLIENTS.map(c=>`<span>${esc(c)}</span>`).join('')+'<em>等品牌</em>';
 $('#hist').innerHTML=HIST.map(h=>`<li><span>${esc(h[0])}</span>${esc(h[1])}<em>${esc(h[2])}</em></li>`).join('');
 
 /* ---------- reveal, visibility, players ---------- */
