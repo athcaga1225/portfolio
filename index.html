@@ -111,10 +111,10 @@ img,svg{max-width:100%}
 @keyframes blink{50%{opacity:.25}}
 
 /* shelf strip */
-.shelf{overflow:hidden;background:#c9bde6;color:#23201c;padding:clamp(22px,3vw,44px) 0;white-space:nowrap}
+.shelf{--sb:#c9bde6;overflow:hidden;background:var(--sb);color:#23201c;padding:clamp(22px,3vw,44px) 0;white-space:nowrap}
 .shelf div{font:800 clamp(36px,6vw,96px)/1.08 var(--disp);font-stretch:118%;letter-spacing:-.035em;will-change:transform}
-.shelf div+div{color:#5d5670;font-weight:300;font-stretch:100%}
-.shelf span::after{content:"";display:inline-block;width:.42em;height:.42em;margin:0 .45em;border-radius:50%;vertical-align:.12em;background:radial-gradient(circle,var(--red) 0 30%,currentColor 31%)}
+.shelf div+div{color:color-mix(in srgb,#23201c 58%,var(--sb));font-weight:300;font-stretch:100%}
+.shelf span::after{content:"";display:inline-block;width:.42em;height:.42em;margin:0 .45em;border-radius:50%;vertical-align:.12em;background:#23201c}
 
 /* crate */
 .crate{padding-bottom:0}
