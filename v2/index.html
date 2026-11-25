@@ -196,15 +196,15 @@ img,svg{max-width:100%}
 .cap p{grid-column:2/4;margin:0;font-size:14px;color:var(--mute);line-height:1.5}
 .list{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:clamp(24px,4vw,72px);align-items:start}
 .lrows{border-bottom:1px solid var(--line)}
-.ltt{position:sticky;top:clamp(150px,13vw,170px);display:flex;flex-direction:column;gap:22px;padding-top:36px}
-.ltt .plat{position:relative;width:min(100%,62svh,460px);aspect-ratio:1;color:var(--ink)}
+.ltt{position:sticky;top:clamp(150px,13vw,170px);display:flex;flex-direction:column;gap:18px;padding-top:36px}
+.ltt .plat{position:relative;width:min(100%,calc(100svh - 330px),440px);aspect-ratio:1;color:var(--ink)}
 .ltt .plat .rec{position:absolute;inset:8%}
 .ltt .plat .arm{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
 .ltt .arm g{transform-box:view-box;transform-origin:92px 10px;transition:transform .3s var(--ease)}
-.ltm{display:grid;gap:4px;min-height:7.5em}
+.ltm{display:grid;gap:2px}
 .ltm span{font:600 13px var(--disp);color:var(--mute);letter-spacing:.04em}
-.ltm b{font:800 clamp(26px,2.4vw,36px)/1.05 var(--disp);font-stretch:112%;letter-spacing:-.02em}
-.ltm #ltZ{font:700 16px var(--text);color:var(--ink);letter-spacing:0}
+.ltm b{font:800 clamp(20px,1.6vw,24px)/1.2 var(--disp);font-stretch:112%;letter-spacing:-.01em}
+.ltm #ltZ{font:500 15px var(--text);letter-spacing:0}
 .ltm em{font-style:normal;font-size:14px;color:var(--mute)}
 .row{position:relative;display:grid;grid-template-columns:84px minmax(0,1.3fr) minmax(0,1fr) 56px;gap:16px;align-items:baseline;padding:22px 0;border-top:1px solid var(--line);isolation:isolate}
 .row::before{content:"";position:absolute;inset:0 calc(var(--g)*-1) 0 -12px;background:var(--c);z-index:-1;transform:scaleY(0);transform-origin:bottom;transition:transform .55s var(--ease)}
@@ -479,7 +479,7 @@ figcaption.fc{font:600 13px var(--disp);color:var(--mute);margin-top:10px}
       <div class="rec" id="ltRec"><div class="disc"><div class="lab" id="ltLab"><b></b><i></i><s></s></div></div><div class="sheen"></div></div>
       <svg class="arm" viewBox="0 0 100 100"><g id="ltArm"><rect x="88" y="-1" width="8" height="6" rx="1.5" fill="currentColor"/><circle cx="92" cy="10" r="5.5" fill="currentColor"/><circle cx="92" cy="10" r="2.2" fill="var(--bg)"/><path d="M92 10V62L86.5 71" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><rect x="83.2" y="69.5" width="6" height="8" rx="1" transform="rotate(32 86 72)" fill="currentColor"/></g></svg>
      </div>
-     <div class="ltm"><span id="ltCat"></span><b id="ltT"></b><span id="ltZ"></span><em id="ltTags"></em></div>
+     <div class="ltm"><b id="ltT"></b><span id="ltZ"></span></div>
     </aside>
     <div class="lrows" id="lrows"></div>
    </div>
@@ -674,7 +674,7 @@ $('#chaps').innerHTML=Object.entries(G).map(([g,v],ci)=>{const L=P.filter(p=>p.g
  <div class="cstage"><div class="deck" tabindex="0" role="group" aria-roledescription="carousel" aria-label="${v.en} 作品，左右鍵切換">${L.map((p,i)=>`<a class="card" href="#${p.id}" data-i="${i}" draggable="false" aria-label="${esc(p.t+' '+p.zh)}">${pack(p,'',i)}</a>`).join('')}</div>
   <div class="dctl"><button class="dbtn" type="button" data-step="-1" aria-label="上一件">←</button><span class="dn num">01</span><span class="dbar"><i></i></span><span class="num">${n}</span><button class="dbtn" type="button" data-step="1" aria-label="下一件">→</button></div></div>
  <div class="cproj" aria-live="polite">${proj(L[0])}</div></div>`}).join('');
-$('#lrows').innerHTML=Object.entries(G).map(([g,v])=>`<div class="lgh" id="lg-${g}" data-g="${g}"><b>${v.en}</b> ${v.zh}</div>`+P.filter(p=>p.g===g).map((p,i)=>`<a class="row" href="#${p.id}" data-g="${p.g}" data-id="${p.id}" style="--c:${p.c};--k:${p.k};--i:${i}"><span class="m c">${esc(p.cat)}</span><b>${esc(p.t)}</b><span class="z">${esc(p.zh)}</span><span class="m t">${esc(tags(p))}</span><span class="m n">${esc(p.ind)}</span><span class="m y">${p.y}</span></a>`).join('')).join('');
+$('#lrows').innerHTML=Object.entries(G).map(([g,v])=>`<div class="lgh" id="lg-${g}" data-g="${g}"><b>${v.en}</b> ${v.zh}<span>${(L=>`${L.length} 件 · ${Math.min(...L.map(p=>p.y))}—${Math.max(...L.map(p=>p.y))}`)(P.filter(p=>p.g===g))}</span></div>`+P.filter(p=>p.g===g).map((p,i)=>`<a class="row" href="#${p.id}" data-g="${p.g}" data-id="${p.id}" style="--c:${p.c};--k:${p.k};--i:${i}"><span class="m c">${esc(p.cat)}</span><b>${esc(p.t)}</b><span class="z">${esc(p.zh)}</span><span class="m t">${esc(tags(p))}</span><span class="m n">${esc(p.ind)}</span><span class="m y">${p.y}</span></a>`).join('')).join('');
 const shelf=P.map(p=>`<span>${esc(p.t)}</span>`).join('');
 $('#sh1').innerHTML=shelf+shelf;$('#sh2').innerHTML=P.map(p=>`<span>${esc(p.zh.split('｜')[0])}</span>`).join('').repeat(2);
 $('#steps').innerHTML=STEPS.map((s,i)=>`<li data-i="${i}" style="--i:${i}"><span>${trk(i)}</span><div><h3>${s[0]}<small>${s[1]}</small></h3><p>${s[2]}</p></div></li>`).join('');
@@ -745,7 +745,7 @@ $$('.chap').forEach(ch=>{
 let tx=0,ty=0,fcur='',ptrIn=false;const ltRec=$('#ltRec'),ltLab=$('#ltLab'),ltArm=$('#ltArm');
 const ltCatSet=g=>{const k=Object.keys(G).indexOf(g);ltLab.querySelector('b').textContent=`${trk(k)} / ${G[g].zh}`;ltLab.querySelector('i').textContent=G[g].en;ltLab.querySelector('s').textContent=G[g].fmt.split(' · ').slice(0,2).join(' · ')};
 ltCatSet('web');
-const ltSet=g=>{const k=Object.keys(G).indexOf(g),L=P.filter(p=>p.g===g);$('#ltCat').textContent=`${trk(k)} / ${G[g].zh}`;$('#ltT').textContent=G[g].en;$('#ltZ').textContent=G[g].fmt;$('#ltTags').textContent=`${L.length} 件作品 · ${Math.min(...L.map(p=>p.y))}—${Math.max(...L.map(p=>p.y))}`};
+const ltSet=g=>{const k=Object.keys(G).indexOf(g);$('#ltT').textContent=`${trk(k)} / ${G[g].en} ${G[g].zh}`;$('#ltZ').textContent=G[g].fmt};
 ltSet('web');
 const floAt=()=>{const el=ptrIn&&!list.hidden?document.elementFromPoint(tx,ty):null,r=el&&!el.closest('.spd,.vw,.nav a')?el.closest('.row'):null;fcur=r?r.dataset.id:''};
 if(FINE){document.addEventListener('mouseleave',()=>{ptrIn=false;floAt()});
