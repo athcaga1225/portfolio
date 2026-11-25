@@ -118,17 +118,18 @@ img,svg{max-width:100%}
 .shelf span::after{content:"";display:inline-block;width:.42em;height:.42em;margin:0 .45em;border-radius:50%;vertical-align:.12em;background:#23201c}
 
 /* crate */
-.crate{display:flow-root;padding-bottom:0;transition:background-color .8s var(--ease),color .8s}
+.crate{display:flow-root;padding-bottom:0;--lt:.45s linear;transition:background-color var(--lt),color var(--lt)}
 .crate.lv{background:var(--lb,var(--bg));color:var(--ink)}
 .crate.lv[data-lg=web]{--lb:#2a3cff;--ink:#ffffff;--mute:rgba(255,255,255,.72);--line:rgba(255,255,255,.3)}
 .crate.lv[data-lg=visual]{--lb:#12b886;--ink:#05281b;--mute:rgba(5,40,27,.66);--line:rgba(5,40,27,.25)}
 .crate.lv[data-lg=motion]{--lb:#151515;--ink:#f2f1ec;--mute:#a19e95;--line:#3a3833}
 .crate.lv #ltRec{--c:var(--lb);--k:var(--ink)}
-.crate.lv .row::before{background:#fff;transform:none;opacity:0;transition:opacity .18s linear}
-.crate.lv .row,.crate.lv .row>*{transition:color .18s linear,transform .5s var(--ease)}
+.crate.lv .row::before{background:#fff;transform:none;opacity:0;transition:opacity var(--lt)}
+.crate.lv .row,.crate.lv .row>*{transition:color var(--lt),border-color var(--lt),transform .5s var(--ease)}
+.crate.lv .lab,.crate.lv .ltt .plat,.crate.lv .lgh{transition:background-color var(--lt),color var(--lt),border-color var(--lt)}
 @media(hover:hover){.crate.lv .row:hover::before{opacity:1}.crate.lv .row:hover,.crate.lv .row:hover .m{color:#23201c}}
 .crate.lv .cnav{--ink:light-dark(#23201c,#efede6);--mute:light-dark(#6d6a62,#9c998f);color:var(--ink)}
-.crate.lv .lgh,.crate.lv .ltm{transition:color .8s}
+.crate.lv .ltm,.crate.lv .ltm *{transition:color var(--lt)}
 .chead{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:32px;align-items:end;margin-bottom:clamp(40px,5vw,80px)}
 .ctrl{display:flex;flex-wrap:wrap;gap:20px 28px;align-items:flex-end;justify-content:flex-end}
 .vw{display:flex;gap:2px;font:700 15px var(--disp)}
@@ -717,7 +718,7 @@ $('#spd').innerHTML=Object.entries(G).map(([g,v],i)=>`<button type="button" data
 const setCur=g=>$$('#spd button').forEach(b=>b.setAttribute('aria-current',b.dataset.f===g));
 $('#spd').addEventListener('click',e=>{const b=e.target.closest('button');if(b){setCur(b.dataset.f);goCat(b.dataset.f)}});
 let curG='web';const spy=vh=>{const L=view==='grid'?$$('.chap'):$$('.lgh');let g=L[0]?.dataset.g||'web';for(const el of L)if(el.getBoundingClientRect().top<=vh*.45)g=el.dataset.g;if(g!==curG){curG=g;setCur(g)}};
-$$('.vw button').forEach(b=>b.addEventListener('click',()=>{view=b.dataset.v;curG='';crate.classList.toggle('lv',view==='list');$$('.vw button').forEach(x=>x.setAttribute('aria-pressed',x===b));crate.classList.add('swap');setTimeout(()=>{chaps.hidden=view!=='grid';list.hidden=view!=='list';crate.classList.remove('swap')},RM?0:260)}));
+$$('.vw button').forEach(b=>b.addEventListener('click',()=>{view=b.dataset.v;curG='';$$('.vw button').forEach(x=>x.setAttribute('aria-pressed',x===b));crate.classList.add('swap');setTimeout(()=>{chaps.hidden=view!=='grid';list.hidden=view!=='list';crate.classList.toggle('lv',view==='list');crate.classList.remove('swap')},RM?0:260)}));
 /* one focused project per category: stacked sleeves, arrows, swipe, keys */
 $$('.chap').forEach(ch=>{
  const L=P.filter(p=>p.g===ch.dataset.g),cards=$$('.card',ch),n=cards.length,deck=$('.deck',ch),info=$('.cproj',ch),bar=$('.dbar i',ch),num=$('.dn',ch);let cur=0,sx=null,moved=false;
