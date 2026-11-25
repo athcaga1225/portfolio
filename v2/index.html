@@ -168,6 +168,7 @@ img,svg{max-width:100%}
 .sb,.sd{text-align:right}
 .st{grid-column:1/3;align-self:center;font-size:11.5cqw;font-weight:800;font-stretch:112%;line-height:.92;letter-spacing:-.035em;text-transform:uppercase;text-wrap:balance;overflow-wrap:anywhere}
 .sc{letter-spacing:.02em;overflow:hidden;text-overflow:ellipsis}
+.row .t,.row .n{display:none}
 .lgh{display:flex;align-items:baseline;gap:12px;padding:clamp(88px,9vw,140px) 0 16px;font:700 17px var(--text)}
 .lgh:first-child{padding-top:36px}
 .lgh b{font:800 clamp(28px,3vw,40px)/1 var(--disp);font-stretch:118%}
@@ -180,18 +181,26 @@ img,svg{max-width:100%}
 .cap .cat,.cap .yr{font:600 13px var(--disp);color:var(--mute)}
 .cap b{font:800 clamp(18px,1.5vw,22px)/1.15 var(--disp);font-stretch:110%;letter-spacing:-.015em}
 .cap p{grid-column:2/4;margin:0;font-size:14px;color:var(--mute);line-height:1.5}
-.list{border-bottom:1px solid var(--line)}
-.row{position:relative;display:grid;grid-template-columns:90px minmax(0,1.2fr) minmax(0,1fr) minmax(0,1fr) 90px 56px;gap:16px;align-items:baseline;padding:22px 0;border-top:1px solid var(--line);isolation:isolate}
-.row::before{content:"";position:absolute;inset:0 calc(var(--g)*-1);background:var(--c);z-index:-1;transform:scaleY(0);transform-origin:bottom;transition:transform .55s var(--ease)}
+.list{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:clamp(24px,4vw,72px);align-items:start}
+.lrows{border-bottom:1px solid var(--line)}
+.ltt{position:sticky;top:clamp(150px,13vw,170px);display:flex;flex-direction:column;gap:22px;padding-top:36px}
+.ltt .plat{position:relative;width:min(100%,62svh,460px);aspect-ratio:1;color:var(--ink)}
+.ltt .plat .rec{position:absolute;inset:8%}
+.ltt .plat .arm{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.ltt .arm g{transform-box:view-box;transform-origin:92px 10px;transition:transform .7s var(--ease)}
+.ltm{display:grid;gap:4px;min-height:7.5em}
+.ltm span{font:600 13px var(--disp);color:var(--mute);letter-spacing:.04em}
+.ltm b{font:800 clamp(26px,2.4vw,36px)/1.05 var(--disp);font-stretch:112%;letter-spacing:-.02em}
+.ltm #ltZ{font:700 16px var(--text);color:var(--ink);letter-spacing:0}
+.ltm em{font-style:normal;font-size:14px;color:var(--mute)}
+.row{position:relative;display:grid;grid-template-columns:84px minmax(0,1.3fr) minmax(0,1fr) 56px;gap:16px;align-items:baseline;padding:22px 0;border-top:1px solid var(--line);isolation:isolate}
+.row::before{content:"";position:absolute;inset:0 calc(var(--g)*-1) 0 -12px;background:var(--c);z-index:-1;transform:scaleY(0);transform-origin:bottom;transition:transform .55s var(--ease)}
 .row>*{transition:transform .55s var(--ease),color .3s}
 .row b{font:800 clamp(24px,3vw,46px)/1 var(--disp);font-stretch:115%;letter-spacing:-.03em}
 .row span{font-size:15px}
 .row .m{color:var(--mute);font:600 14px var(--disp)}
 .row .y{text-align:right}
 @media(hover:hover){.row:hover{color:var(--k)}.row:hover .m{color:inherit}.row:hover::before{transform:scaleY(1)}.row:hover b{transform:translateX(12px)}}
-.flo{position:fixed;left:0;top:0;width:260px;z-index:40;pointer-events:none;opacity:0;transform:scale(.7);transition:opacity .3s,scale .4s var(--ease)}
-.flo.on{opacity:1}
-.flo .pack{--out:.3}
 
 
 /* liner notes */
@@ -349,11 +358,13 @@ figcaption.fc{font:600 13px var(--disp);color:var(--mute);margin-top:10px}
 
 /* tablet */
 @media(max-width:1100px){
- .row{grid-template-columns:76px minmax(0,1.4fr) minmax(0,1fr) 90px 56px}
+ .row{grid-template-columns:76px minmax(0,1.4fr) minmax(0,1fr) 56px}
  .row .t{display:none}
  .dtm{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media(max-width:860px){
+ .list{grid-template-columns:minmax(0,1fr)}
+ .ltt{display:none}
  .hg{grid-template-columns:minmax(0,1fr)}
  .cue{justify-self:start}
  .chead{grid-template-columns:minmax(0,1fr)}
@@ -449,7 +460,16 @@ figcaption.fc{font:600 13px var(--disp);color:var(--mute);margin-top:10px}
  <div class="wrap">
   <div class="stage" id="stage">
    <div id="chaps"></div>
-   <div class="list" id="list" hidden></div>
+   <div class="list" id="list" hidden>
+    <aside class="ltt" aria-hidden="true">
+     <div class="plat" id="ltPlat">
+      <div class="rec" id="ltRec"><div class="disc"><div class="lab" id="ltLab"><b></b><i></i><s></s></div></div><div class="sheen"></div></div>
+      <svg class="arm" viewBox="0 0 100 100"><g id="ltArm"><rect x="88" y="-1" width="8" height="6" rx="1.5" fill="currentColor"/><circle cx="92" cy="10" r="5.5" fill="currentColor"/><circle cx="92" cy="10" r="2.2" fill="var(--bg)"/><path d="M92 10V62L86.5 71" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><rect x="83.2" y="69.5" width="6" height="8" rx="1" transform="rotate(32 86 72)" fill="currentColor"/></g></svg>
+     </div>
+     <div class="ltm"><span id="ltCat"></span><b id="ltT"></b><span id="ltZ"></span><em id="ltTags"></em></div>
+    </aside>
+    <div class="lrows" id="lrows"></div>
+   </div>
   </div>
  </div>
 </section>
@@ -491,7 +511,6 @@ figcaption.fc{font:600 13px var(--disp);color:var(--mute);margin-top:10px}
 </main>
 <footer class="foot"><div class="wrap"><span>© 2026 Lin Mu · 台北</span><span>作品與客戶名稱皆為示意內容</span><a href="#top">回到頂部</a></div></footer>
 
-<div class="flo" id="flo" aria-hidden="true"></div>
 <div class="menu" id="menu" tabindex="-1" hidden>
  <button class="mx" id="mx" type="button">Close</button>
  <nav aria-label="行動版選單"><a href="#works">Works<small>作品</small></a><a href="#about">About<small>關於</small></a><a href="#contact">Contact<small>聯絡</small></a></nav>
@@ -642,7 +661,7 @@ $('#chaps').innerHTML=Object.entries(G).map(([g,v],ci)=>{const L=P.filter(p=>p.g
  <div class="cstage"><div class="deck" tabindex="0" role="group" aria-roledescription="carousel" aria-label="${v.en} 作品，左右鍵切換">${L.map((p,i)=>`<a class="card" href="#${p.id}" data-i="${i}" draggable="false" aria-label="${esc(p.t+' '+p.zh)}">${pack(p,'',i)}</a>`).join('')}</div>
   <div class="dctl"><button class="dbtn" type="button" data-step="-1" aria-label="上一件">←</button><span class="dn num">01</span><span class="dbar"><i></i></span><span class="num">${n}</span><button class="dbtn" type="button" data-step="1" aria-label="下一件">→</button></div></div>
  <div class="cproj" aria-live="polite">${proj(L[0])}</div></div>`}).join('');
-$('#list').innerHTML=Object.entries(G).map(([g,v])=>`<div class="lgh" id="lg-${g}" data-g="${g}"><b>${v.en}</b> ${v.zh}</div>`+P.filter(p=>p.g===g).map((p,i)=>`<a class="row" href="#${p.id}" data-g="${p.g}" data-id="${p.id}" style="--c:${p.c};--k:${p.k};--i:${i}"><span class="m c">${esc(p.cat)}</span><b>${esc(p.t)}</b><span class="z">${esc(p.zh)}</span><span class="m t">${esc(tags(p))}</span><span class="m n">${esc(p.ind)}</span><span class="m y">${p.y}</span></a>`).join('')).join('');
+$('#lrows').innerHTML=Object.entries(G).map(([g,v])=>`<div class="lgh" id="lg-${g}" data-g="${g}"><b>${v.en}</b> ${v.zh}</div>`+P.filter(p=>p.g===g).map((p,i)=>`<a class="row" href="#${p.id}" data-g="${p.g}" data-id="${p.id}" style="--c:${p.c};--k:${p.k};--i:${i}"><span class="m c">${esc(p.cat)}</span><b>${esc(p.t)}</b><span class="z">${esc(p.zh)}</span><span class="m t">${esc(tags(p))}</span><span class="m n">${esc(p.ind)}</span><span class="m y">${p.y}</span></a>`).join('')).join('');
 const shelf=P.map(p=>`<span>${esc(p.t)}</span>`).join('');
 $('#sh1').innerHTML=shelf+shelf;$('#sh2').innerHTML=P.map(p=>`<span>${esc(p.zh.split('｜')[0])}</span>`).join('').repeat(2);
 $('#steps').innerHTML=STEPS.map((s,i)=>`<li data-i="${i}" style="--i:${i}"><span>${trk(i)}</span><div><h3>${s[0]}<small>${s[1]}</small></h3><p>${s[2]}</p></div></li>`).join('');
@@ -710,9 +729,12 @@ $$('.chap').forEach(ch=>{
  deck.addEventListener('dragstart',e=>e.preventDefault());
  deck.addEventListener('click',e=>{const c=e.target.closest('.card');if(moved||(c&&c.dataset.d!=='0')){e.preventDefault();e.stopPropagation();if(!moved&&c)set(+c.dataset.i);moved=false}},true);
 });
-const flo=$('#flo');let fx=0,fy=0,tx=0,ty=0,fcur='';
-let ptrIn=false;
-const floAt=()=>{const el=ptrIn&&!list.hidden?document.elementFromPoint(tx,ty):null,r=el&&!el.closest('.spd,.vw,.nav a')?el.closest('.row'):null;if(!r){flo.classList.remove('on');return}if(r.dataset.id!==fcur){fcur=r.dataset.id;flo.innerHTML=pack(byId(fcur),'',2);visIO.observe($('.disc',flo))}if(!flo.classList.contains('on')){fx=tx;fy=ty;flo.classList.add('on')}};
+let tx=0,ty=0,fcur='',ptrIn=false;const ltRec=$('#ltRec'),ltLab=$('#ltLab'),ltArm=$('#ltArm');
+const ltSet=p=>{ltRec.style.setProperty('--c',p.c);ltRec.style.setProperty('--k',p.k);ltLab.querySelector('b').textContent=p.cat;ltLab.querySelector('i').textContent=p.t;ltLab.querySelector('s').textContent=`${G[p.g].en} · ${p.y}`;$('#ltCat').textContent=`${p.cat} · ${G[p.g].en} · ${p.y}`;$('#ltT').textContent=p.t;$('#ltZ').textContent=p.zh;$('#ltTags').textContent=tags(p)};
+ltSet(P[0]);
+const ltPlay=on=>{ltArm.style.transform=on?'rotate(19deg)':'rotate(0deg)';spin=on?3:1;$('#ltPlat').classList.toggle('on',on)};
+const floAt=()=>{const el=ptrIn&&!list.hidden?document.elementFromPoint(tx,ty):null,r=el&&!el.closest('.spd,.vw,.nav a')?el.closest('.row'):null;if(!r){if(fcur){fcur='';ltPlay(false)}return}
+ if(r.dataset.id!==fcur){const first=!fcur;fcur=r.dataset.id;const p=byId(fcur);if(first||RM){ltSet(p)}else{ltLab.classList.add('swap');setTimeout(()=>{ltSet(byId(fcur));ltLab.classList.remove('swap')},180)}ltPlay(true)}};
 if(FINE){document.addEventListener('mouseleave',()=>{ptrIn=false;floAt()});
  const dtnAt=()=>{const d=cur&&$('#dlgIn .dtn');if(!d)return;const el=ptrIn?document.elementFromPoint(tx,ty):null;d.classList.toggle('on',!!el&&d.contains(el))};
  document.getElementById('dlg').addEventListener('scroll',dtnAt,{passive:true});
@@ -769,7 +791,6 @@ function tick(t){
   }
   const sr=shelfEl.getBoundingClientRect();if(sr.bottom>0&&sr.top<vh){const o=(sr.top-vh)*.35;sh1.style.transform=`translateX(${o.toFixed(1)}px)`;sh2.style.transform=`translateX(${(-o-sh2.scrollWidth*.35).toFixed(1)}px)`}
   roG.setAttribute('transform',`rotate(${(rot*.6%360).toFixed(2)} 100 100)`);
-  if(flo.classList.contains('on')){fx+=(tx-fx)*.14;fy+=(ty-fy)*.14;flo.style.translate=`${(fx+28).toFixed(1)}px ${(fy-130).toFixed(1)}px`}
  }
  spy(vh);
  stair.forEach(li=>li.classList.toggle('on',RM||li.getBoundingClientRect().top<vh*.62));
