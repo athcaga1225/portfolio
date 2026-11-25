@@ -711,15 +711,15 @@ const ready=()=>document.body.classList.add('ready');
 
 /* ---------- crate: speed filter + views ---------- */
 let spin=1;const crate=$('#works'),chaps=$('#chaps'),list=$('#list');let view='grid';
-let scA=0;
-const smoothTo=y=>{cancelAnimationFrame(scA);y=Math.max(0,Math.min(y,document.documentElement.scrollHeight-innerHeight));if(RM){scrollTo(0,y);return}const y0=scrollY,dy=y-y0,dur=Math.min(1600,Math.max(800,Math.abs(dy)*.5)),t0=performance.now(),ez=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;const step=now=>{const p=Math.min(1,(now-t0)/dur);scrollTo(0,y0+dy*ez(p));if(p<1)scA=requestAnimationFrame(step)};scA=requestAnimationFrame(step)};
-['wheel','touchstart','keydown'].forEach(ev=>addEventListener(ev,()=>cancelAnimationFrame(scA),{passive:true}));
+let scA=0,lockG='';
+const smoothTo=y=>{cancelAnimationFrame(scA);y=Math.max(0,Math.min(y,document.documentElement.scrollHeight-innerHeight));if(RM){scrollTo(0,y);return}const y0=scrollY,dy=y-y0,dur=Math.min(1600,Math.max(800,Math.abs(dy)*.5)),t0=performance.now(),ez=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;const step=now=>{const p=Math.min(1,(now-t0)/dur);scrollTo(0,y0+dy*ez(p));if(p<1)scA=requestAnimationFrame(step);else lockG=''};scA=requestAnimationFrame(step)};
+['wheel','touchstart','keydown'].forEach(ev=>addEventListener(ev,()=>{cancelAnimationFrame(scA);lockG=''},{passive:true}));
 document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(!a||a.closest('.dlg'))return;const id=a.getAttribute('href').slice(1);if(!id||byId(id))return;const t=document.getElementById(id);if(!t)return;e.preventDefault();smoothTo(id==='top'?0:t.getBoundingClientRect().top+scrollY-(id==='works'?0:20))});
-const goCat=g=>{const t=view==='grid'?$('#ch-'+g):$('#lg-'+g);if(t)smoothTo(t.getBoundingClientRect().top+scrollY-(view==='grid'?0:150))};
+const goCat=g=>{const t=view==='grid'?$('#ch-'+g):$('#lg-'+g);if(t&&!RM){lockG=g;curG=g;setCur(g)}if(t)smoothTo(t.getBoundingClientRect().top+scrollY-(view==='grid'?0:150))};
 $('#spd').innerHTML=Object.entries(G).map(([g,v],i)=>`<button type="button" data-f="${g}" aria-current="${i===0}"><b>${v.en}</b><span>${v.zh}</span></button>`).join('');
 const setCur=g=>$$('#spd button').forEach(b=>b.setAttribute('aria-current',b.dataset.f===g));
 $('#spd').addEventListener('click',e=>{const b=e.target.closest('button');if(b){setCur(b.dataset.f);goCat(b.dataset.f)}});
-let curG='web';const spy=vh=>{const L=view==='grid'?$$('.chap'):$$('.lgh');let g=L[0]?.dataset.g||'web';for(const el of L)if(el.getBoundingClientRect().top<=vh*.45)g=el.dataset.g;if(g!==curG){curG=g;setCur(g)}};
+let curG='web';const spy=vh=>{if(lockG)return;const L=view==='grid'?$$('.chap'):$$('.lgh');let g=L[0]?.dataset.g||'web';for(const el of L)if(el.getBoundingClientRect().top<=vh*.45)g=el.dataset.g;if(g!==curG){curG=g;setCur(g)}};
 $$('.vw button').forEach(b=>b.addEventListener('click',()=>{view=b.dataset.v;curG='';$$('.vw button').forEach(x=>x.setAttribute('aria-pressed',x===b));crate.classList.add('swap');setTimeout(()=>{chaps.hidden=view!=='grid';list.hidden=view!=='list';crate.classList.toggle('lv',view==='list');crate.classList.remove('swap')},RM?0:260)}));
 /* one focused project per category: stacked sleeves, arrows, swipe, keys */
 $$('.chap').forEach(ch=>{
