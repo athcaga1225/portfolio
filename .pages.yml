@@ -61,16 +61,16 @@ content:
             label: 客戶
             type: string
           - name: ind
-            label: 產業
+            label: 產業（選填，留空就不顯示）
             type: string
           - name: pf
-            label: 投放平台
+            label: 平台（選填）
             type: string
           - name: role
-            label: 負責內容
+            label: 負責範疇 Scope
             type: string
           - name: d
-            label: 專案說明
+            label: 專案說明（建議 60–100 字：設計方向與專案目的）
             type: text
           - name: url
             label: 網址（網頁作品，顯示在瀏覽器外框）
