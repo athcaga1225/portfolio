@@ -112,6 +112,35 @@ img,svg{max-width:100%}
 @keyframes blink{50%{opacity:.25}}
 
 /* shelf strip */
+.np{background:var(--npc,#b9c8e6);color:var(--npk,#23201c);transition:background-color .9s var(--ease),color .9s}
+.npin{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(24px,4vw,72px)}
+.npst{position:sticky;top:0;height:100vh;height:100svh;display:flex;flex-direction:column;justify-content:center;gap:24px}
+.plat{position:relative;width:min(36vw,66svh);aspect-ratio:1}
+.plat .rec{position:absolute;inset:8%}
+.plat .arm{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.arm g{transform-box:view-box;transform-origin:92px 10px;transition:transform .35s var(--ease)}
+.npmeta{display:flex;gap:16px;align-items:baseline;font:600 14px var(--disp)}
+.npmeta b{font-size:18px}
+.npintro{min-height:70svh;display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:10vh}
+.npintro p{font-size:19px;max-width:30em;margin:28px 0 0}
+.npit{min-height:100svh;display:flex;flex-direction:column;justify-content:center;gap:22px;padding-block:12vh}
+.npit .k1{font:600 14px var(--disp);opacity:.75;display:flex;gap:14px;flex-wrap:wrap;margin:0}
+.npit h3{font:800 clamp(48px,6.6vw,116px)/.88 var(--disp);font-stretch:120%;letter-spacing:-.05em;margin:0}
+.npit h4{font:700 clamp(18px,1.6vw,22px)/1.3 var(--text);margin:0}
+.npit>p{margin:0;max-width:34em;font-size:17px}
+.npprev{max-width:min(100%,760px)}
+.np .art,.np .mov,.np .k-ser figure>svg{box-shadow:0 0 0 1px color-mix(in srgb,currentColor 18%,transparent)}
+.np .wkh{display:none}
+.trks{list-style:none;padding:0;margin:0;max-width:560px;font-size:15px}
+.trks li{display:grid;grid-template-columns:3em minmax(0,1fr) auto;gap:10px;padding:9px 0;border-top:1px solid color-mix(in srgb,currentColor 22%,transparent)}
+.trks li span{font:700 14px var(--disp);opacity:.6}
+.trks li em{font-style:normal;opacity:.65;font-size:14px;white-space:nowrap}
+.obtn{align-self:flex-start;display:inline-flex;align-items:center;gap:12px;min-height:48px;padding:0 22px;border-radius:48px;box-shadow:inset 0 0 0 1.5px currentColor;font:700 15px var(--disp);transition:background-color .3s,color .3s,gap .4s var(--ease)}
+.obtn:hover{background:var(--npk,#23201c);color:var(--npc,#b9c8e6);gap:18px}
+.npmob{display:none}
+.np .mop{--pbg:var(--npc)}
+@media(max-width:860px){.npin{grid-template-columns:minmax(0,1fr)}.npst{display:none}.npit{min-height:auto;padding-block:64px}.npintro{min-height:auto;padding-block:96px 16px}.npmob{display:block;width:min(62vw,360px);--to:.34;margin-bottom:8px}}
+@media(prefers-reduced-motion:reduce){.np{transition-duration:.2s}}
 .shelf{--sb:#b9c8e6;overflow:hidden;background:var(--sb);color:#23201c;padding:clamp(22px,3vw,44px) 0;white-space:nowrap}
 .shelf div{font:800 clamp(36px,6vw,96px)/1.08 var(--disp);font-stretch:118%;letter-spacing:-.035em;will-change:transform}
 .shelf div+div{color:#23201c;font-weight:800;font-stretch:100%;letter-spacing:-.01em}
@@ -432,6 +461,7 @@ figcaption.fc{font:600 13px var(--disp);color:var(--mute);margin-top:10px}
   <a class="logo" href="#top" aria-label="Lin Mu 回到頂部"><i></i>Lin Mu</a>
   <nav class="links" aria-label="主要">
    <a href="#works">Works<small>作品</small></a>
+   <a href="#selected">Selected<small>精選</small></a>
    <a href="#about">About<small>關於</small></a>
    <a href="#contact">Contact<small>聯絡</small></a>
   </nav>
@@ -450,6 +480,24 @@ figcaption.fc{font:600 13px var(--disp);color:var(--mute);margin-top:10px}
   <div class="stage" id="stage">
    <div id="chaps"></div>
    <div class="list" id="list" hidden></div>
+  </div>
+ </div>
+</section>
+
+<section class="np" id="selected">
+ <div class="wrap npin">
+  <div class="npst" aria-hidden="true">
+   <div class="plat">
+    <div class="rec" id="npRec"><div class="disc"><div class="lab" id="npLab"><b></b><i></i><s></s></div></div><div class="sheen"></div></div>
+    <svg class="arm" viewBox="0 0 100 100"><g id="npArm"><rect x="88" y="-1" width="8" height="6" rx="1.5" fill="currentColor"/><circle cx="92" cy="10" r="5.5" fill="currentColor"/><circle cx="92" cy="10" r="2.2" fill="var(--npc,#b9c8e6)"/><path d="M92 10V62L86.5 71" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><rect x="83.2" y="69.5" width="6" height="8" rx="1" transform="rotate(32 86 72)" fill="currentColor"/></g></svg>
+   </div>
+   <div class="npmeta"><span id="npCat"></span><b id="npTitle"></b><span class="num" id="npTime"></span></div>
+  </div>
+  <div id="npList">
+   <div class="npintro">
+    <h2 class="sh" data-split>Selected<small>精選 · 四件代表作</small></h2>
+    <p class="rt">往下捲動，每件作品會帶著自己的顏色鋪滿畫面，唱臂跟著往內圈前進。</p>
+   </div>
   </div>
  </div>
 </section>
@@ -494,7 +542,7 @@ figcaption.fc{font:600 13px var(--disp);color:var(--mute);margin-top:10px}
 <div class="flo" id="flo" aria-hidden="true"></div>
 <div class="menu" id="menu" tabindex="-1" hidden>
  <button class="mx" id="mx" type="button">Close</button>
- <nav aria-label="行動版選單"><a href="#works">Works<small>作品</small></a><a href="#about">About<small>關於</small></a><a href="#contact">Contact<small>聯絡</small></a></nav>
+ <nav aria-label="行動版選單"><a href="#works">Works<small>作品</small></a><a href="#selected">Selected<small>精選</small></a><a href="#about">About<small>關於</small></a><a href="#contact">Contact<small>聯絡</small></a></nav>
  <p>hello@linmu.studio</p>
 </div>
 <div class="vwr" id="vwr" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="vwrT" hidden>
@@ -558,6 +606,7 @@ const P=[
  d:'鍋具品牌的開箱短影音。640×1386 用於電商 App 內影音廣告，同步輸出 9:16 給社群。',
  w:[{k:'motion',t:'電商 App 影音',items:[{r:[640,1386],dur:12},{r:[640,1386],dur:12}]},{k:'motion',t:'社群 9:16',items:[{r:[9,16],dur:15}]}]}
 ];
+const FEAT=['lm-031','lm-030','lm-028','lm-027'];
 const G={web:{en:'Web',zh:'網頁',fmt:'Mobile · RWD'},visual:{en:'Visual',zh:'視覺',fmt:'社群廣告 · 電商 Banner · eDM · KV'},motion:{en:'Motion',zh:'動態',fmt:'16:9 · 9:16 · 640×1386'}};
 const STEPS=[['Brief','洞察','從需求單、受眾與投放平台開始，先確認這檔活動要讓誰做什麼。'],['Concept','企劃','定出主視覺方向與版型系統，決定哪些元素在每個尺寸都要保留。'],['Craft','製作','網頁、靜態素材與動態同步製作，每個斷點、版位與秒數都要成立。'],['Launch','上線','依平台規範交付，上線後看成效調整素材，下一檔從這裡開始。']];
 const SVC=[['01','品牌網站與 RWD','Web'],['02','活動頁與 Landing page','Web'],['03','社群廣告素材','Visual'],['04','電商 Banner 與 eDM','Visual'],['05','主視覺 KV','Visual'],['06','品牌影片與短影音','Motion']];
@@ -718,6 +767,15 @@ if(FINE){document.addEventListener('mouseleave',()=>{ptrIn=false;floAt()});
  document.getElementById('dlg').addEventListener('scroll',dtnAt,{passive:true});
  addEventListener('mousemove',e=>{tx=e.clientX;ty=e.clientY;ptrIn=true;floAt();dtnAt()},{passive:true});addEventListener('scroll',()=>{if(ptrIn)floAt()},{passive:true})}
 
+/* ---------- selected: one record on the turntable, colour floods the section ---------- */
+const F=FEAT.map(byId).filter(Boolean),np=$('#selected'),npRec=$('#npRec'),npLab=$('#npLab'),npArm=$('#npArm');let npi=-1;
+$('#npList').insertAdjacentHTML('beforeend',F.map((p,i)=>`<article class="npit" data-i="${i}">${pack(p,'npmob rs',1)}<p class="k1"><span>${trk(i)}</span><span>${esc(p.cat)}</span><span>${esc(G[p.g].en)} ${esc(G[p.g].zh)}</span><span>${esc(p.client)}</span><span>${p.y}</span></p><h3 data-split>${esc(p.t)}</h3><h4 class="rt">${esc(p.zh)}</h4><p class="rt">${esc(p.d)}</p><div class="npprev"><div class="wk-b">${work(p,p.w[0],0)}</div></div><ol class="trks">${p.w.map((w,j)=>`<li><span>${trk(j)}</span>${esc(w.t)}<em>${esc(spec(w))}</em></li>`).join('')}</ol><a class="obtn" href="#${p.id}">查看專案 <span aria-hidden="true">→</span></a></article>`).join(''));
+function setNP(i){if(i===npi||!F[i])return;npi=i;const p=F[i];np.style.setProperty('--npc',p.c);np.style.setProperty('--npk',p.k);$('#npCat').textContent=p.cat;$('#npTitle').textContent=p.t;$('#npTime').textContent=`${trk(i)} / ${trk(F.length-1)}`;
+ npLab.classList.add('swap');setTimeout(()=>{npRec.style.setProperty('--c',p.c);npRec.style.setProperty('--k',p.k);npLab.querySelector('b').textContent=p.cat;npLab.querySelector('i').textContent=p.t;npLab.querySelector('s').textContent=`${G[p.g].en} · ${p.y}`;npLab.classList.remove('swap')},RM?0:220)}
+setNP(0);
+const npIO=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)setNP(+e.target.dataset.i)}),{rootMargin:'-48% 0px -48% 0px'});
+$$('.npit').forEach(el=>npIO.observe(el));
+
 /* ---------- detail dialog (hash routed: #lm-031) ---------- */
 const dlg=$('#dlg'),dlgIn=$('#dlgIn'),TITLE=document.title,docEl=document.documentElement;let cur=null,opener=null,origin=null;
 document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#lm-"]');if(a){origin=[e.clientX||innerWidth/2,e.clientY||innerHeight/2];opener=a}},true);
@@ -772,6 +830,7 @@ function tick(t){
   if(flo.classList.contains('on')){fx+=(tx-fx)*.14;fy+=(ty-fy)*.14;flo.style.translate=`${(fx+28).toFixed(1)}px ${(fy-130).toFixed(1)}px`}
  }
  spy(vh);
+ {const nr=np.getBoundingClientRect();if(nr.top<vh&&nr.bottom>0){const pr=Math.min(1,Math.max(0,(vh*.5-nr.top)/nr.height));npArm.style.transform=`rotate(${pr<.06?0:(12+15*pr).toFixed(2)}deg)`}}
  stair.forEach(li=>li.classList.toggle('on',RM||li.getBoundingClientRect().top<vh*.62));
  const pp=Math.min(1,Math.max(0,yW/Math.max(1,document.documentElement.scrollHeight-vh)));pb.style.transform=`scaleX(${pp.toFixed(4)})`; 
  for(const el of vis)if(el.classList?.contains('k-long')){const lg=el.querySelector('.lg').getBoundingClientRect(),vp=el.querySelector('.vp');const top=Math.min(1,Math.max(0,-lg.top/lg.height)),hgt=Math.min(1,vh/lg.height);vp.style.top=(top*100).toFixed(2)+'%';vp.style.height=(Math.min(hgt,1-top)*100).toFixed(2)+'%'}
