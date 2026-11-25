@@ -119,7 +119,7 @@ img,svg{max-width:100%}
 .shelf span::after{content:"";display:inline-block;width:.42em;height:.42em;margin:0 .45em;border-radius:50%;vertical-align:.12em;background:#23201c}
 
 /* crate */
-.crate{display:flow-root;padding-bottom:0;--lt:.45s linear;transition:background-color var(--lt),color var(--lt)}
+.crate{display:flow-root;padding-bottom:clamp(120px,12vw,200px);--lt:.45s linear;transition:background-color var(--lt),color var(--lt)}
 .crate.lv{background:var(--lb,var(--bg));color:var(--ink)}
 .crate.lv[data-lg=web]{--lb:#2a3cff;--ink:#ffffff;--mute:rgba(255,255,255,.72);--line:rgba(255,255,255,.3)}
 .crate.lv[data-lg=visual]{--lb:#12b886;--ink:#05281b;--mute:rgba(5,40,27,.66);--line:rgba(5,40,27,.25)}
@@ -131,7 +131,7 @@ img,svg{max-width:100%}
 .crate.lv .row .m,.crate.lv .ltm span,.crate.lv .ltm em{color:inherit;opacity:.68}
 .crate.lv .row,.crate.lv .lrows,.crate.lv .lgh{border-color:color-mix(in srgb,currentColor 28%,transparent)}
 .crate.lv .lab,.crate.lv .ltt .plat{transition:background-color var(--lt),color var(--lt)}
-@media(hover:hover){.crate.lv .row:hover::before{opacity:1}.crate.lv .row:hover,.crate.lv .row:hover .m{color:#23201c}}
+@media(hover:hover){html:not(.scrolling) .crate.lv .row:hover::before{opacity:1}html.scrolling .crate.lv .row{pointer-events:none}html:not(.scrolling) .crate.lv .row:hover,html:not(.scrolling) .crate.lv .row:hover .m{color:#23201c}}
 .crate.lv .cnav{--ink:light-dark(#23201c,#efede6);--mute:light-dark(#6d6a62,#9c998f);color:var(--ink)}
 .chead{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:32px;align-items:end;margin-bottom:clamp(40px,5vw,80px)}
 .ctrl{display:flex;flex-wrap:wrap;gap:20px 28px;align-items:flex-end;justify-content:flex-end}
@@ -196,7 +196,7 @@ img,svg{max-width:100%}
 .cap b{font:800 clamp(18px,1.5vw,22px)/1.15 var(--disp);font-stretch:110%;letter-spacing:-.015em}
 .cap p{grid-column:2/4;margin:0;font-size:14px;color:var(--mute);line-height:1.5}
 .list{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:clamp(24px,4vw,72px);align-items:start}
-.lrows{border-bottom:1px solid var(--line);margin-bottom:clamp(96px,10vw,160px)}
+.lrows{border-bottom:1px solid var(--line)}
 .ltt{position:sticky;top:clamp(150px,13vw,170px);display:flex;flex-direction:column;gap:18px;padding-top:36px}
 .ltt .plat{position:relative;width:min(100%,calc(100svh - 330px),440px);aspect-ratio:1;color:var(--ink)}
 .ltt .plat .rec{position:absolute;inset:8%}
@@ -619,7 +619,7 @@ const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'
 const hash=s=>{let h=7;for(const ch of s)h=(h*31+ch.charCodeAt(0))%2147483647;return h};
 const rng=seed=>{let s=seed%2147483646+1;return()=>(s=s*16807%2147483647)/2147483647};
 const byId=id=>P.find(p=>p.id===id);
-let usingKeys=false;addEventListener('keydown',e=>{if(e.key==='Tab'){usingKeys=true;document.documentElement.classList.add('kb')}},true);addEventListener('pointerdown',()=>{usingKeys=false;document.documentElement.classList.remove('kb')},true);
+let usingKeys=false,scT=0;addEventListener('scroll',()=>{document.documentElement.classList.add('scrolling');clearTimeout(scT);scT=setTimeout(()=>document.documentElement.classList.remove('scrolling'),160)},{passive:true});addEventListener('keydown',e=>{if(e.key==='Tab'){usingKeys=true;document.documentElement.classList.add('kb')}},true);addEventListener('pointerdown',()=>{usingKeys=false;document.documentElement.classList.remove('kb')},true);
 /* move focus for screen readers, but only show the ring to keyboard users */
 const kbFocus=(el,box)=>{if(usingKeys){el?.focus?.({preventScroll:true})}else if(box){box.focus({preventScroll:true,focusVisible:false})}else{document.activeElement?.blur?.()}};
 const fmtT=s=>Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0');
