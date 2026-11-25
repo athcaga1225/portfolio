@@ -15,7 +15,7 @@
 
 ```
 index.html      第一版（黑膠唱片櫃，保留作比較）
-v2/index.html   新版（作品優先、Web／Visual／Motion 聚焦翻頁）← 之後修改這個
+v2/index.html   新版（作品優先、左唱盤＋Web／Visual／Motion 列表）← 之後修改這個
 assets/         真實作品素材放這裡
 ```
 
