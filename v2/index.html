@@ -187,10 +187,6 @@ img,svg{max-width:100%}
 .plat .arm{position:relative;z-index:1}
 .crate[data-lg=visual] .plat{color:var(--c-white)}
 .plat .rec{width:84%;--c:var(--lb);--k:var(--ink)}
-.plat .lab b,.plat .lab s{white-space:nowrap}
-.plat .lab b{font-size:3.4cqw}
-.plat .lab i{font-size:4.6cqw}
-.plat .lab s{margin-top:var(--s-1);font-size:3cqw;font-weight:700;opacity:1}
 .plat .lab{transition:background-color var(--lt),color var(--ltc)}
 .arm{width:100%;height:100%;overflow:visible}
 .arm g{transform-box:view-box;transform-origin:var(--arm-pivot);transition:transform var(--t-1) var(--ease)}
@@ -459,7 +455,7 @@ img,svg{max-width:100%}
    <div class="list" id="list">
     <aside class="ltt" aria-hidden="true">
      <div class="plat" id="ltPlat">
-      <div class="rec" id="ltRec"><div class="disc"><div class="lab" id="ltLab"><b></b><i></i><s></s></div></div><div class="sheen"></div></div>
+      <div class="rec" id="ltRec"><div class="disc"><div class="lab" id="ltLab"></div></div><div class="sheen"></div></div>
       <svg class="arm" viewBox="0 0 100 100"><g id="ltArm"><rect x="88" y="-1" width="8" height="6" rx="1.5" fill="currentColor"/><circle cx="92" cy="10" r="5.5" fill="currentColor"/><circle cx="92" cy="10" r="2.2" fill="var(--bg)"/><path d="M92 10V62L86.5 71" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><rect x="83.2" y="69.5" width="6" height="8" rx="1" transform="rotate(32 86 72)" fill="currentColor"/></g></svg>
      </div>
      <div class="ltm"><b id="ltT"></b><span id="ltZ"></span></div>
@@ -671,7 +667,7 @@ let curG='web';const spy=vh=>{if(lockG)return;const L=view==='grid'?$$('.chap'):
 $$('.vw button').forEach(b=>b.addEventListener('click',()=>{view=b.dataset.v;curG='';$$('.vw button').forEach(x=>x.setAttribute('aria-pressed',x===b));crate.classList.add('swap');setTimeout(()=>{chaps.hidden=view!=='grid';list.hidden=view!=='list';crate.classList.toggle('lv',view==='list');crate.classList.remove('swap')},RM?0:260)}));
 
 let tx=0,ty=0,fcur='',ptrIn=false;const ltRec=$('#ltRec'),ltLab=$('#ltLab'),ltArm=$('#ltArm');
-const ltCatSet=g=>{const k=Object.keys(G).indexOf(g);ltLab.querySelector('b').textContent=trk(k);ltLab.querySelector('i').textContent=G[g].en;ltLab.querySelector('s').textContent=G[g].zh};
+const ltCatSet=()=>{};
 ltCatSet('web');
 const ltSet=g=>{const k=Object.keys(G).indexOf(g);$('#ltT').textContent=`${trk(k)} / ${G[g].en} ${G[g].zh}`;$('#ltZ').textContent=G[g].fmt};
 ltSet('web');
