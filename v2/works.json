@@ -11,30 +11,30 @@
       "ind": "旅宿",
       "pf": "官網 · 訂房系統",
       "role": "UI 設計、互動",
+      "d": "海港旅店的官網改版與訂房流程。房型頁隨捲動揭露，訂房從七步縮成三步，桌機與手機共用同一套模組。測試",
+      "url": "tidewater.hotel",
       "c": "#b9c8e6",
       "k": "#23201c",
       "b": "#dfe6f3",
-      "url": "tidewater.hotel",
-      "d": "海港旅店的官網改版與訂房流程。房型頁隨捲動揭露，訂房從七步縮成三步，桌機與手機共用同一套模組。",
       "w": [
         {
           "k": "web",
           "t": "首頁",
-          "mobile": true,
-          "src": []
+          "app": false,
+          "mobile": true
         },
         {
           "k": "web",
           "t": "房型與訂房流程",
-          "mobile": true,
-          "src": []
+          "app": false,
+          "mobile": true
         },
         {
           "k": "webm",
           "t": "會員中心",
           "count": 3,
           "app": true,
-          "src": []
+          "mobile": false
         }
       ]
     },
@@ -49,29 +49,31 @@
       "ind": "餐飲",
       "pf": "Meta · LINE · 官網",
       "role": "KV、社群廣告、Banner",
+      "d": "連鎖咖啡的冬季檔期。先定主視覺，再延伸成社群三種版位與電商各尺寸 Banner，所有素材共用一套版型，換檔期只需替換商品與文案。",
       "c": "#d9c6a8",
       "k": "#23201c",
       "b": "#ece2d2",
-      "url": "",
-      "d": "連鎖咖啡的冬季檔期。先定主視覺，再延伸成社群三種版位與電商各尺寸 Banner，所有素材共用一套版型，換檔期只需替換商品與文案。",
       "w": [
         {
           "k": "image",
           "t": "主視覺 KV",
           "sizes": "1920x1080",
-          "src": []
+          "app": false,
+          "mobile": false
         },
         {
           "k": "series",
           "t": "社群廣告",
           "sizes": "1080x1080, 1080x1350, 1080x1920",
-          "src": []
+          "app": false,
+          "mobile": false
         },
         {
           "k": "set",
           "t": "電商 Banner",
           "sizes": "1200x628, 970x250, 300x600, 300x250, 728x90, 320x100",
-          "src": []
+          "app": false,
+          "mobile": false
         }
       ]
     },
@@ -86,23 +88,24 @@
       "ind": "零售",
       "pf": "eDM · LINE",
       "role": "eDM、社群",
+      "d": "精品咖啡的季節會員電子報，同步延伸成 LINE 推播圖。長圖依手機閱讀節奏分段，每一段只說一件事。",
       "c": "#ee8a62",
       "k": "#23201c",
       "b": "#f6c9b3",
-      "url": "",
-      "d": "精品咖啡的季節會員電子報，同步延伸成 LINE 推播圖。長圖依手機閱讀節奏分段，每一段只說一件事。",
       "w": [
         {
           "k": "long",
           "t": "會員 eDM",
           "sizes": "600x2600",
-          "src": []
+          "app": false,
+          "mobile": false
         },
         {
           "k": "image",
           "t": "LINE 推播圖",
           "sizes": "1040x1040",
-          "src": []
+          "app": false,
+          "mobile": false
         }
       ]
     },
@@ -117,25 +120,26 @@
       "ind": "非營利",
       "pf": "YouTube · Instagram",
       "role": "動態設計、分鏡",
+      "d": "年度品牌形象影片。主片 16:9 投放 YouTube，再剪成 9:16 版本給 Reels 與 Shorts，數據段落以節拍呈現。",
       "c": "#b8cdb4",
       "k": "#23201c",
       "b": "#dce6d9",
-      "url": "",
-      "d": "年度品牌形象影片。主片 16:9 投放 YouTube，再剪成 9:16 版本給 Reels 與 Shorts，數據段落以節拍呈現。",
       "w": [
         {
           "k": "motion",
           "t": "主片",
           "sizes": "16x9",
           "dur": "42",
-          "src": []
+          "app": false,
+          "mobile": false
         },
         {
           "k": "motion",
           "t": "Reels／Shorts 版本",
           "sizes": "9x16, 9x16",
           "dur": "15, 15",
-          "src": []
+          "app": false,
+          "mobile": false
         }
       ]
     },
@@ -150,25 +154,25 @@
       "ind": "金融科技",
       "pf": "Mobile web · App",
       "role": "活動頁、產品介面",
+      "d": "給大學生的記帳 App 推廣活動。廣告流量幾乎都來自手機，所以只做手機版，所有操作都在拇指範圍內完成。",
+      "url": "pocket.app",
       "c": "#f0bfd0",
       "k": "#23201c",
       "b": "#f8e1e8",
-      "url": "pocket.app",
-      "d": "給大學生的記帳 App 推廣活動。廣告流量幾乎都來自手機，所以只做手機版，所有操作都在拇指範圍內完成。",
       "w": [
         {
           "k": "webm",
           "t": "活動頁",
           "count": 2,
           "app": false,
-          "src": []
+          "mobile": false
         },
         {
           "k": "webm",
           "t": "App 介面",
           "count": 3,
           "app": true,
-          "src": []
+          "mobile": false
         }
       ]
     },
@@ -183,23 +187,24 @@
       "ind": "電商",
       "pf": "momo · 蝦皮 · Google 多媒體廣告",
       "role": "Banner 系統",
+      "d": "家電品牌的雙 11 檔期 Banner，一次交付多種平台尺寸。先做好可伸縮的版型，再依各平台規範調整文字與商品比例。",
       "c": "#f1dc86",
       "k": "#23201c",
       "b": "#f8eec2",
-      "url": "",
-      "d": "家電品牌的雙 11 檔期 Banner，一次交付多種平台尺寸。先做好可伸縮的版型，再依各平台規範調整文字與商品比例。",
       "w": [
         {
           "k": "set",
           "t": "平台 Banner",
           "sizes": "1200x628, 1080x1080, 970x250, 300x600, 728x90, 300x250, 320x100",
-          "src": []
+          "app": false,
+          "mobile": false
         },
         {
           "k": "image",
           "t": "活動主視覺",
           "sizes": "3x4",
-          "src": []
+          "app": false,
+          "mobile": false
         }
       ]
     },
@@ -214,18 +219,18 @@
       "ind": "運動用品",
       "pf": "Instagram · TikTok",
       "role": "動態設計、剪輯",
+      "d": "運動品牌的社群直式短片，三支各 15 秒。前三秒就讓商品出現，為手機單手觀看而剪。",
       "c": "#a9d6e5",
       "k": "#23201c",
       "b": "#d6ebf2",
-      "url": "",
-      "d": "運動品牌的社群直式短片，三支各 15 秒。前三秒就讓商品出現，為手機單手觀看而剪。",
       "w": [
         {
           "k": "motion",
           "t": "Reels 系列",
           "sizes": "9x16, 9x16, 9x16",
           "dur": "15, 15, 15",
-          "src": []
+          "app": false,
+          "mobile": false
         }
       ]
     },
@@ -240,24 +245,24 @@
       "ind": "電商",
       "pf": "官網 · App 內嵌頁",
       "role": "活動頁設計",
+      "d": "生鮮電商週年慶的活動主頁與 App 內嵌頁。限時商品依時段輪播，同一套模組桌機與手機共用。",
+      "url": "freshweek.tw",
       "c": "#cfe07a",
       "k": "#23201c",
       "b": "#e8efbf",
-      "url": "freshweek.tw",
-      "d": "生鮮電商週年慶的活動主頁與 App 內嵌頁。限時商品依時段輪播，同一套模組桌機與手機共用。",
       "w": [
         {
           "k": "web",
           "t": "活動主頁",
-          "mobile": true,
-          "src": []
+          "app": false,
+          "mobile": true
         },
         {
           "k": "webm",
           "t": "App 內嵌頁",
           "count": 2,
           "app": false,
-          "src": []
+          "mobile": false
         }
       ]
     },
@@ -272,17 +277,17 @@
       "ind": "美妝保養",
       "pf": "Meta 廣告導流頁",
       "role": "Landing page",
+      "d": "承接社群廣告流量的新品頁。首屏直接放商品與優惠，往下才是成分與使用步驟，從廣告點進來的人不用找。",
+      "url": "glowlab.co",
       "c": "#f2b9a0",
       "k": "#23201c",
       "b": "#f8dccf",
-      "url": "glowlab.co",
-      "d": "承接社群廣告流量的新品頁。首屏直接放商品與優惠，往下才是成分與使用步驟，從廣告點進來的人不用找。",
       "w": [
         {
           "k": "web",
           "t": "Landing page",
-          "mobile": true,
-          "src": []
+          "app": false,
+          "mobile": true
         }
       ]
     },
@@ -297,17 +302,17 @@
       "ind": "藝文展演",
       "pf": "戶外看板 · 社群",
       "role": "主視覺",
+      "d": "陶藝工作室的展覽主視覺，只有一張，延伸用在戶外看板與社群。",
       "c": "#c4b0e0",
       "k": "#23201c",
       "b": "#e2d8f0",
-      "url": "",
-      "d": "陶藝工作室的展覽主視覺，只有一張，延伸用在戶外看板與社群。",
       "w": [
         {
           "k": "image",
           "t": "展覽 KV",
           "sizes": "3x4",
-          "src": []
+          "app": false,
+          "mobile": false
         }
       ]
     },
@@ -322,25 +327,26 @@
       "ind": "電信",
       "pf": "YouTube · App 開屏",
       "role": "動態設計",
+      "d": "電信品牌的 5G 資費廣告，同一段素材剪成 16:9 影片與 640×1386 的 App 開屏版本。",
       "c": "#dfe3a4",
       "k": "#23201c",
       "b": "#eef0d0",
-      "url": "",
-      "d": "電信品牌的 5G 資費廣告，同一段素材剪成 16:9 影片與 640×1386 的 App 開屏版本。",
       "w": [
         {
           "k": "motion",
           "t": "16:9 主片",
           "sizes": "16x9",
           "dur": "20",
-          "src": []
+          "app": false,
+          "mobile": false
         },
         {
           "k": "motion",
           "t": "App 開屏",
           "sizes": "640x1386, 640x1386",
           "dur": "5, 5",
-          "src": []
+          "app": false,
+          "mobile": false
         }
       ]
     },
@@ -355,25 +361,26 @@
       "ind": "電商",
       "pf": "電商 App · Reels",
       "role": "動態設計",
+      "d": "鍋具品牌的開箱短影音。640×1386 用於電商 App 內影音廣告，同步輸出 9:16 給社群。",
       "c": "#e7a7a0",
       "k": "#23201c",
       "b": "#f3d3cf",
-      "url": "",
-      "d": "鍋具品牌的開箱短影音。640×1386 用於電商 App 內影音廣告，同步輸出 9:16 給社群。",
       "w": [
         {
           "k": "motion",
           "t": "電商 App 影音",
           "sizes": "640x1386, 640x1386",
           "dur": "12, 12",
-          "src": []
+          "app": false,
+          "mobile": false
         },
         {
           "k": "motion",
           "t": "社群 9:16",
           "sizes": "9x16",
           "dur": "15",
-          "src": []
+          "app": false,
+          "mobile": false
         }
       ]
     },
@@ -388,23 +395,24 @@
       "ind": "活動",
       "pf": "Instagram · Facebook",
       "role": "社群廣告",
+      "d": "週末市集的社群廣告系列，同一套版型輪替不同攤商，每週只換照片與店名。",
       "c": "#f3c98b",
       "k": "#23201c",
       "b": "#f9e7cb",
-      "url": "",
-      "d": "週末市集的社群廣告系列，同一套版型輪替不同攤商，每週只換照片與店名。",
       "w": [
         {
           "k": "series",
           "t": "社群廣告",
           "sizes": "1080x1080, 1080x1350, 1080x1920",
-          "src": []
+          "app": false,
+          "mobile": false
         },
         {
           "k": "series",
           "t": "攤商介紹",
           "sizes": "1080x1350, 1080x1350, 1080x1350",
-          "src": []
+          "app": false,
+          "mobile": false
         }
       ]
     },
@@ -419,23 +427,24 @@
       "ind": "零售",
       "pf": "官網 · Google 多媒體廣告",
       "role": "Banner 系統",
+      "d": "眼鏡品牌週年慶的全通路 Banner，從官網首頁大圖延伸到聯播網各尺寸。",
       "c": "#c7d9e8",
       "k": "#23201c",
       "b": "#e4eef6",
-      "url": "",
-      "d": "眼鏡品牌週年慶的全通路 Banner，從官網首頁大圖延伸到聯播網各尺寸。",
       "w": [
         {
           "k": "set",
           "t": "聯播網 Banner",
           "sizes": "1200x628, 970x250, 300x600, 300x250, 728x90, 320x50",
-          "src": []
+          "app": false,
+          "mobile": false
         },
         {
           "k": "image",
           "t": "官網首頁大圖",
           "sizes": "1920x800",
-          "src": []
+          "app": false,
+          "mobile": false
         }
       ]
     },
@@ -450,23 +459,24 @@
       "ind": "餐飲",
       "pf": "門市海報 · 社群",
       "role": "主視覺",
+      "d": "茶飲品牌春季新品的主視覺，延伸成門市海報與社群單圖。",
       "c": "#d9c2e0",
       "k": "#23201c",
       "b": "#eee3f1",
-      "url": "",
-      "d": "茶飲品牌春季新品的主視覺，延伸成門市海報與社群單圖。",
       "w": [
         {
           "k": "image",
           "t": "新品 KV",
           "sizes": "3x4",
-          "src": []
+          "app": false,
+          "mobile": false
         },
         {
           "k": "series",
           "t": "門市海報",
           "sizes": "2x3, 2x3",
-          "src": []
+          "app": false,
+          "mobile": false
         }
       ]
     },
@@ -481,23 +491,24 @@
       "ind": "旅遊",
       "pf": "eDM · LINE",
       "role": "eDM",
+      "d": "旅行社的季度會員電子報，依目的地分段，手機上一段一張大圖。",
       "c": "#a9d3c4",
       "k": "#23201c",
       "b": "#d8ece4",
-      "url": "",
-      "d": "旅行社的季度會員電子報，依目的地分段，手機上一段一張大圖。",
       "w": [
         {
           "k": "long",
           "t": "會員 eDM",
           "sizes": "600x2400",
-          "src": []
+          "app": false,
+          "mobile": false
         },
         {
           "k": "image",
           "t": "LINE 推播圖",
           "sizes": "1040x1040",
-          "src": []
+          "app": false,
+          "mobile": false
         }
       ]
     },
@@ -512,23 +523,24 @@
       "ind": "遊戲",
       "pf": "Instagram · X · Discord",
       "role": "社群廣告",
+      "d": "獨立遊戲上市檔期的社群素材包，一週內交付 20 張不同版位的圖。",
       "c": "#f0a6a0",
       "k": "#23201c",
       "b": "#f8d6d2",
-      "url": "",
-      "d": "獨立遊戲上市檔期的社群素材包，一週內交付 20 張不同版位的圖。",
       "w": [
         {
           "k": "series",
           "t": "上市倒數",
           "sizes": "1080x1080, 1080x1080, 1080x1080",
-          "src": []
+          "app": false,
+          "mobile": false
         },
         {
           "k": "image",
           "t": "X 橫幅",
           "sizes": "1500x500",
-          "src": []
+          "app": false,
+          "mobile": false
         }
       ]
     },
@@ -543,17 +555,17 @@
       "ind": "文具",
       "pf": "戶外看板 · 官網",
       "role": "主視覺",
+      "d": "文具品牌的年度形象主視覺，一張橫式大圖延伸到戶外看板與官網。",
       "c": "#cfd6a6",
       "k": "#23201c",
       "b": "#e9edd2",
-      "url": "",
-      "d": "文具品牌的年度形象主視覺，一張橫式大圖延伸到戶外看板與官網。",
       "w": [
         {
           "k": "image",
           "t": "形象 KV",
           "sizes": "16x9",
-          "src": []
+          "app": false,
+          "mobile": false
         }
       ]
     }
