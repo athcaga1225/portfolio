@@ -81,7 +81,6 @@ python3 -m http.server 8000
 
 ### 其他可調整的地方
 
-- **首頁與精選區的作品**：`const FEAT=[...]`，填入專案 `id`，建議 4 張
 - **分類名稱與格式說明**：`G`
 - **工作流程**：`STEPS`；**服務項目**：`SVC`；**經歷**：`HIST`
 - **個人介紹、Email、社群連結**：直接在 HTML 中搜尋 `hello@linmu.studio`、`Behance` 修改
